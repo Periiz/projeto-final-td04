@@ -68,10 +68,10 @@ Imagino estar tentando resolver a "sessão" em 2 ou 3 dias.
 
 #### Em andamento
 Quando uma tarefa é iniciada, ela é movida para esta lista.
-São as tarefas em que eu comecei a resolver e tenho que têm
-que ser terminadas antes de eu desligar o computador! <br>
+São as tarefas em que eu comecei a resolver e têm que ser 
+terminadas antes de eu desligar o computador! <br>
 É o equivalente a uma lista de "para hoje" num mundo normal.
 
 #### Feito!
 Tarefas completadas são movidas para cá. <br>
-Espero encher essa lista!
+Espero encher esta lista!
