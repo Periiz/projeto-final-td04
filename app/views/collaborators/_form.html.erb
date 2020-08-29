@@ -1,0 +1,23 @@
+<%= form_with model: collaborator, local: true do |f| %>
+  <div>
+    <%= f.label :full_name %>
+    <%= f.text_field :full_name %>
+  </div>
+  <div>
+    <%= f.label :social_name %>
+    <%= f.text_field :social_name %>
+  </div>
+   <div>
+    <%= f.label :birth_date %>
+    <%= f.number_field :birth_date %>
+  </div>
+  <div>
+    <%= f.label :position %>
+    <%= f.text_field :position %>
+  </div>
+  <div>
+    <%= f.label :sector %>
+    <%= f.text_field :sector %>
+  </div>
+  <%= f.submit 'Enviar' %>
+<% end %>

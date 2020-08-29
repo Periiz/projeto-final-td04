@@ -1,0 +1,9 @@
+<% if not current_collaborator.profile_filled? %>
+  <h3, style="color:red">Para que você possa anunciar produtos e efetivar a compra de produtos, é
+  necessário preencher o seu perfil com as informações faltantes!</h3><br>
+  <h1, style="color:black"><%= render partial: 'form', locals: {collaborator: current_collaborator} %></h1>
+<% else %>
+  <%= render partial: 'profile', locals: {collaborator: current_collaborator} %>
+<% end %>
+
+<%= link_to 'Voltar', root_path %>

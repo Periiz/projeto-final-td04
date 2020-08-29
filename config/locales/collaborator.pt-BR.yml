@@ -7,3 +7,8 @@
         collaborator:
           email: Email
           password: Senha
+          full_name: Nome Completo
+          social_name: Nome Social
+          birth_date: Data de Nascimento
+          position: Cargo
+          sector: Setor
