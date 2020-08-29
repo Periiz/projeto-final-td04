@@ -23,8 +23,12 @@ https://guides.rubyonrails.org/getting_started.html<br>
 
 ### Gems adicionais
 
-Por enquanto somente as gems *rspec-rails* e *capybara*
-foram adicionadas.
+Para os testes temos as gems:
+-rspec-rails
+-capybara
+
+Para autenticação, temos:
+-devise
 
 ## Testes
 

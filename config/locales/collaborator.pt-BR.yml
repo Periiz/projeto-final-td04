@@ -1,0 +1,9 @@
+---
+  pt-BR:
+    activerecord:
+      models:
+        collaborator: Colaborador
+      attributes:
+        collaborator:
+          email: Email
+          password: Senha
