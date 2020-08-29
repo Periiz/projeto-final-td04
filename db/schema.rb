@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_29_063618) do
+ActiveRecord::Schema.define(version: 2020_08_29_201011) do
 
   create_table "collaborators", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_08_29_063618) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "full_name"
     t.string "social_name"
-    t.datetime "birth_date"
+    t.date "birth_date"
     t.string "position"
     t.string "sector"
     t.index ["email"], name: "index_collaborators_on_email", unique: true
