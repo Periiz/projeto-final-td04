@@ -1,12 +1,14 @@
 <h1>Market Place</h1>
 <h3>Bem vindo ao Market Place, seu site corporativo de compras e vendas</h3>
+<h4><%= current_collaborator.social_name %> - <%= current_collaborator.email %></h4>
+
 <% #TODO Botão perfil vermelho/grande/chamativo se ainda não completou o perfil %>
 <% if current_collaborator.profile_filled?%>
   <%= link_to 'Perfil', collaborator_path(current_collaborator) %>
 <% else %>
 Para anunciar produtos e finalizar compras, é necessário completar as informações no seu perfil<br>
-  <%= link_to 'Preencha o seu perfil agora!', collaborator_path(current_collaborator),
-                        class: 'css_class', style: 'color:#FF0000' %>
+  <%= link_to 'Perfil!', collaborator_path(current_collaborator),
+                        class: 'css_class', style: 'color:red' %>
 <% end %>
 <%= link_to 'Anuncie aqui' %>
 <%= link_to 'Sair', destroy_collaborator_session_path, method: :delete %><br>

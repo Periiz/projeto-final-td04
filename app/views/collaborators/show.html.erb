@@ -1,9 +1,17 @@
 <% if not current_collaborator.profile_filled? %>
-  <h3, style="color:red">Para que você possa anunciar produtos e efetivar a compra de produtos, é
-  necessário preencher o seu perfil com as informações faltantes!</h3><br>
-  <h1, style="color:black"><%= render partial: 'form', locals: {collaborator: current_collaborator} %></h1>
+  <p, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
+  necessário preencher o seu perfil com as informações faltantes!</p>
+  <%= link_to 'Editar informações •', edit_collaborator_path(current_collaborator),
+                                    class: 'css_class', style: "color:red" %><br>
 <% else %>
-  <%= render partial: 'profile', locals: {collaborator: current_collaborator} %>
+  <h2><%= current_collaborator.social_name %></h2>
+  <%= current_collaborator.email %><br><br>
+  <%= link_to 'Editar informações', edit_collaborator_path(current_collaborator) %>
+  <%= link_to 'Seus anúncios' %>
 <% end %>
 
+<%= link_to 'Suas negociações' %>
+<%= link_to 'Histórico' %>
+<%#TODO foto de perfil? %>
+<%#TODO lista de desejos %>
 <%= link_to 'Voltar', root_path %>

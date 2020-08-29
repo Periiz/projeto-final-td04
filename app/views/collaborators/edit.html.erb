@@ -1,4 +1,4 @@
-<%= form_with model: collaborator, local: true do |f| %>
+<%= form_with model: @collaborator, local: true do |f| %>
   <div>
     <%= f.label :full_name %>
     <%= f.text_field :full_name %>
@@ -20,4 +20,5 @@
     <%= f.text_field :sector %>
   </div>
   <%= f.submit 'Enviar' %>
+  <%#TODO Possibilidade: se deixar social_name em branco preenche com o full_name e vice versa? %>
 <% end %>
