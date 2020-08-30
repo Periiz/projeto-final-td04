@@ -10,7 +10,7 @@ Para anunciar produtos e finalizar compras, é necessário completar as informa�
   <%= link_to 'Perfil!', collaborator_path(current_collaborator),
                         class: 'css_class', style: 'color:red' %>
 <% end %>
-<%= link_to 'Anuncie aqui' %>
+<%= link_to 'Anuncie aqui', new_product_path %>
 <%= link_to 'Sair', destroy_collaborator_session_path, method: :delete %><br>
 Busca
 <!-- busca por produtos -->

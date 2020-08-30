@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_29_201011) do
+ActiveRecord::Schema.define(version: 2020_08_29_233423) do
 
   create_table "collaborators", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -29,4 +29,24 @@ ActiveRecord::Schema.define(version: 2020_08_29_201011) do
     t.index ["reset_password_token"], name: "index_collaborators_on_reset_password_token", unique: true
   end
 
+  create_table "product_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.integer "product_category_id", null: false
+    t.string "description"
+    t.decimal "sale_price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "collaborator_id", null: false
+    t.index ["collaborator_id"], name: "index_products_on_collaborator_id"
+    t.index ["product_category_id"], name: "index_products_on_product_category_id"
+  end
+
+  add_foreign_key "products", "collaborators"
+  add_foreign_key "products", "product_categories"
 end

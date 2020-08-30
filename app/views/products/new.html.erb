@@ -1,0 +1,38 @@
+<% if not(current_collaborator.profile_filled?) %>
+Para fazer um anúncio, você deve primeiro <%= link_to 'completar o seu perfil',
+                                          edit_collaborator_path(current_collaborator),
+                                          class: 'css_class', style: 'color:red' %>.
+<% else %>
+  <h2>Criando seu anúncio</h2>
+
+  <ul>
+    <% @product.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+
+  <% #TODO Adicionar fotos %>
+
+  <%= form_with model: @product, local: true do |f| %>
+    <div>
+      <%= f.label :name, 'Nome do Produto' %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <!-- Podia fazer um radio button? Ou umas check box? -->
+      <%= f.label :product_category_id %>
+      <%= f.collection_select(:product_category_id, @product_categories, :id, :name, prompt: 'Escolha uma categoria') %>
+    </div>
+  <!-- Fotos aqui, não sei bem como fazer ainda -->
+    <div>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+    </div>
+    <div>
+      <%= f.label :sale_price %>
+      <%= f.number_field :sale_price, min: 0 %>
+    </div>
+    <%= f.submit 'Anunciar'%>
+  <% end %>
+
+<% end %>

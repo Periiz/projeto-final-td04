@@ -1,0 +1,12 @@
+---
+  pt-BR:
+    activerecord:
+      models:
+        product: Produto
+      attributes:
+        product:
+          name: Nome
+          product_category: Categoria
+          product_category_id: Categoria
+          description: Descrição
+          sale_price: Preço de Venda
