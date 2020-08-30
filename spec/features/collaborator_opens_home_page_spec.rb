@@ -34,4 +34,19 @@ feature 'Opening homepage' do
     expect(page).to have_link('Sair', href: destroy_collaborator_session_path)
     expect(page).to have_content('Busca')
   end
+
+  scenario 'logs out' do
+    user = Collaborator.create!(email:'user@email.com', password:'123456')
+
+    login_as(user, scope: :collaborator)
+    visit root_path
+    click_on 'Sair'
+
+    expect(page).to have_content('Para continuar, faça login ou registre-se.')
+    expect(page).to have_content('Login')
+    expect(page).to have_content('Email')
+    expect(page).to_not have_content('Market Place')
+    expect(page).to_not have_content("#{user.name} - #{user.email}")
+    expect(page).to_not have_content('Perfil')
+  end
 end

@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  has_one :product_category #Opcional?
+  belongs_to :product_category
   belongs_to :collaborator
 
   validates :name, :description, :sale_price, presence: true

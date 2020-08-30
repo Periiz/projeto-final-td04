@@ -1,6 +1,6 @@
 <h1>Market Place</h1>
 <h3>Bem vindo ao Market Place, seu site corporativo de compras e vendas</h3>
-<h4><%= current_collaborator.social_name %> - <%= current_collaborator.email %></h4>
+<h4><%= current_collaborator.name %> - <%= current_collaborator.email %></h4>
 
 <% if current_collaborator.profile_filled?%>
   <%= link_to 'Perfil', collaborator_path(current_collaborator) %>
