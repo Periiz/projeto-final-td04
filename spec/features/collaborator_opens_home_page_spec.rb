@@ -21,7 +21,6 @@ feature 'Opening homepage' do
     Collaborator.create!(email: 'pessoa@email.com', password:'123456')
 
     visit root_path
-
     fill_in 'Email', with: 'pessoa@email.com'
     fill_in 'Senha', with: '123456'
     check 'Remember me'

@@ -2,7 +2,6 @@
 <h3>Bem vindo ao Market Place, seu site corporativo de compras e vendas</h3>
 <h4><%= current_collaborator.social_name %> - <%= current_collaborator.email %></h4>
 
-<% #TODO Botão perfil vermelho/grande/chamativo se ainda não completou o perfil %>
 <% if current_collaborator.profile_filled?%>
   <%= link_to 'Perfil', collaborator_path(current_collaborator) %>
 <% else %>

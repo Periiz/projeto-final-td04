@@ -7,14 +7,12 @@ feature 'Collaborator posts a new product' do
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
     product_category = ProductCategory.create!(name: 'Livros')
 
+    login_as(user, scope: :collaborator)
     visit root_path
-    fill_in 'Email', with: user.email
-    fill_in 'Senha', with: user.password
-    click_on 'Login'
     click_on 'Anuncie aqui'
     fill_in 'Nome do Produto', with: 'Killing Defense at Bridge'
     select 'Livros', from: 'Categoria'
-    #TODO fotos?
+    #TODO Fotos?
     fill_in 'Descrição', with: 'Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!'
     fill_in 'Preço de Venda', with: '40'
     click_on 'Anunciar'
@@ -32,10 +30,8 @@ feature 'Collaborator posts a new product' do
                                 full_name:'Usuário Colaborador', social_name: 'User',
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
 
+    login_as(user, scope: :collaborator)
     visit root_path
-    fill_in 'Email', with: user.email
-    fill_in 'Senha', with: user.password
-    click_on 'Login'
     click_on 'Anuncie aqui'
     click_on 'Anunciar'
 
@@ -53,14 +49,11 @@ feature 'Collaborator posts a new product' do
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
     product_category = ProductCategory.create!(name: 'Livros')
 
+    login_as(user, scope: :collaborator)
     visit root_path
-    fill_in 'Email', with: user.email
-    fill_in 'Senha', with: user.password
-    click_on 'Login'
     click_on 'Anuncie aqui'
     fill_in 'Nome do Produto', with: 'Killing Defense at Bridge'
     select 'Livros', from: 'Categoria'
-    #TODO fotos?
     fill_in 'Descrição', with: 'Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!'
     fill_in 'Preço de Venda', with: '-1'
     click_on 'Anunciar'
@@ -74,10 +67,8 @@ feature 'Collaborator posts a new product' do
     user = Collaborator.create!(email:'user@email.com', password:'123456')
     product_category = ProductCategory.create!(name: 'Livros')
 
+    login_as(user, scope: :collaborator)
     visit root_path
-    fill_in 'Email', with: user.email
-    fill_in 'Senha', with: user.password
-    click_on 'Login'
     click_on 'Anuncie aqui'
 
     expect(page).to have_content('Para fazer um anúncio, você deve primeiro completar o seu perfil.')
@@ -100,10 +91,8 @@ feature 'Collaborator posts a new product' do
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
     product_category = ProductCategory.create!(name: 'Livros')
 
+    login_as(user, scope: :collaborator)
     visit root_path
-    fill_in 'Email', with: user.email
-    fill_in 'Senha', with: user.password
-    click_on 'Login'
     click_on 'Perfil'
     #Ele não ta achando, como se user não estivesse com o perfil completo! WHY TT-TT
     click_on 'Seus anúncios'

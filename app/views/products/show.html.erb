@@ -5,9 +5,9 @@
   <h3><%= @product.name %><h3>
   <h5>Anunciado por <%= link_to @product.collaborator.name %></h5><br>
   <p><%= @product.description %></p>
-  <% #TODO fazer um botão com o preço %>
+  <% #TODO Fazer um botão com o preço %>
   <%= link_to number_to_currency(@product.sale_price) %><br>
   Comentários:
-  <% #TODO fazer comentários pros produtos %>
+  <% #TODO Fazer comentários pros produtos %>
   <% #algo parecido com @product.comments.each do |c|? %>
 <% end %>
