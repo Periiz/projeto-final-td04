@@ -1,20 +1,25 @@
 class CollaboratorsController < ApplicationController
   def show
-    @collaborator = Collaborator.find(params[:id])
+    @collaborator = current_collaborator
   end
 
   def edit
-    @collaborator = Collaborator.find(params[:id])
+    @collaborator = current_collaborator
   end
 
   def update
-    @collaborator = Collaborator.find(params[:id])
+    @collaborator = current_collaborator
     if @collaborator.update(collaborator_params)
       flash[:notice] = 'Perfil preenchido com sucesso!' if @collaborator.profile_filled?
       redirect_to @collaborator
     else
       render :edit
     end
+  end
+
+  def all_products
+    @collaborator = current_collaborator
+    @products = Product.where('collaborator_id = ?', current_collaborator.id)
   end
 
   private

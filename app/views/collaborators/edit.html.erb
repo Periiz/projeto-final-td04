@@ -1,3 +1,5 @@
+<%= link_to 'Voltar', collaborator_path(current_collaborator) %>
+
 <%= form_with model: @collaborator, local: true do |f| %>
   <div>
     <%= f.label :full_name %>
@@ -22,5 +24,3 @@
   <%= f.submit 'Enviar' %>
   <%#TODO Possibilidade: se deixar social_name em branco preenche com o full_name e vice versa? %>
 <% end %>
-
-<p><%= link_to 'Voltar', root_path %></p>

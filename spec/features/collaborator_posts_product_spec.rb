@@ -79,13 +79,7 @@ feature 'Collaborator posts a new product' do
     expect(page).not_to have_content('R$')
   end
 
-  xscenario 'from profile' do
-    '''
-    Fazer um cenário onde você entra no seu perfil, vai em seus anúncios e acha a opção
-    de fazer um novo anúncio dali.
-    Pra terminar esse cenário, vou ter que primeiro fazer a tela de vizualisar os seus
-    próprios anúncios.
-    '''
+  scenario 'from profile' do
     user = Collaborator.create!(email:'user@email.com', password:'123456',
                                 full_name:'Usuário Colaborador', social_name: 'User',
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
@@ -94,9 +88,8 @@ feature 'Collaborator posts a new product' do
     login_as(user, scope: :collaborator)
     visit root_path
     click_on 'Perfil'
-    #Ele não ta achando, como se user não estivesse com o perfil completo! WHY TT-TT
     click_on 'Seus anúncios'
-    click_on 'Fazer um novo anúncio'
+    click_on 'Anunciar'
     fill_in 'Nome do Produto', with: 'Killing Defense at Bridge'
     select 'Livros', from: 'Categoria'
     fill_in 'Descrição', with: 'Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!'

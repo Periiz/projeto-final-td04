@@ -1,3 +1,5 @@
+<%= link_to 'Voltar', root_path %>
+
 <% if not current_collaborator.profile_filled? %>
   <p, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
   necessário preencher o seu perfil com as informações faltantes!</p>
@@ -7,11 +9,11 @@
   <h2><%= current_collaborator.social_name %></h2>
   <%= current_collaborator.email %><br><br>
   <%= link_to 'Editar informações', edit_collaborator_path(current_collaborator) %>
-  <%= link_to 'Seus anúncios' %>
+  <%= link_to 'Seus anúncios', "/collaborators/#{current_collaborator.id}/all" %>
+                                <% #OPTIMIZE Mudar essa url dos produtos feita a mão pra algo auto gerado %>
 <% end %>
 
 <%= link_to 'Suas negociações' %>
 <%= link_to 'Histórico' %>
 <%#TODO Foto de perfil? %>
 <%#TODO Lista de desejos %>
-<%= link_to 'Voltar', root_path %>

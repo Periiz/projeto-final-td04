@@ -1,3 +1,5 @@
+<%= link_to 'Voltar', root_path %>
+
 <% if not(current_collaborator.profile_filled?) %>
 Para fazer um anúncio, você deve primeiro <%= link_to 'completar o seu perfil',
                                           edit_collaborator_path(current_collaborator),
@@ -36,5 +38,3 @@ Para fazer um anúncio, você deve primeiro <%= link_to 'completar o seu perfil'
   <% end %>
 
 <% end %>
-
-<p><%= link_to 'Voltar', root_path %></p>
