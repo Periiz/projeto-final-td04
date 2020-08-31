@@ -1,19 +1,39 @@
-<%= link_to 'Voltar', root_path %>
+<%= link_to 'Home Page', root_path %><br>
 
-<% if not current_collaborator.profile_filled? %>
-  <p, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
-  necessário preencher o seu perfil com as informações faltantes!</p>
-  <%= link_to 'Editar informações •', edit_collaborator_path(current_collaborator),
-                                    class: 'css_class', style: "color:red" %><br>
+<% if current_collaborator.id == @collaborator.id %>
+<!-- Você está vendo o seu próprio perfil -->
+
+  <% if not current_collaborator.profile_filled? %>
+    <p, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
+    necessário preencher o seu perfil com as informações faltantes!</p>
+    <h3><%= link_to 'Editar informações •', edit_collaborator_path(current_collaborator),
+                                      class: 'css_class', style: "color:red" %></h3>
+  <% else %>
+    <h2><%= current_collaborator.social_name %></h2>
+    <%= current_collaborator.email %><br><br>
+    <%= link_to 'Editar informações', edit_collaborator_path(current_collaborator) %>
+    <%= link_to 'Seus anúncios', "/collaborators/#{current_collaborator.id}/all" %>
+                                  <% #OPTIMIZE Mudar essa url dos produtos feita a mão pra algo auto gerado %>
+  <% end %>
+
+  <%= link_to 'Suas negociações' %>
+  <%= link_to 'Histórico' %>
+  <%#TODO Foto de perfil? %>
+  <%#TODO Lista de desejos %>
+
 <% else %>
-  <h2><%= current_collaborator.social_name %></h2>
-  <%= current_collaborator.email %><br><br>
-  <%= link_to 'Editar informações', edit_collaborator_path(current_collaborator) %>
-  <%= link_to 'Seus anúncios', "/collaborators/#{current_collaborator.id}/all" %>
-                                <% #OPTIMIZE Mudar essa url dos produtos feita a mão pra algo auto gerado %>
-<% end %>
+<!-- Você é um visitante vendo o perfil de outra pessoa -->
+  Você está visitando o perfil de <span style="color:red"><%= @collaborator.name %></span><br>
+  <!-- Aqui, se o nome não está completo, a mensagem vai ficar estranha, mesmo... :( -->
 
-<%= link_to 'Suas negociações' %>
-<%= link_to 'Histórico' %>
-<%#TODO Foto de perfil? %>
-<%#TODO Lista de desejos %>
+  <% if @collaborator.domain == current_collaborator.domain %>
+    Vocês são da mesma empresa! Vocês podem fazer negociações entre si!<br>
+  <% end %>
+  <%= 'Este perfil ainda não está completamente preenchido...' if not @collaborator.profile_filled? %>
+  <%= @collaborator.full_name %><br>
+  <%= @collaborator.email %><br>
+  <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
+  <%= link_to 'Anúncios', "/collaborators/#{@collaborator.id}/all" %><br>
+  <%#TODO Mensagem de negociações pendentes%>
+  <%= "Você não tem nenhuma negociação pendente com #{@collaborator.name}" %><br>
+<% end %>

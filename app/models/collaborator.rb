@@ -7,7 +7,8 @@ class Collaborator < ApplicationRecord
   has_many :products
 
   def profile_filled?
-    if full_name.present? and social_name.present? and birth_date.present? and position.present? and sector.present?
+    if full_name.present? and social_name.present? and
+       birth_date.present? and position.present? and sector.present?
       return true
     end
     false
@@ -18,6 +19,8 @@ class Collaborator < ApplicationRecord
   end
 
   def name
-    social_name
+    return social_name if social_name
+    return full_name if full_name
+    ''
   end
 end

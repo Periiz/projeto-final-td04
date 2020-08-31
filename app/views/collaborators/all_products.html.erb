@@ -1,26 +1,34 @@
 <%= link_to 'Voltar', collaborator_path(current_collaborator) %>
 
-<% if not current_collaborator.profile_filled? %>
-  <p, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
-  necessário preencher o seu perfil com as informações faltantes!</p>
-  <%= link_to 'Editar informações •', edit_collaborator_path(current_collaborator),
-                                    class: 'css_class', style: "color:red" %><br>
+<% if current_collaborator.id == @collaborator.id %>
+<!-- Você está vendo o seu próprio perfil -->
 
-<% else %>
-  <% #TODO tela para "nenhum anúncio ainda!" %>
-  <% if @products.empty? %>
-    <p>Você ainda não fez nenhum anúncio!<p>
-    <p>Para anunciar algum item à venda, clique em <%= link_to 'Anunciar', new_product_path %>!</p>
+  <% if not current_collaborator.profile_filled? %>
+    <p, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
+    necessário preencher o seu perfil com as informações faltantes!</p>
+    <%= link_to 'Editar informações •', edit_collaborator_path(current_collaborator),
+                                      class: 'css_class', style: "color:red" %><br>
+
   <% else %>
-    <h2>Seus anúncios:</h2>
-    <%= link_to 'Fazer um novo anúncio', new_product_path %><br><br><br>
- 
-    <% @products.each do |product| %>
-      <%= link_to product.name, product_path(product) %><br>
-      <% #TODO Foto aqui também! %>
-      <%= number_to_currency(product.sale_price) %><br>
+    <% #TODO tela para "nenhum anúncio ainda!" %>
+    <% if @products.empty? %>
+      <p>Você ainda não fez nenhum anúncio!<p>
+      <p>Para anunciar algum item à venda, clique em <%= link_to 'Anunciar', new_product_path %>!</p>
+    <% else %>
+      <h2>Seus anúncios:</h2>
+      <%= link_to 'Fazer um novo anúncio', new_product_path %><br><br><br>
+  
+      <% @products.each do |product| %>
+        <%= link_to product.name, product_path(product) %><br>
+        <% #TODO Foto aqui também! %>
+        <%= number_to_currency(product.sale_price) %><br>
+      <% end %>
+
     <% end %>
 
   <% end %>
+
+<% else %>
+<!-- Você é um visitante vendo o perfil de outra pessoa -->
 
 <% end %>

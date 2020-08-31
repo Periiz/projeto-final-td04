@@ -1,6 +1,6 @@
 class CollaboratorsController < ApplicationController
   def show
-    @collaborator = current_collaborator
+    @collaborator = Collaborator.find(params[:id])
   end
 
   def edit
@@ -18,8 +18,8 @@ class CollaboratorsController < ApplicationController
   end
 
   def all_products
-    @collaborator = current_collaborator
-    @products = Product.where('collaborator_id = ?', current_collaborator.id)
+    @collaborator = Collaborator.find(params[:id])
+    @products = Product.where('collaborator_id = ?', @collaborator.id)
   end
 
   private
