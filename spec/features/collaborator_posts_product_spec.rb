@@ -35,7 +35,7 @@ feature 'Collaborator posts a new product' do
     click_on 'Anuncie aqui'
     click_on 'Anunciar'
 
-    #Categoria é opcional, por isso o esperado é apenas 3 mensagens de em branco
+    expect(page).to have_content('Categoria é obrigatório(a)')
     expect(page).to have_content('não pode ficar em branco', count: 3)
     expect(page).to_not have_content('Produto anunciado com sucesso!')
     expect(page).to_not have_content('Anuncio')

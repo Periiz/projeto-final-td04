@@ -1,4 +1,4 @@
-<%= link_to 'Home Page', root_path %><br>
+<p><%= link_to 'Home Page', root_path %></p>
 
 <% if current_collaborator.id == @collaborator.id %>
 <!-- Você está vendo o seu próprio perfil -->
@@ -23,17 +23,19 @@
 
 <% else %>
 <!-- Você é um visitante vendo o perfil de outra pessoa -->
-  Você está visitando o perfil de <span style="color:red"><%= @collaborator.name %></span><br>
-  <!-- Aqui, se o nome não está completo, a mensagem vai ficar estranha, mesmo... :( -->
-
-  <% if @collaborator.domain == current_collaborator.domain %>
+  <% if @collaborator.domain != current_collaborator.domain %>
+    Só é possível ver o perfil de colaboradores que são da mesma empresa que você...
+  <% else %>
     Vocês são da mesma empresa! Vocês podem fazer negociações entre si!<br>
+    Você está visitando o perfil de <span style="color:green"><%= @collaborator.name %></span><br><br>
+    <!-- Aqui, se o nome não está completo, a mensagem vai ficar estranha, mesmo... :( -->
+    <%= 'Este perfil ainda não está completamente preenchido...' if not @collaborator.profile_filled? %>
+    <%= @collaborator.full_name %><br>
+    <%= @collaborator.email %><br>
+    <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
+    <p><%= link_to 'Anúncios', "/collaborators/#{@collaborator.id}/all" %></p>
+    <%#TODO Mensagem de negociações pendentes%>
+    <%= "Você não tem nenhuma negociação pendente com #{@collaborator.name}" %><br>
   <% end %>
-  <%= 'Este perfil ainda não está completamente preenchido...' if not @collaborator.profile_filled? %>
-  <%= @collaborator.full_name %><br>
-  <%= @collaborator.email %><br>
-  <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
-  <%= link_to 'Anúncios', "/collaborators/#{@collaborator.id}/all" %><br>
-  <%#TODO Mensagem de negociações pendentes%>
-  <%= "Você não tem nenhuma negociação pendente com #{@collaborator.name}" %><br>
+
 <% end %>
