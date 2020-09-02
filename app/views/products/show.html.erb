@@ -9,7 +9,8 @@
   <p><%= @product.description %></p>
   <% #TODO Fazer um botão com o preço %>
   <%= link_to number_to_currency(@product.sale_price) %><br>
+<%#TODO Adicionar confimação da compra data: {confirm: 'Você quer mesmo comprar este produto?'} Ainda não fiz isso porque não sei fazer o Capybara testar%>
   Comentários:
   <% #TODO Fazer comentários pros produtos %>
-  <% #algo parecido com @product.comments.each do |c|? %>
+  <% #Algo parecido com @product.comments.each do |c|? %>
 <% end %>
