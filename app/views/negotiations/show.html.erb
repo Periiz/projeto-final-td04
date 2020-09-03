@@ -1,22 +1,69 @@
 <p><%= link_to 'Voltar', negotiations_path %></p>
 
-<% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
-  Você aceita essa negociação?
-  <% #TODO Radio button aqui pra aceitar a negociação %>
-<% elsif @negotiation.seller_id == current_collaborator.id %>
-  Você quer confirmar ou cancelar essa negociação?
-<% elsif @negotiation.collaborator.id == current_collaborator.id %>
-  Você quer cancelar a negociação?
-<% end %>
+<h3>FINAL PRICE:<%= @negotiation.final_price %></h3>
+<h3>ESTADO: <%= @negotiation.status %></h3>
 
-<h2><%= @negotiation.product.name %></h2>
-Vendedor:
-<ul>
+<% if @negotiation.canceled? %>
+
+  <h3>Esta negociação foi cancelada :(</h3>
+  <p>O produto era:</p>
+  <li><%= @negotiation.product.name %></li>
+  <p>Do vendedor:</p>
   <li><%= @negotiation.seller_name %></li>
   <li><%= @negotiation.seller_email %></li>
-</ul>
-    Comprador:
-<ul>
-  <li><%= @negotiation.buyer_name %></li>
-  <li><%= @negotiation.buyer_email %></li>
-</ul>
+  <p>Cancelada em <%= @negotiation.date_of_end %></p>
+
+<% elsif @negotiation.sold? %>
+
+  <h3>Este produto foi vendido!</h3>
+  <p>Detalhes da negociação:</p>
+  <dl>
+    <dt>Comprador:</dt>
+    <dd><%= @negotiation.buyer_name %></dd>
+    <dd><%= @negotiation.buyer_email %></dd><br>
+
+    <dt>Preço final e data da venda:</dt>
+    <dd><%= number_to_currency(@negotiation.final_price) %></dd>
+    <dd><%= @negotiation.date_of_end %></dd>
+  </dl>
+
+<% else %>
+
+  <% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
+
+    <p>Você aceita esta negociação?</p>
+    <%= form_for(@negotiation) do |f| %>
+      <%= f.button 'Sim', type: :submit, name: 'status', value: 'negotiating' %>
+      <%= f.button 'Não', type: :submit, name: 'status', value: 'canceled' %>
+    <% end %>
+
+  <% elsif @negotiation.seller_id == current_collaborator.id and @negotiation.negotiating? %>
+
+    <p>Você pode CONFIRMAR ou CANCELAR esta negociação.</p>
+    <%= form_for(@negotiation) do |f| %>
+      <%= link_to 'Confirmar', edit_negotiation_path(@negotiation) %>
+      <%= f.button 'Cancelar', type: :submit, name: 'status', value: 'canceled' %>
+    <% end %>
+
+  <% elsif @negotiation.buyer_id == current_collaborator.id %>
+
+    <p>Você quer CANCELAR a negociação?</p>
+    <%= form_for(@negotiation) do |f| %>
+      <%= f.button 'Cancelar', type: :submit, name: 'status', value: 'canceled' %>
+    <% end %>
+
+  <% end %>
+
+  <h2><%= @negotiation.product.name %></h2>
+  Vendedor:
+  <ul>
+    <li><%= @negotiation.seller_name %></li>
+    <li><%= @negotiation.seller_email %></li>
+  </ul>
+  Comprador:
+  <ul>
+    <li><%= @negotiation.buyer_name %></li>
+    <li><%= @negotiation.buyer_email %></li>
+  </ul>
+
+<% end %>

@@ -1,0 +1,13 @@
+---
+  pt-BR:
+    activerecord:
+      models:
+        negotiation: Negociação
+      attributes:
+        negotiation:
+          product_id: Produto 
+          collaborator_id: Vendedor
+          date_of_start: Data de Início
+          date_of_end: Data da Venda
+          final_price: Preço Final
+          seller_id: Vendedor

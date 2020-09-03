@@ -2,15 +2,19 @@
 <% if @seller_negotiations.present? %>
   <h2>Suas negociações como vendedor:</h2>
   <% @seller_negotiations.reverse.each do |negotiation| %>
-    <%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-    <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %><br><br><br>
+    <ul>
+      <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+      <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
+    </ul>
   <% end %>
 <% end %>
 
 <% if @buyer_negotiations.present? %>
   <h2>Suas negociações como comprador:</h2>
   <% @buyer_negotiations.reverse.each do |negotiation| %>
-    <%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-    <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %><br>
+    <ul>
+      <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+      <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
+    </ul>
   <% end %>
 <% end %>

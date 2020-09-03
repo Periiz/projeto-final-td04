@@ -7,7 +7,7 @@ class Negotiation < ApplicationRecord
   ###Se eu quiser saber o vendedor, tenho que acessar o PRODUTO antes
   ############
 
-  enum status:{waiting: 0, negotiating: 10, sold: 20, canceled: 30}
+  enum status: {waiting: 0, negotiating: 10, sold: 20, canceled: 30}
 
   def seller_name
     product.collaborator.name
@@ -23,5 +23,9 @@ class Negotiation < ApplicationRecord
 
   def buyer_email
     collaborator.email
+  end
+
+  def buyer_id
+    collaborator.id
   end
 end

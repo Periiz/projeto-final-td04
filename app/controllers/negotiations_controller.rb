@@ -1,7 +1,7 @@
 class NegotiationsController < ApplicationController
   def index
-    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id)
-    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id)
+    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id).where.not(status: :canceled)
+    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id).where.not(status: :canceled)
   end
 
   def show
@@ -9,14 +9,22 @@ class NegotiationsController < ApplicationController
   end
 
   def new
-    @negotiation = Negotiation.new
     @product = Product.find(params[:product_id])
+    @negotiation = Negotiation.new
+
+  end
+
+  def edit
+    @negotiation = Negotiation.find(params[:id])
   end
 
   def create
+    @product = Product.find(params[:product_id])
     @negotiation = Negotiation.new(negotiation_params)
+
     @negotiation.collaborator = current_collaborator
     @negotiation.date_of_start = DateTime.current
+    @negotiation.product = @product
     @negotiation.seller_id= @negotiation.product.collaborator.id
 
     if @negotiation.save
@@ -28,10 +36,25 @@ class NegotiationsController < ApplicationController
     end
   end
 
+  def update
+    @negotiation = Negotiation.find(params[:id])
+    @negotiation.date_of_end = DateTime.current
+
+    if @negotiation.final_price != nil
+      @negotiation.sold!
+    end
+
+    if @negotiation.update(negotiation_params)
+      redirect_to @negotiation
+    else
+      redirect_to root_path, notice: 'Algo deu errado! :('
+    end
+  end
+
   private
 
   def negotiation_params
-    params.permit(:product_id, :collaborator_id,
-                  :date_of_start, :status)
+    params.permit(:product_id, :collaborator_id, :status, :seller_id,
+                  :date_of_start, :date_of_end, :final_price)
   end
 end

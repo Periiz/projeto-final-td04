@@ -1,3 +1,5 @@
+<p><%= link_to 'Voltar', product_path(@product) %></p>
+
 <h2>Você quer mesmo iniciar a negociação deste produto?</h2>
 
 <h3><%= @product.name %></h3>
@@ -6,10 +8,4 @@
 <p><%= @product.description %></p>
 <%= number_to_currency(@product.sale_price) %><br><br>
 
-<%= form_with model: @negotiation, local: true do |f| %>
-  <% @negotiation.product = @product %>
-  <%= f.button 'Iniciar Negociação', type: 'submit',
-      name: 'product_id', value: "#{@product.id}" %>
-<% end %>
-
-<%#= link_to 'Iniciar Negociação', product_negotiations_path(@product), method: :post %>
+<%= link_to 'Iniciar Negociação', product_negotiations_path(@product), method: :post %>

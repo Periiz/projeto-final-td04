@@ -1,0 +1,22 @@
+<p><%= link_to 'Voltar', negotiation_path(@negotiation) %></p>
+
+<h2>Confirmar Negociação:</h2>
+
+<dl>
+  <dt>Produto:</dt>
+  <dd><%= @negotiation.product.name %></dd>
+
+  <dt>Preço anunciado:</dt>
+  <dd><%= number_to_currency(@negotiation.product.sale_price) %></dd>
+
+  <dt>Comprador:</dt>
+  <dd><%= @negotiation.buyer_name %></dd>
+  <dd><%= @negotiation.buyer_email %></dd>
+  <dd><%= @negotiation.product.collaborator.sector %></dd><!--Ficou feio hein-->
+</dl>
+
+<%= form_with model: @negotiation, local: true do |f| %>
+  <%= f.label :final_price %>
+  <%= f.number_field :final_price %><br>
+  <%= f.submit 'Confirmar' %><br>
+<% end %>
