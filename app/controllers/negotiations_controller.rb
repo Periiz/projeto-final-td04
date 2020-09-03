@@ -1,7 +1,7 @@
 class NegotiationsController < ApplicationController
   def index
-    @negotiations = Negotiation.where('collaborator_id = ? OR product.collaborator_id = ?',
-                                      current_collaborator.id, current_collaborator.id)
+    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id)
+    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id)
   end
 
   def show
@@ -17,6 +17,7 @@ class NegotiationsController < ApplicationController
     @negotiation = Negotiation.new(negotiation_params)
     @negotiation.collaborator = current_collaborator
     @negotiation.date_of_start = DateTime.current
+    @negotiation.seller_id= @negotiation.product.collaborator.id
 
     if @negotiation.save
       vendedor = @negotiation.product.collaborator

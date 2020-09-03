@@ -13,7 +13,8 @@ feature "Collaborator sees another collaborator's profile" do
     login_as(user, scope: :collaborator)
     visit collaborator_path(another_user)
 
-    expect(page).to have_content("Você está visitando o perfil de #{another_user.name}")
+    expect(page).to have_content('Você está visitando o perfil de')#{another_user.name}")
+    expect(page).to have_content(another_user.name)
     expect(page).to have_content('Vocês são da mesma empresa! Vocês podem fazer negociações entre si!')
     expect(page).to have_content(another_user.full_name)
     expect(page).to have_content(another_user.email)

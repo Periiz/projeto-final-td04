@@ -1,3 +1,22 @@
+<p><%= link_to 'Voltar', negotiations_path %></p>
+
+<% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
+  Você aceita essa negociação?
+  <% #TODO Radio button aqui pra aceitar a negociação %>
+<% elsif @negotiation.seller_id == current_collaborator.id %>
+  Você quer confirmar ou cancelar essa negociação?
+<% elsif @negotiation.collaborator.id == current_collaborator.id %>
+  Você quer cancelar a negociação?
+<% end %>
+
 <h2><%= @negotiation.product.name %></h2>
-<h4><%= @negotiation.seller_name %></h4>
-<h4><%= @negotiation.seller_email %></h4>
+Vendedor:
+<ul>
+  <li><%= @negotiation.seller_name %></li>
+  <li><%= @negotiation.seller_email %></li>
+</ul>
+    Comprador:
+<ul>
+  <li><%= @negotiation.buyer_name %></li>
+  <li><%= @negotiation.buyer_email %></li>
+</ul>

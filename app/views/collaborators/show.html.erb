@@ -30,12 +30,13 @@
   <% if @collaborator.domain != current_collaborator.domain %>
     Só é possível ver o perfil de colaboradores que são da mesma empresa que você...
   <% else %>
-    Vocês são da mesma empresa! Vocês podem fazer negociações entre si!<br>
-    Você está visitando o perfil de <span style="color:green"><%= @collaborator.name %></span><br><br>
+    Você está visitando o perfil de<br>
+    <h2><b, style="color:green"><%= @collaborator.name %></b></h2>
+    <p>Vocês são da mesma empresa! Vocês podem fazer negociações entre si!<p>
     <!-- Aqui, se o nome não está completo, a mensagem vai ficar estranha, mesmo... :( -->
     <%= 'Este perfil ainda não está completamente preenchido...' if not @collaborator.profile_filled? %>
-    <%= @collaborator.full_name %><br>
-    <%= @collaborator.email %><br>
+    <%= " - #{@collaborator.full_name}" %><br>
+    <%= " - #{@collaborator.email}" %><br>
     <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
     <p><%= link_to 'Anúncios', "/collaborators/#{@collaborator.id}/all" %></p>
     <%#TODO Mensagem de negociações pendentes%>

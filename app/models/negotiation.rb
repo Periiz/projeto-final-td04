@@ -16,4 +16,12 @@ class Negotiation < ApplicationRecord
   def seller_email
     product.collaborator.email
   end
+
+  def buyer_name
+    collaborator.name
+  end
+
+  def buyer_email
+    collaborator.email
+  end
 end
