@@ -8,7 +8,7 @@
   <h5>Anunciado por <%= link_to @product.collaborator.name %></h5><br>
   <p><%= @product.description %></p>
   <% #TODO Fazer um botão com o preço %>
-  <%= link_to number_to_currency(@product.sale_price) %><br>
+  <%= link_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product.id) %><br>
 <%#TODO Adicionar confimação da compra data: {confirm: 'Você quer mesmo comprar este produto?'} Ainda não fiz isso porque não sei fazer o Capybara testar%>
   Comentários:
   <% #TODO Fazer comentários pros produtos %>

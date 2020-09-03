@@ -1,6 +1,10 @@
 <h1>Market Place</h1>
 <h3>Bem vindo ao Market Place, seu site corporativo de compras e vendas</h3>
 
+<% if current_collaborator.notifications_number > 0 %>
+  <%= link_to 'Alguém se interessou por algum produto seu! Veja suas negociações!', negotiations_path %><br>
+<% end %>
+
 <% if current_collaborator.profile_filled?%>
   <h4><%= current_collaborator.name %> - <%= current_collaborator.email %></h4>
   <%= link_to 'Perfil', collaborator_path(current_collaborator) %>

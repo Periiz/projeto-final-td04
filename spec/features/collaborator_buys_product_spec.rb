@@ -15,15 +15,10 @@ feature 'Collaborator buys product' do
 
     login_as(user, scope: :collaborator)
     visit product_path(product.id)
-    puts "\n===========\n"
-    puts current_path
-    puts "===========\n"
     click_on "R$ 40,00"
     #TODO eu queria fazer um click_on number_to_currency(product.sale_price) mas não funciona :(
-    visit collaborator_path(user.id)
-    click_on 'Suas negociações'
+    click_on 'Iniciar Negociação'
 
-    expect(product.status).to eq :confirmed
     expect(page).to have_content(product.name)
     expect(page).to have_content(another_user.name)
     expect(page).to have_content(another_user.email)

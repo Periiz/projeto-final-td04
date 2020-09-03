@@ -6,6 +6,8 @@ class Collaborator < ApplicationRecord
 
   has_many :products
 
+  validates :notifications_number, numericality: { greater_than_or_equal_to: 0 }
+
   def profile_filled?
     if full_name.present? and social_name.present? and
        birth_date.present? and position.present? and sector.present?

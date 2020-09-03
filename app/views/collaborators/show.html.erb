@@ -16,7 +16,11 @@
                                   <% #OPTIMIZE Mudar essa url dos produtos feita a mão pra algo auto gerado %>
   <% end %>
 
-  <%= link_to 'Suas negociações' %>
+  <% if current_collaborator.notifications_number > 0 %>
+    <b, style="color:green"><%= link_to 'Suas negociações •', negotiations_path %></b><br>
+  <% else %>
+    <%= link_to 'Suas negociações', negotiations_path %>
+  <% end %>
   <%= link_to 'Histórico' %>
   <%#TODO Foto de perfil? %>
   <%#TODO Lista de desejos %>
