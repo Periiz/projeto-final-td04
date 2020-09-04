@@ -1,10 +1,28 @@
 <p><%= link_to 'Voltar', root_path %></p>
 
+<%= form_with url: search_products_path, method: :get, local: true do |f| %>
+  <%= f.label :q, 'Busca de produtos' %>
+  <%= f.text_field :q %>
+  <%= f.submit 'Buscar' %>
+<% end %>
+
+<br>Filtrar por categoria:<br>
+|<% ProductCategory.all.each do |categoria| %>
+  <%= link_to categoria.name,
+      search_products_path(q: params[:q], cat: categoria.id) %> |
+<% end %>
+  <%= link_to 'Todas', search_products_path(q: params[:q]) %> |
+
 <% if @products.empty? %>
 
   <p>Nenhum produto encontrado.</p>
 
 <% else %>
+
+  <div>
+    <p>Buscando por:</p>
+    <dd><h3, style="font-weight:bold;color:red"><%= params[:q] %></h3><dd>
+  </div>
 
   <h3>Resultados da Busca</h3>
 
@@ -13,10 +31,12 @@
   <% @products.each do |product| %>
     <dl>
       <dt><%= link_to product.name, product_path(product) %></dt>
-      <dd><%= product.seller_name %></dd>
+      <dd><%= product.seller_name[0,50] %></dd>
+      <dd><%= product.collaborator.sector[0,50] %></dd>
       <%#TODO Foto do produto aqui %>
       <!-- Idealmente é tudo link pro produto, nome, foto, preço, tudo link -->
       <dd><%= number_to_currency(product.sale_price) %></dd>
+      <%= product.description[0,50] %><%= "..." if product.description.size > 50%>
     </dl>
   <% end %>
 

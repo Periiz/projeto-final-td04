@@ -25,7 +25,10 @@ class ProductsController < ApplicationController
   def search
     @products = Product.where('name LIKE ? OR description LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%")
                        .where('seller_domain = ?', current_collaborator.domain)
-                       .where(status: :avaiable)
+                       .where(status: :avaiable).where('collaborator_id != ?', current_collaborator.id)
+    if (params.has_key?(:cat))
+      @products = @products.where('product_category_id = ?', params[:cat])
+    end
     render search_products_path
   end
 
