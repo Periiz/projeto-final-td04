@@ -11,6 +11,8 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.collaborator = current_collaborator
+    @product.seller_domain = current_collaborator.domain
+
     if @product.valid?
       @product.save
       redirect_to @product, notice: 'Produto anunciado com sucesso!'
@@ -18,6 +20,13 @@ class ProductsController < ApplicationController
       @product_categories = ProductCategory.all
       render :new
     end
+  end
+
+  def search
+    @products = Product.where('name LIKE ? OR description LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%")
+                       .where('seller_domain = ?', current_collaborator.domain)
+                       .where(status: :avaiable)
+    render search_products_path
   end
 
   private

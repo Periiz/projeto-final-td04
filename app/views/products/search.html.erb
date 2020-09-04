@@ -1,0 +1,23 @@
+<p><%= link_to 'Voltar', root_path %></p>
+
+<% if @products.empty? %>
+
+  <p>Nenhum produto encontrado.</p>
+
+<% else %>
+
+  <h3>Resultados da Busca</h3>
+
+  <% #TODO Um filtro por categoria (opção de sem filtro de categoria, também, e manter a busca só pela query) %>
+
+  <% @products.each do |product| %>
+    <dl>
+      <dt><%= link_to product.name, product_path(product) %></dt>
+      <dd><%= product.seller_name %></dd>
+      <%#TODO Foto do produto aqui %>
+      <!-- Idealmente é tudo link pro produto, nome, foto, preço, tudo link -->
+      <dd><%= number_to_currency(product.sale_price) %></dd>
+    </dl>
+  <% end %>
+
+<% end %>

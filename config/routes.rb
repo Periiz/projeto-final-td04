@@ -8,8 +8,8 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show, :new, :create] do
     resources :negotiations, only: [:new, :create]
+    get 'search', on: :collection
   end
 
-#  get 'collaborators/:id/all', to: 'collaborators#all_products'
   resources :negotiations, only: [:index, :show, :edit, :update]
 end

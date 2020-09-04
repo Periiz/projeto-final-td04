@@ -1,3 +1,5 @@
+<p><%= link_to 'Sair', destroy_collaborator_session_path, method: :delete %></p>
+
 <h1>Market Place</h1>
 <h3>Bem vindo ao Market Place, seu site corporativo de compras e vendas</h3>
 
@@ -16,7 +18,11 @@ Para anunciar produtos e finalizar compras, é necessário completar as informa�
                         class: 'css_class', style: 'color:red' %>
 <% end %>
 <%= link_to 'Anuncie aqui', new_product_path %>
-<%= link_to 'Sair', destroy_collaborator_session_path, method: :delete %><br>
-Busca
+
+<%= form_with url: search_products_path, method: :get, local: true do |f| %>
+  <%= f.label :q, 'Busca de produtos' %>
+  <%= f.text_field :q %>
+  <%= f.submit 'Buscar' %>
+<% end %>
 <!-- busca por produtos -->
 <!-- talvez uma "busca avançada" aqui pra por os tipos de coisas que quer buscar -->
