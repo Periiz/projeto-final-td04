@@ -1,8 +1,5 @@
 <p><%= link_to 'Voltar', negotiations_path %></p>
 
-<h3>FINAL PRICE:<%= @negotiation.final_price %></h3>
-<h3>ESTADO: <%= @negotiation.status %></h3>
-
 <% if @negotiation.canceled? %>
 
   <h3>Esta negociação foi cancelada :(</h3>

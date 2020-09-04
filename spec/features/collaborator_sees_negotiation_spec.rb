@@ -168,8 +168,6 @@ feature 'Collaborator sees negotiation' do
       click_on 'Confirmar'
       negotiation.reload
 
-      byebug
-
       expect(negotiation).to be_sold
       expect(negotiation).to_not be_negotiating
       expect(negotiation).to_not be_canceled

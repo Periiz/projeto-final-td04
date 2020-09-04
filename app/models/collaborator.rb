@@ -25,4 +25,8 @@ class Collaborator < ApplicationRecord
     return full_name if full_name
     ''
   end
+
+  def notif_count
+    Negotiation.where('seller_id = ?', self.id).where(status: :waiting).count
+  end
 end
