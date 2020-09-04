@@ -36,7 +36,7 @@ feature 'Collaborator posts a new product' do
     click_on 'Anunciar'
 
     expect(page).to have_content('Categoria é obrigatório(a)')
-    expect(page).to have_content('não pode ficar em branco', count: 3)
+    expect(page).to have_content('não pode ficar em branco', count: 4)
     expect(page).to_not have_content('Produto anunciado com sucesso!')
     expect(page).to_not have_content('Anuncio')
     expect(page).to_not have_content('Anunciado por')

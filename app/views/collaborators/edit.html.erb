@@ -1,5 +1,11 @@
 <%= link_to 'Voltar', collaborator_path(current_collaborator) %>
 
+<% @collaborator.errors.full_messages.each do |message| %>
+  <ul>
+    <li><%= message %></li>
+  </ul>
+<% end %>
+
 <%= form_with model: @collaborator, local: true do |f| %>
   <div>
     <%= f.label :full_name %>

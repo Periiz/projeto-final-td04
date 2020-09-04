@@ -30,7 +30,7 @@ feature 'Collaborator fills profile' do
     click_on 'Editar informações'
     click_on 'Enviar'
 
-    expect(page).to have_content('Para que você possa anunciar produtos e efetivar a compra de produtos,')
+    expect(page).to have_content('não pode ficar em branco', count: 4)
     expect(page).not_to have_content('Perfil preenchido com sucesso!')
     expect(page).not_to have_content('Seus anúncios')
     #expect(page).to have_css vermelho!

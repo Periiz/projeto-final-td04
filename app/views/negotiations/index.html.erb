@@ -25,6 +25,18 @@
 
 <% if @buyer_negotiations.present? %>
   <h2>Suas negociações como comprador:</h2>
+
+  <h3>Em espera:</h3>
+  <% @buyer_negotiations.reverse.each do |negotiation| %>
+    <% if negotiation.waiting? %>
+      <ul>
+        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+        <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
+      </ul>
+    <% end %>
+  <% end %>
+
+
   <h3>Em andamento:</h3>
   <% @buyer_negotiations.reverse.each do |negotiation| %>
     <% if negotiation.negotiating? %>
@@ -34,4 +46,5 @@
       </ul>
     <% end %>
   <% end %>
+
 <% end %>
