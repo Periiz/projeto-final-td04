@@ -12,7 +12,7 @@
     <h2><%= current_collaborator.social_name %></h2>
     <%= current_collaborator.email %><br><br>
     <%= link_to 'Editar informações', edit_collaborator_path(current_collaborator) %>
-    <%= link_to 'Seus anúncios', "/collaborators/#{current_collaborator.id}/all" %>
+    <%= link_to 'Seus anúncios', products_collaborator_path(current_collaborator.id) %>
                                   <% #OPTIMIZE Mudar essa url dos produtos feita a mão pra algo auto gerado %>
   <% end %>
 
@@ -38,9 +38,9 @@
     <%= " - #{@collaborator.full_name}" %><br>
     <%= " - #{@collaborator.email}" %><br>
     <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
-    <p><%= link_to 'Anúncios', "/collaborators/#{@collaborator.id}/all" %></p>
+    <p><%= link_to 'Anúncios', products_collaborator_path(@collaborator.id) %></p>
     <%#TODO Mensagem de negociações pendentes%>
-    <%= "Você não tem nenhuma negociação pendente com #{@collaborator.name}" %><br>
+    <%#= "Você não tem nenhuma negociação pendente com #{@collaborator.name}" %>
   <% end %>
 
 <% end %>

@@ -17,7 +17,7 @@ class CollaboratorsController < ApplicationController
     end
   end
 
-  def all_products
+  def products
     @collaborator = Collaborator.find(params[:id])
     @products = Product.where('collaborator_id = ?', @collaborator.id)
   end
