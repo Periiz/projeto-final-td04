@@ -6,7 +6,8 @@ class Collaborator < ApplicationRecord
 
   has_many :products
 
-  validates :notifications_number, numericality: { greater_than_or_equal_to: 0 }
+  validates :full_name, :social_name, :position, :sector, presence: true, allow_nil: true
+        #Pode ser nulo (logo quando cria) mas não pode ser blank (string vazia)
 
   def profile_filled?
     if full_name.present? and social_name.present? and
