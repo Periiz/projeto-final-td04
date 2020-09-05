@@ -27,15 +27,17 @@ Para anunciar produtos e finalizar compras, é necessário completar as informa�
 
 <%#TODO Filtro na homepage também?%>
 
-<h3>Alguns produtos anunciados:</h3>
-<% @product_selection.each do |product| %>
-  <dl>
-    <dt><%= link_to product.name, product_path(product) %></dt>
-    <dd><%= product.seller_name[0,50] %></dd>
-    <dd><%= product.collaborator.sector[0,50] %></dd>
-    <%#TODO Foto do produto aqui %>
-    <!-- Idealmente é tudo link pro produto, nome, foto, preço, tudo link -->
-    <dd><%= number_to_currency(product.sale_price) %></dd>
-    <%= product.description[0,50] %><%= "..." if product.description.size > 50%>
-  </dl>
+<% if not @product_selection.blank? %>
+  <h3>Alguns produtos anunciados:</h3>
+  <% @product_selection.each do |product| %>
+    <dl>
+      <dt><%= link_to product.name, product_path(product) %></dt>
+      <dd><%= product.seller_name[0,50] %></dd>
+      <dd><%= product.collaborator.sector[0,50] %></dd>
+      <%#TODO Foto do produto aqui %>
+      <!-- Idealmente é tudo link pro produto, nome, foto, preço, tudo link -->
+      <dd><%= number_to_currency(product.sale_price) %></dd>
+      <%= product.description[0,50] %><%= "..." if product.description.size > 50 %>
+    </dl>
+  <% end %>
 <% end %>

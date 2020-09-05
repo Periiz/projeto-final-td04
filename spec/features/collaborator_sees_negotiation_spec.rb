@@ -158,7 +158,7 @@ feature 'Collaborator sees negotiation' do
       login_as(seller, scope: :collaborator)
       visit root_path
       click_on 'Perfil'
-      click_on 'Suas negociações'
+      click_on 'negociações'
       click_on product.name
       click_on 'Sim'
       negotiation.reload
@@ -168,7 +168,7 @@ feature 'Collaborator sees negotiation' do
       click_on 'Confirmar'
       negotiation.reload
 
-      expect(negotiation).to be_sold
+      expect(negotiation).to be_sold #Whyyyyyy
       expect(negotiation).to_not be_negotiating
       expect(negotiation).to_not be_canceled
       expect(page).to have_content('Esta negociação foi concluída!')
@@ -215,6 +215,6 @@ feature 'Collaborator sees negotiation' do
     click_on 'Perfil'
     click_on 'negociações'
 
-    expect(page).to have_content('Você não tem nenhuma negociação ainda!')
+    expect(page).to have_content('Você não tem negociações no momento.')
   end
 end

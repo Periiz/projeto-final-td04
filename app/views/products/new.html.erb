@@ -31,7 +31,7 @@ Para fazer um anúncio, você deve primeiro <%= link_to 'completar o seu perfil'
     </div>
     <div>
       <%= f.label :sale_price %>
-      <%= f.number_field :sale_price, min: 0 %>
+      <%= f.number_field :sale_price, step: :any, min: 0 %>
     </div>
     <%= f.submit 'Anunciar'%>
   <% end %>

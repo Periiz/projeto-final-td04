@@ -1,7 +1,7 @@
 class NegotiationsController < ApplicationController
   def index
-    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id).where.not(status: :canceled)
-    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id).where.not(status: :canceled)
+    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id).where.not(status: :canceled).where.not(status: :sold)
+    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id).where.not(status: :canceled).where.not(status: :sold)
   end
 
   def show
@@ -25,11 +25,9 @@ class NegotiationsController < ApplicationController
     @negotiation.collaborator = current_collaborator
     @negotiation.date_of_start = DateTime.current
     @negotiation.product = @product
-    @negotiation.seller_id= @negotiation.product.collaborator.id
+    @negotiation.seller_id = @negotiation.product.collaborator.id
 
     if @negotiation.save
-      vendedor = @negotiation.product.collaborator
-      vendedor.notifications_number += 1
       redirect_to @negotiation, notice: 'Negociação iniciada'
     else
       redirect_to root_path, notice: 'Deu algo errado!'
@@ -40,8 +38,10 @@ class NegotiationsController < ApplicationController
     @negotiation = Negotiation.find(params[:id])
     @negotiation.date_of_end = DateTime.current
 
-    if @negotiation.final_price != nil
+    if @negotiation.final_price.present?
       @negotiation.sold!
+      @negotiation.product.sold!
+      @negotiation.date_of_end = DateTime.current
     end
 
     if @negotiation.update(negotiation_params)

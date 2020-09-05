@@ -11,20 +11,24 @@
     <% negot_list << x if x.negotiating? %>
   <% end %>
 
-  <h3>Em espera:</h3>
-  <% waiting_list.reverse.each do |negotiation| %>
-    <ul>
-      <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-      <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
-    </ul>
+  <% if not waiting_list.blank? %>
+    <h3>Em espera:</h3>
+    <% waiting_list.reverse.each do |negotiation| %>
+      <ul>
+        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+        <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
+      </ul>
+    <% end %>
   <% end %>
 
-  <h3>Em andamento:</h3>
-  <% negot_list.reverse.each do |negotiation| %>
-    <ul>
-      <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-      <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
-    </ul>
+  <% if not negot_list.blank? %>
+    <h3>Em andamento:</h3>
+    <% negot_list.reverse.each do |negotiation| %>
+      <ul>
+        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+        <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
+      </ul>
+    <% end %>
   <% end %>
 
 <% end %>
@@ -41,7 +45,6 @@
   <% end %>
 
   <% if not waiting_list.blank? %>
-
     <h3>Em espera:</h3>
     <% waiting_list.reverse.each do |negotiation| %>
       <% if negotiation.waiting? %>
@@ -51,11 +54,9 @@
         </ul>
       <% end %>
     <% end %>
-
   <% end %>
 
   <% if not negot_list.blank? %>
-
     <h3>Em andamento:</h3>
     <% negot_list.reverse.each do |negotiation| %>
       <ul>
@@ -63,11 +64,10 @@
         <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
       </ul>
     <% end %>
-
   <% end %>
 
 <% end %>
 
 <% if not (@seller_negotiations.present? or @buyer_negotiations.present?) %>
-<h3>Você não tem nenhuma negociação ainda!</h3>
+  <h3>Você não tem negociações no momento.</h3>
 <% end %>

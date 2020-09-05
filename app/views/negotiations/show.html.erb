@@ -8,7 +8,7 @@
   <p>Do vendedor:</p>
   <li><%= @negotiation.seller_name %></li>
   <li><%= @negotiation.seller_email %></li>
-  <p>Cancelada em <%= @negotiation.date_of_end %></p>
+  <p>Cancelada em <%= l(@negotiation.date_of_end) %></p>
 
 <% elsif @negotiation.sold? %>
 
