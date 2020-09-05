@@ -4,7 +4,7 @@ feature 'Collaborator posts a new product' do
   scenario 'successfully' do
     user = Collaborator.create!(email:'user@email.com', password:'123456',
                                 full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
     product_category = ProductCategory.create!(name: 'Livros')
 
     login_as(user, scope: :collaborator)
@@ -18,10 +18,10 @@ feature 'Collaborator posts a new product' do
     click_on 'Anunciar'
 
     expect(page).to have_content('Produto anunciado com sucesso!')
-    expect(page).to have_content("Anunciado por #{user.name}")
+    expect(page).to have_content('Você é o dono deste produto')
     expect(page).to have_content('Killing Defense')
     expect(page).to have_content('Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!')
-    expect(page).to have_link('R$ 40,00')
+    expect(page).to have_content('R$ 40,00')
     expect(page).to have_content('Comentários')
   end
 
@@ -80,9 +80,9 @@ feature 'Collaborator posts a new product' do
   end
 
   scenario 'from profile' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
+    user = Collaborator.create!(email:'user@email.com', birth_date:Date.parse('08/08/1994'),
                                 full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                position: 'Cargo', sector: 'Setor', password:'123456')
     product_category = ProductCategory.create!(name: 'Livros')
 
     login_as(user, scope: :collaborator)
@@ -97,10 +97,10 @@ feature 'Collaborator posts a new product' do
     click_on 'Anunciar'
 
     expect(page).to have_content('Produto anunciado com sucesso!')
-    expect(page).to have_content("Anunciado por #{user.name}")
+    expect(page).to have_content('Você é o dono deste produto')
     expect(page).to have_content('Killing Defense')
     expect(page).to have_content('Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!')
-    expect(page).to have_link('R$ 40,00')
+    expect(page).to have_content('R$ 40,00')
     expect(page).to have_content('Comentários')
   end
 end

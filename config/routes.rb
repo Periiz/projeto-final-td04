@@ -9,7 +9,14 @@ Rails.application.routes.draw do
   resources :products, only: [:show, :new, :create] do
     resources :negotiations, only: [:new, :create]
     get 'search', on: :collection
+    post 'invisible', on: :member
+    post 'avaiable', on: :member
+    post 'canceled', on: :member
   end
 
-  resources :negotiations, only: [:index, :show, :edit, :update]
+  resources :negotiations, only: [:index, :show, :edit, :update] do
+    post 'negotiating', on: :member
+    post 'sold', on: :member
+    post 'canceled', on: :member
+  end
 end

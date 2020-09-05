@@ -5,10 +5,10 @@ feature 'Collaborator sees negotiation' do
     scenario 'with negotiation still waiting' do
       seller = Collaborator.create!(email:'seller@email.com', password:'123456',
                                     full_name:'Usuário Vendedor', social_name: 'Seller',
-                                    position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                    position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
       buyer = Collaborator.create!(email:'buyer@email.com', password:'098765',
                                   full_name:'Usuário Comprador', social_name: 'Buyer',
-                                  position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+                                  position: 'Cargo', sector: 'Setor', birth_date:Date.parse('01/01/1997'))
 
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
@@ -30,10 +30,10 @@ feature 'Collaborator sees negotiation' do
     scenario 'with negotiation on going' do
       seller = Collaborator.create!(email:'seller@email.com', password:'123456',
                                     full_name:'Usuário Vendedor', social_name: 'Seller',
-                                    position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                    position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
       buyer = Collaborator.create!(email:'buyer@email.com', password:'098765',
                                   full_name:'Usuário Comprador', social_name: 'Buyer',
-                                  position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+                                  position: 'Cargo', sector: 'Setor', birth_date:Date.parse('01/01/1997'))
 
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
@@ -56,10 +56,10 @@ feature 'Collaborator sees negotiation' do
     scenario 'and accepts it' do
       seller = Collaborator.create!(email:'seller@email.com', password:'123456',
                                     full_name:'Usuário Vendedor', social_name: 'Seller',
-                                    position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                    position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
       buyer = Collaborator.create!(email:'buyer@email.com', password:'098765',
                                   full_name:'Usuário Comprador', social_name: 'Buyer',
-                                  position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+                                  position: 'Cargo', sector: 'Setor', birth_date:Date.parse('01/01/1997'))
 
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
@@ -82,10 +82,10 @@ feature 'Collaborator sees negotiation' do
     scenario 'and rejects it' do
       seller = Collaborator.create!(email:'seller@email.com', password:'123456',
                                     full_name:'Usuário Vendedor', social_name: 'Seller',
-                                    position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                    position: 'Cargo', sector: 'Setor', birth_date: Date.parse('08/08/1994'))
       buyer = Collaborator.create!(email:'buyer@email.com', password:'098765',
                                   full_name:'Usuário Comprador', social_name: 'Buyer',
-                                  position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+                                  position: 'Cargo', sector: 'Setor', birth_date: Date.parse('01/01/1997'))
 
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
@@ -112,10 +112,10 @@ feature 'Collaborator sees negotiation' do
     scenario 'and accepts it to later cancel it' do
       seller = Collaborator.create!(email:'seller@email.com', password:'123456',
                                     full_name:'Usuário Vendedor', social_name: 'Seller',
-                                    position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                    position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
       buyer = Collaborator.create!(email:'buyer@email.com', password:'098765',
                                   full_name:'Usuário Comprador', social_name: 'Buyer',
-                                  position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+                                  position: 'Cargo', sector: 'Setor', birth_date:Date.parse('01/01/1997'))
 
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
@@ -144,10 +144,10 @@ feature 'Collaborator sees negotiation' do
     xscenario 'and accepts and later sells the product' do
       seller = Collaborator.create!(email:'seller@email.com', password:'123456',
                                     full_name:'Usuário Vendedor', social_name: 'Seller',
-                                    position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                    position: 'Cargo', sector: 'Setor', birth_date: Date.parse('08/08/1994'))
       buyer = Collaborator.create!(email:'buyer@email.com', password:'098765',
                                   full_name:'Usuário Comprador', social_name: 'Buyer',
-                                  position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+                                  position: 'Cargo', sector: 'Setor', birth_date:Date.parse('01/01/1997'))
 
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,

@@ -20,7 +20,7 @@ feature "Collaborator sees another person's product" do
     expect(page).to have_content(another_user.name)
     expect(page).to have_content('Killing Defense, Hugh Kelsey')
     expect(page).to have_content('Vendedor Teste') #another_user.name
-    expect(page).to have_content('R$ 40,00')
+    expect(page).to have_button('R$ 40,00')
     expect(page).to_not have_content('Você não tem permissão para ver este produto!')
   end
 
@@ -42,7 +42,7 @@ feature "Collaborator sees another person's product" do
 
     expect(page).to have_content(product.name)
     expect(page).to have_content(product.description)
-    expect(page).to have_content('R$ 40,00')
+    expect(page).to have_button('R$ 40,00')
   end
 
   scenario "can't see from different companies" do

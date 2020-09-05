@@ -32,6 +32,27 @@ class ProductsController < ApplicationController
     render search_products_path
   end
 
+  ###Métodos para mudar o estado
+  ###################
+
+  def invisible
+    prod = Product.find(params[:id])
+    prod.invisible!
+    redirect_to prod
+  end
+
+  def avaiable
+    prod = Product.find(params[:id])
+    prod.avaiable!
+    redirect_to prod
+  end
+
+  def canceled
+    prod = Product.find(params[:id])
+    prod.canceled!
+    redirect_to prod
+  end
+
   private
 
   def product_params

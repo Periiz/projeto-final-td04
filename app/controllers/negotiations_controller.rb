@@ -51,6 +51,29 @@ class NegotiationsController < ApplicationController
     end
   end
 
+  ###Métodos para mudar o estado
+  ###################
+
+  def negotiating
+    neg = Negotiation.find(params[:id])
+    neg.negotiating!
+    redirect_to neg
+  end
+
+  def sold
+    neg = Negotiation.find(params[:id])
+    neg.sold!
+    neg.update(date_of_end: DateTime.current)
+    redirect_to neg
+  end
+
+  def canceled
+    neg = Negotiation.find(params[:id])
+    neg.canceled!
+    neg.update(date_of_end: DateTime.current)
+    redirect_to neg
+  end
+
   private
 
   def negotiation_params

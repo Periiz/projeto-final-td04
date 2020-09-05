@@ -22,9 +22,7 @@ class Collaborator < ApplicationRecord
   end
 
   def name
-    return social_name if social_name
-    return full_name if full_name
-    ''
+    social_name ? social_name : full_name
   end
 
   def notif_count
