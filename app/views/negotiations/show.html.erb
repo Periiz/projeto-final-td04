@@ -1,70 +1,75 @@
 <p><%= link_to 'Voltar', negotiations_path %></p>
 
-<% if @negotiation.canceled? %>
+<% if @negotiation.seller_id == current_collaborator.id or @negotiation.buyer_id == current_collaborator.id %>
+  <% if @negotiation.canceled? %>
 
-  <h3>Esta negociação foi cancelada :(</h3>
-  <p>O produto era:</p>
-  <li><%= @negotiation.product.name %></li>
-  <p>Do vendedor:</p>
-  <li><%= @negotiation.seller_name %></li>
-  <li><%= @negotiation.seller_email %></li>
-  <p>Cancelada em <%= l(@negotiation.date_of_end) %></p>
+    <h3>Esta negociação foi cancelada :(</h3>
+    <p>O produto era:</p>
+    <li><%= @negotiation.product.name %></li>
+    <p>Do vendedor:</p>
+    <li><%= @negotiation.seller_name %></li>
+    <li><%= @negotiation.seller_email %></li>
+    <p>Cancelada em <%= l(@negotiation.date_of_end) %></p>
 
-<% elsif @negotiation.sold? %>
+  <% elsif @negotiation.sold? %>
 
-  <h3>Esta negociação foi concluída!</h3>
-  <p>Detalhes da negociação:</p>
-  <dl>
-    <dt>Comprador:</dt>
-    <dd><%= @negotiation.buyer_name %></dd>
-    <dd><%= @negotiation.product.collaborator.sector %></dd>
-    <dd><%= @negotiation.buyer_email %></dd><br>
+    <h3>Esta negociação foi concluída!</h3>
+    <p>Detalhes da negociação:</p>
+    <dl>
+      <dt>Comprador:</dt>
+      <dd><%= @negotiation.buyer_name %></dd>
+      <dd><%= @negotiation.product.collaborator.sector %></dd>
+      <dd><%= @negotiation.buyer_email %></dd><br>
 
-    <dt>Vendedor:</dt>
-    <dd><%= @negotiation.seller_name %></dd>
-    <dd><%= @negotiation.collaborator.sector %></dd>
-    <dd><%= @negotiation.seller_email %></dd><br>
+      <dt>Vendedor:</dt>
+      <dd><%= @negotiation.seller_name %></dd>
+      <dd><%= @negotiation.collaborator.sector %></dd>
+      <dd><%= @negotiation.seller_email %></dd><br>
 
-    <dt>Preço final e data da venda:</dt>
-    <dd><%= number_to_currency(@negotiation.final_price) %></dd>
-    <dd><%= l(@negotiation.date_of_end) %></dd><br>
+      <dt>Preço final e data da venda:</dt>
+      <dd><%= number_to_currency(@negotiation.final_price) %></dd>
+      <dd><%= l(@negotiation.date_of_end) %></dd><br>
 
-    <dt>Produto:</dt>
-    <dd><%= @negotiation.product.name %></dd>
-    <%= @negotiation.product.description %><br>
-  </dl>
+      <dt>Produto:</dt>
+      <dd><%= @negotiation.product.name %></dd>
+      <%= @negotiation.product.description %><br>
+    </dl>
 
-<% else %>
+  <% else %>
 
-  <% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
+    <% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
 
-    <p>Você aceita esta negociação?</p>
-    <%= button_to 'Sim', negotiating_negotiation_path(@negotiation) %><br>
-    <%= button_to 'Não', canceled_negotiation_path(@negotiation) %>
+      <p>Você aceita esta negociação?</p>
+      <%= button_to 'Sim', negotiating_negotiation_path(@negotiation) %><br>
+      <%= button_to 'Não', canceled_negotiation_path(@negotiation) %>
 
-  <% elsif @negotiation.seller_id == current_collaborator.id and @negotiation.negotiating? %>
+    <% elsif @negotiation.seller_id == current_collaborator.id and @negotiation.negotiating? %>
 
-    <p>Você pode CONFIRMAR ou CANCELAR esta negociação.</p>
-    <%= button_to 'Confirmar', edit_negotiation_path(@negotiation), method: :get %><br>
-    <%= button_to 'Cancelar', canceled_negotiation_path(@negotiation) %>
+      <p>Você pode CONFIRMAR ou CANCELAR esta negociação.</p>
+      <%= button_to 'Confirmar', edit_negotiation_path(@negotiation), method: :get %><br>
+      <%= button_to 'Cancelar', canceled_negotiation_path(@negotiation) %>
 
-  <% elsif @negotiation.buyer_id == current_collaborator.id %>
+    <% elsif @negotiation.buyer_id == current_collaborator.id %>
 
-    <p>Você quer CANCELAR a negociação?</p>
-    <%= button_to 'Cancelar', canceled_negotiation_path(@negotiation) %>
+      <p>Você quer CANCELAR a negociação?</p>
+      <%= button_to 'Cancelar', canceled_negotiation_path(@negotiation) %>
+
+    <% end %>
+
+    <h2><%= @negotiation.product.name %></h2>
+    Vendedor:
+    <ul>
+      <li><%= @negotiation.seller_name %></li>
+      <li><%= @negotiation.seller_email %></li>
+    </ul>
+    Comprador:
+    <ul>
+      <li><%= @negotiation.buyer_name %></li>
+      <li><%= @negotiation.buyer_email %></li>
+    </ul>
 
   <% end %>
 
-  <h2><%= @negotiation.product.name %></h2>
-  Vendedor:
-  <ul>
-    <li><%= @negotiation.seller_name %></li>
-    <li><%= @negotiation.seller_email %></li>
-  </ul>
-  Comprador:
-  <ul>
-    <li><%= @negotiation.buyer_name %></li>
-    <li><%= @negotiation.buyer_email %></li>
-  </ul>
-
+<% else %>
+  Somente pessoas envolvidas na negociação podem ver detalhes da mesma.
 <% end %>
