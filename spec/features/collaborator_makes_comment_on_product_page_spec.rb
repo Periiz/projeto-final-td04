@@ -1,7 +1,7 @@
-#require 'rails_helper'
+require 'rails_helper'
 
-#feature 'Collaborator makes comment on product page' do
-#  scenario '' do
-#    #
-#  end
-#end
+feature 'Collaborator makes comment on product page' do
+  xscenario '' do
+    #
+  end
+end

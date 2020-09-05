@@ -40,8 +40,13 @@
     <%= " - #{@collaborator.email}" %><br>
     <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
     <p><%= link_to 'Todos os anúncios', products_collaborator_path(@collaborator.id) %></p>
-    <%#TODO Mensagem de negociações pendentes%>
-    <%#= "Você não tem nenhuma negociação pendente com #{@collaborator.name}" %>
+    <% neg = Negotiation.where('seller_id = ? AND collaborator_id = ?', @collaborator.id, current_collaborator.id).where.not(status: :sold).where.not(status: :canceled) %>
+    <p><%= neg.blank? ? "Você não tem nenhuma negociação pendente com #{@collaborator.name}." : "Negociações entre você e #{@collaborator.name}:" %></p>
+    <% neg.each do |neg| %>
+      <%= link_to neg.product.name, negotiations_path(neg) %><br>
+    <% end %>
+    <p>--------------------------------------------------</p>
+    Alguns anúncios de <%= "#{@collaborator.name}" %><br>
     <% Product.where('collaborator_id = ?', @collaborator.id).last(3).each do |product| %>
       <%= link_to product.name[0,50], product_path(product) %><%= '...' if product.name.size > 50 %><br>
       <%= link_to number_to_currency(product.sale_price), product_path(product) %><br>

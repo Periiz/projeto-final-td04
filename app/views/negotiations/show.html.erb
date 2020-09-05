@@ -34,7 +34,7 @@
     <%= @negotiation.product.description %><br>
   </dl>
 
-<% else #@negotiation.negotiating? %>
+<% else %>
 
   <% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
 
@@ -45,7 +45,7 @@
   <% elsif @negotiation.seller_id == current_collaborator.id and @negotiation.negotiating? %>
 
     <p>Você pode CONFIRMAR ou CANCELAR esta negociação.</p>
-    <%= link_to 'Confirmar', edit_negotiation_path(@negotiation) %><br><br>
+    <%= button_to 'Confirmar', edit_negotiation_path(@negotiation), method: :get %><br>
     <%= button_to 'Cancelar', canceled_negotiation_path(@negotiation) %>
 
   <% elsif @negotiation.buyer_id == current_collaborator.id %>
