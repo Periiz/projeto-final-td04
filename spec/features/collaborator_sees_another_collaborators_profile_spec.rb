@@ -20,7 +20,7 @@ feature "Collaborator sees another collaborator's profile" do
     expect(page).to have_content(another_user.email)
     expect(page).to have_content(another_user.sector)
     expect(page).to have_content(another_user.position)
-    expect(page).to have_content('Anúncios')
+    expect(page).to have_content('anúncios')
     #expect(page).to have_content("Você não tem nenhuma negociação pendente com #{another_user.name}")
     #Fazer essa feature algum dia... Tem até um TODO pra ver no rails notes
     expect(page).to have_link('Home Page', href: root_path)

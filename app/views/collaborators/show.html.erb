@@ -39,9 +39,16 @@
     <%= " - #{@collaborator.full_name}" %><br>
     <%= " - #{@collaborator.email}" %><br>
     <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
-    <p><%= link_to 'Anúncios', products_collaborator_path(@collaborator.id) %></p>
+    <p><%= link_to 'Todos os anúncios', products_collaborator_path(@collaborator.id) %></p>
     <%#TODO Mensagem de negociações pendentes%>
     <%#= "Você não tem nenhuma negociação pendente com #{@collaborator.name}" %>
+    <% Product.where('collaborator_id = ?', @collaborator.id).last(3).each do |product| %>
+      <%= link_to product.name[0,50], product_path(product) %><%= '...' if product.name.size > 50 %><br>
+      <%= link_to number_to_currency(product.sale_price), product_path(product) %><br>
+      <%= product.description[0,50] %><%= '...' if product.description.size > 50 %>
+      <p>--------------------------------------------------</p>
+    <% end %>
+
   <% end %>
 
 <% end %>

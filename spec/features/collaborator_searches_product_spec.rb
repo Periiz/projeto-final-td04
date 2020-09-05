@@ -92,12 +92,12 @@ feature 'Collaborator searches product' do
 
     scenario 'and did not find any (domain problem)' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Vendedor', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller,
@@ -105,7 +105,7 @@ feature 'Collaborator searches product' do
 
       login_as(searcher, scope: :collaborator)
       visit root_path
-      fill_in 'Busca de produtos', with: product.name
+      fill_in 'Busca de produtos', with: 'Killing'
       click_on 'Buscar'
 
       expect(page).to_not have_content(product.name)

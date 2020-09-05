@@ -13,16 +13,16 @@
 <% end %>
   <%= link_to 'Todas', search_products_path(q: params[:q]) %> |
 
-<% if @products.empty? %>
-
-  <p>Nenhum produto encontrado.</p>
-
-<% else %>
-
+<% if not params[:q].blank? %>
   <div>
     <p>Buscando por:</p>
     <dd><h3, style="font-weight:bold;color:red"><%= params[:q] %></h3><dd>
   </div>
+  <p><%= "Em: #{ProductCategory.find(params[:cat]).name}" if not params[:cat].blank? %></p>
+<% end %>
+
+<% if not @products.empty? %>
+
 
   <h3>Resultados da Busca</h3>
 
@@ -33,9 +33,13 @@
       <dd><%= product.collaborator.sector[0,50] %></dd>
       <%#TODO Foto do produto aqui %>
       <!-- Idealmente é tudo link pro produto, nome, foto, preço, tudo link -->
-      <dd><%= number_to_currency(product.sale_price) %></dd>
+      <dd><span, style="color:green"><%= number_to_currency(product.sale_price) %></span></dd>
       <%= product.description[0,50] %><%= "..." if product.description.size > 50%>
     </dl>
   <% end %>
+
+<% else %>
+
+  <p><b>Nenhum produto encontrado.</b></p>
 
 <% end %>

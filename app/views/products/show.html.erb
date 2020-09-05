@@ -20,7 +20,7 @@
 
   <% elsif @product.avaiable? %>
     <h3><%= @product.name %><h3>
-    <h4>Anunciado por <%= link_to @product.collaborator.name %></h4><br>
+    <h4>Anunciado por <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator.id) %></h4><br>
     <p><%= @product.description %></p>
     <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product.id), method: :get %><br>
     <%#TODO Adicionar confimação da compra data: {confirm: 'Você quer mesmo comprar este produto?'} Ainda não fiz isso porque não sei fazer o Capybara testar%>

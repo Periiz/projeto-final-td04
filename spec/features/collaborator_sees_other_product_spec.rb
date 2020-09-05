@@ -37,7 +37,7 @@ feature "Collaborator sees another person's product" do
 
     login_as(user, scope: :collaborator)
     visit collaborator_path(another_user)
-    click_on 'Anúncios'
+    click_on 'anúncios'
     click_on 'Killing Defense, Hugh Kelsey'
 
     expect(page).to have_content(product.name)
