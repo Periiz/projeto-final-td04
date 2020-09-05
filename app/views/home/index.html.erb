@@ -37,7 +37,7 @@
       <dd><%= product.collaborator.sector[0,50] %></dd>
       <%#TODO Foto do produto aqui %>
       <!-- Idealmente é tudo link pro produto, nome, foto, preço, tudo link -->
-      <dd><%= number_to_currency(product.sale_price) %></dd>
+      <dd><span, style="color:green"><%= number_to_currency(product.sale_price) %></span></dd>
       <%= product.description[0,50] %><%= "..." if product.description.size > 50 %>
     </dl>
   <% end %>

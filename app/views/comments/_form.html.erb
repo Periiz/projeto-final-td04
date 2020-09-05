@@ -1,0 +1,6 @@
+<%= form_with(model: [@product, @product.comments.build], local: true) do |f| %>
+  <%= f.label :text, 'Deixe seu comentário' %><br>
+  <b><%= current_collaborator.name %></b>:<br>
+  <%= f.text_area :text %><br>
+  <%= f.submit 'Enviar' %>
+<% end %>

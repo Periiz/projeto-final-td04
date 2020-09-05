@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show, :new, :create] do
     resources :negotiations, only: [:new, :create]
+    resources :comments, only: [:create, :show]
     get 'search', on: :collection
     post 'invisible', on: :member
     post 'avaiable', on: :member

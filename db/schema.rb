@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_04_044720) do
+ActiveRecord::Schema.define(version: 2020_09_05_194807) do
 
   create_table "collaborators", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2020_09_04_044720) do
     t.integer "notifications_number", default: 0
     t.index ["email"], name: "index_collaborators_on_email", unique: true
     t.index ["reset_password_token"], name: "index_collaborators_on_reset_password_token", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "text"
+    t.integer "product_id", null: false
+    t.integer "collaborator_id", null: false
+    t.datetime "post_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collaborator_id"], name: "index_comments_on_collaborator_id"
+    t.index ["product_id"], name: "index_comments_on_product_id"
   end
 
   create_table "negotiations", force: :cascade do |t|
@@ -64,6 +75,8 @@ ActiveRecord::Schema.define(version: 2020_09_04_044720) do
     t.index ["product_category_id"], name: "index_products_on_product_category_id"
   end
 
+  add_foreign_key "comments", "collaborators"
+  add_foreign_key "comments", "products"
   add_foreign_key "negotiations", "collaborators"
   add_foreign_key "negotiations", "products"
   add_foreign_key "products", "collaborators"

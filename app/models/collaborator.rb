@@ -5,9 +5,11 @@ class Collaborator < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :products
+  has_many :comments
 
   validates :full_name, :social_name, :position, :sector, presence: true, allow_nil: true
-        #Pode ser nulo (logo quando cria) mas não pode ser blank (string vazia)
+        #Pode ser nulo (logo quando cria) mas não pode ser blank (string vazia).
+        #Ou seja, na hora de editar não pode mais deixar em branco. Espero
 
   def profile_filled?
     if full_name.present? and social_name.present? and

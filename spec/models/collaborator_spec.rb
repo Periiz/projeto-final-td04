@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Collaborator, type: :model do
-  it 'Nome, cargo e setor não podem ficar em branco mas pode ser nil' do
+  it "Name, position and sect can't be blank, but can be nil" do
     user = Collaborator.create(email: 'user@email.com', password: '123456')
 
     user.social_name = 'User'
