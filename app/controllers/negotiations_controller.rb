@@ -1,7 +1,9 @@
 class NegotiationsController < ApplicationController
   def index
-    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id).where.not(status: :canceled).where.not(status: :sold)
-    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id).where.not(status: :canceled).where.not(status: :sold)
+    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id)
+                                      .where.not(status: :canceled).where.not(status: :sold)
+    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id)
+                                     .where.not(status: :canceled).where.not(status: :sold)
   end
 
   def show
@@ -11,7 +13,6 @@ class NegotiationsController < ApplicationController
   def new
     @product = Product.find(params[:product_id])
     @negotiation = Negotiation.new
-
   end
 
   def edit
@@ -36,9 +37,11 @@ class NegotiationsController < ApplicationController
 
   def update
     @negotiation = Negotiation.find(params[:id])
-    @negotiation.date_of_end = DateTime.current
 
-    if @negotiation.final_price.present?
+    # FIXME A maneira como eu fiz isso certamente ta errada, tem algo
+    # FIXME de errado com esse controller/views/models sei lá
+    if params[:negotiation][:final_price].present?
+      @negotiation.final_price = params[:negotiation][:final_price]
       @negotiation.sold!
       @negotiation.product.sold!
       @negotiation.date_of_end = DateTime.current
