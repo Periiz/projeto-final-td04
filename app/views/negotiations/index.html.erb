@@ -1,50 +1,73 @@
 <%= link_to 'Voltar', collaborator_path(current_collaborator) %>
+
 <% if @seller_negotiations.present? %>
+
   <h2>Suas negociações como vendedor:</h2>
 
+  <% waiting_list = [] %>
+  <% negot_list = [] %>
+  <% @seller_negotiations.reverse.each do |x| %>
+    <% waiting_list << x if x.waiting? %>
+    <% negot_list << x if x.negotiating? %>
+  <% end %>
+
   <h3>Em espera:</h3>
-  <% @seller_negotiations.reverse.each do |negotiation| %>
-    <% if negotiation.waiting? %>
-      <ul>
-        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-        <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
-      </ul>
-    <% end %>
+  <% waiting_list.reverse.each do |negotiation| %>
+    <ul>
+      <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+      <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
+    </ul>
   <% end %>
 
   <h3>Em andamento:</h3>
-  <% @seller_negotiations.reverse.each do |negotiation| %>
-    <% if negotiation.negotiating? %>
-      <ul>
-        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-        <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
-      </ul>
-    <% end %>
+  <% negot_list.reverse.each do |negotiation| %>
+    <ul>
+      <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+      <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
+    </ul>
   <% end %>
+
 <% end %>
 
 <% if @buyer_negotiations.present? %>
+
   <h2>Suas negociações como comprador:</h2>
 
-  <h3>Em espera:</h3>
-  <% @buyer_negotiations.reverse.each do |negotiation| %>
-    <% if negotiation.waiting? %>
+  <% waiting_list = [] %>
+  <% negot_list = [] %>
+  <% @buyer_negotiations.reverse.each do |x| %>
+    <% waiting_list << x if x.waiting? %>
+    <% negot_list << x if x.negotiating? %>
+  <% end %>
+
+  <% if not waiting_list.blank? %>
+
+    <h3>Em espera:</h3>
+    <% waiting_list.reverse.each do |negotiation| %>
+      <% if negotiation.waiting? %>
+        <ul>
+          <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
+          <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
+        </ul>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+  <% if not negot_list.blank? %>
+
+    <h3>Em andamento:</h3>
+    <% negot_list.reverse.each do |negotiation| %>
       <ul>
         <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
         <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
       </ul>
     <% end %>
+
   <% end %>
 
+<% end %>
 
-  <h3>Em andamento:</h3>
-  <% @buyer_negotiations.reverse.each do |negotiation| %>
-    <% if negotiation.negotiating? %>
-      <ul>
-        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-        <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
-      </ul>
-    <% end %>
-  <% end %>
-
+<% if not (@seller_negotiations.present? or @buyer_negotiations.present?) %>
+<h3>Você não tem nenhuma negociação ainda!</h3>
 <% end %>

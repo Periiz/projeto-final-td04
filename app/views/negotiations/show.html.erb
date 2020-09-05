@@ -17,11 +17,21 @@
   <dl>
     <dt>Comprador:</dt>
     <dd><%= @negotiation.buyer_name %></dd>
+    <dd><%= @negotiation.product.collaborator.sector %></dd>
     <dd><%= @negotiation.buyer_email %></dd><br>
+
+    <dt>Vendedor:</dt>
+    <dd><%= @negotiation.seller_name %></dd>
+    <dd><%= @negotiation.collaborator.sector %></dd>
+    <dd><%= @negotiation.seller_email %></dd><br>
 
     <dt>Preço final e data da venda:</dt>
     <dd><%= number_to_currency(@negotiation.final_price) %></dd>
-    <dd><%= @negotiation.date_of_end %></dd>
+    <dd><%= l(@negotiation.date_of_end) %></dd><br>
+
+    <dt>Produto:</dt>
+    <dd><%= @negotiation.product.name %></dd>
+    <%= @negotiation.product.description %><br>
   </dl>
 
 <% else %>

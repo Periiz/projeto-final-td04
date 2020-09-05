@@ -43,8 +43,7 @@ feature 'Collaborator sees all of his products' do
     visit root_path
     click_on 'Perfil'
 
-    expect(page).to_not have_link('Seus anúncios', href: "/collaborators/#{user.id}/all")
-                                                   #OPTIMIZE Mudar esse link para os produtos feito a mão para algo auto gerado
+    expect(page).to_not have_link('Seus anúncios', href: products_collaborator_path(user))
   end
 
   scenario "does not see someone else's product" do

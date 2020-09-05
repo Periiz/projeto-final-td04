@@ -10,7 +10,6 @@
                                         class: 'css_class', style: "color:red" %><br>
 
     <% else %>
-      <% #TODO tela para "nenhum anúncio ainda!" %>
       <% if @products.empty? %>
         <p>Você ainda não fez nenhum anúncio!<p>
         <p>Para anunciar algum item à venda, clique em <%= link_to 'Anunciar', new_product_path %>!</p>

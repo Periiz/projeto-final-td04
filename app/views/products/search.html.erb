@@ -26,8 +26,6 @@
 
   <h3>Resultados da Busca</h3>
 
-  <% #TODO Um filtro por categoria (opção de sem filtro de categoria, também, e manter a busca só pela query) %>
-
   <% @products.each do |product| %>
     <dl>
       <dt><%= link_to product.name, product_path(product) %></dt>

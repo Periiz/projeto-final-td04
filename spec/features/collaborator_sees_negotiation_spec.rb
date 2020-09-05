@@ -18,7 +18,7 @@ feature 'Collaborator sees negotiation' do
       login_as(seller, scope: :collaborator)
       visit root_path
       click_on 'Perfil'
-      click_on 'Suas negociações'
+      click_on 'negociações'
       click_on product.name
 
       expect(page).to have_content('Você aceita esta negociação?')
@@ -69,7 +69,7 @@ feature 'Collaborator sees negotiation' do
       login_as(seller, scope: :collaborator)
       visit root_path
       click_on 'Perfil'
-      click_on 'Suas negociações'
+      click_on 'negociações'
       click_on product.name
       click_on 'Sim'
       negotiation.reload
@@ -95,7 +95,7 @@ feature 'Collaborator sees negotiation' do
       login_as(seller, scope: :collaborator)
       visit root_path
       click_on 'Perfil'
-      click_on 'Suas negociações'
+      click_on 'negociações'
       click_on product.name
       click_on 'Não'
       negotiation.reload
@@ -125,7 +125,7 @@ feature 'Collaborator sees negotiation' do
       login_as(seller, scope: :collaborator)
       visit root_path
       click_on 'Perfil'
-      click_on 'Suas negociações'
+      click_on 'negociações'
       click_on product.name
       click_on 'Sim'
       negotiation.reload
@@ -141,7 +141,7 @@ feature 'Collaborator sees negotiation' do
       expect(page).to have_content(negotiation.seller_email)
     end
   
-    xscenario 'and accepts it and later sell the product' do
+    xscenario 'and accepts and later sells the product' do
       seller = Collaborator.create!(email:'seller@email.com', password:'123456',
                                     full_name:'Usuário Vendedor', social_name: 'Seller',
                                     position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
@@ -203,5 +203,18 @@ feature 'Collaborator sees negotiation' do
     expect(page).to have_content(product.name)
     expect(page).to have_content(negotiation.seller_name)
     expect(page).to have_content(negotiation.seller_email)
+  end
+
+  scenario 'without having any yet' do
+    user = Collaborator.create!(email:'seller@email.com', password:'123456',
+                                full_name:'Usuário Vendedor', social_name: 'Seller',
+                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+
+    login_as(user, scope: :collaborator)
+    visit root_path
+    click_on 'Perfil'
+    click_on 'negociações'
+
+    expect(page).to have_content('Você não tem nenhuma negociação ainda!')
   end
 end

@@ -12,8 +12,7 @@
     <h2><%= current_collaborator.social_name %></h2>
     <%= current_collaborator.email %><br><br>
     <%= link_to 'Editar informações', edit_collaborator_path(current_collaborator) %>
-    <%= link_to 'Seus anúncios', products_collaborator_path(current_collaborator.id) %>
-                                  <% #OPTIMIZE Mudar essa url dos produtos feita a mão pra algo auto gerado %>
+    <%= link_to 'Seus anúncios', products_collaborator_path(current_collaborator) %>
   <% end %>
 
   <% if current_collaborator.notif_count > 0 %>
