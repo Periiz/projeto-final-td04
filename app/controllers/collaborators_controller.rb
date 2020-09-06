@@ -1,4 +1,6 @@
 class CollaboratorsController < ApplicationController
+  before_action :authenticate_collaborator!
+
   def show
     @collaborator = Collaborator.find(params[:id])
   end

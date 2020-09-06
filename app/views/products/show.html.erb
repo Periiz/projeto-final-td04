@@ -1,52 +1,61 @@
 <p><%= link_to 'Voltar à Home Page', root_path %></p>
 
-<% if current_collaborator.domain != @product.collaborator.domain %>
+<% if current_collaborator.domain != @product.collaborator.domain %> <!--Erro das empresas diferentes -->
   Você não tem permissão para ver este anúncio!<br>
   Somente anúncios feitos por pessoas da mesma empresa que você são visíveis.<br>
 <% else %>
 
-  <% if @product.collaborator == current_collaborator and not @product.canceled? %>
+  <% if @product.collaborator == current_collaborator %> <!--Você está vendo o seu produto -->
+    <% if @product.avaiable? or @product.invisible? %>
 
-    <b>Você é o dono deste produto.</b><br>
-    Neste momento ele encontra-se <b><%= @product.invisible? ? 'invisível' : 'visível' %></b>
-    <p>Você pode deixá-lo visível, invisível ou ainda apagá-lo em definitivo:</p> |
-    <%= link_to 'Invisível', invisible_product_path(@product), method: :post %> |
-    <%= link_to 'Visível', avaiable_product_path(@product), method: :post %> | --- |
-    <%= link_to 'Apagar', canceled_product_path(@product), method: :post %> |
-    <h3><%= @product.name %></h3>
-    <p><%= @product.description %></p>
-    <%= number_to_currency(@product.sale_price) %><br>
-    <% comment = Comment.where('product_id = ?', @product.id) %>
-    <% if not comment.blank? %>
-      <h3>Comentários:</h3>
-      <% comment.each do |com| %>
-        <%= render com, locals:{comment: :com} %>
+      <b>Você é o dono deste produto.</b><br>
+      Neste momento ele encontra-se <b><%= @product.invisible? ? 'invisível' : 'visível' %></b>
+      <p>Você pode deixá-lo visível, invisível ou ainda cancelá-lo:</p> |
+      <%= link_to 'Invisível', invisible_product_path(@product), method: :post %> |
+      <%= link_to 'Visível', avaiable_product_path(@product), method: :post %> | --- |
+      <%= link_to 'Cancelar', canceled_product_path(@product), method: :post %> |
+      <h3><%= @product.name %></h3>
+      <p><%= @product.description %></p>
+      <%= number_to_currency(@product.sale_price) %><br>
+      <% comment = Comment.where('product_id = ?', @product.id) %>
+      <% if not comment.blank? %>
+        <h3>Comentários:</h3>
+        <% comment.each do |com| %>
+          <%= render com, locals:{comment: :com} %>
+        <% end %>
+      <% else %>
+        <h5>Ninguém deixou nenhum comentário ainda.</h5>
       <% end %>
-    <% else %>
-      <h5>Ninguém deixou nenhum comentário ainda.</h5>
-    <% end %>
-    <%#TODO Poder responder os comentários %>
+      <%#TODO Poder responder os comentários %>
 
-  <% elsif @product.avaiable? %>
-    <h3><%= @product.name %><h3>
-    <h4>Anunciado por <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator.id) %></h4><br>
-    <p><%= @product.description %></p>
-    <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product.id), method: :get %><br>
-    <%#TODO Adicionar confimação da compra %>
-    <%#data: {confirm: 'Você quer mesmo comprar este produto?'} Ainda não fiz isso porque não sei fazer o Capybara testar%>
-    <% comment = Comment.where('product_id = ?', @product.id) %>
-    <% if not comment.blank? %>
-      <h3>Comentários:</h3>
-      <% comment.each do |com| %>
-        <%= render com, locals:{comment: :com} %>
-      <% end %>
     <% else %>
-      <h5>Ninguém deixou nenhum comentário ainda.</h5>
+      Parece que este anúncio já foi tirado do ar!<br>
+      Talvez ele tenha sido cancelado, vendido, ou está invisível.
     <% end %>
-    <%#TODO Poder responder os comentários %>
-    <%= render 'comments/form' %>
-  <% else %>
-    Parece que este anúncio já foi tirado do ar!<br>
-    Talvez ele tenha sido cancelado, vendido, ou está invisível.
+
+  <% else %> <!-- Você está vendo o produto de outra pessoa -->
+    <% if @product.avaiable? %>
+      <h3><%= @product.name %><h3>
+      <h4>Anunciado por <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator.id) %></h4><br>
+      <p><%= @product.description %></p>
+      <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product.id), method: :get %><br>
+      <%#TODO Adicionar confimação da compra %>
+      <%#data: {confirm: 'Você quer mesmo comprar este produto?'} Ainda não fiz isso porque não sei fazer o Capybara testar%>
+      <% comment = Comment.where('product_id = ?', @product.id) %>
+      <% if not comment.blank? %>
+        <h3>Comentários:</h3>
+        <% comment.each do |com| %>
+          <%= render com, locals:{comment: :com} %>
+        <% end %>
+      <% else %>
+        <h5>Ninguém deixou nenhum comentário ainda.</h5>
+      <% end %>
+      <%#TODO Poder responder os comentários %>
+      <%= render 'comments/form' %>
+    <% else %>
+      Parece que este anúncio já foi tirado do ar!<br>
+      Talvez ele tenha sido cancelado, vendido, ou está invisível.
+    <% end %>
   <% end %>
+
 <% end %>

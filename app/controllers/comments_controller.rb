@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_collaborator!
+
   def create
     @product = Product.find(params[:product_id])
     @comment = @product.comments.new

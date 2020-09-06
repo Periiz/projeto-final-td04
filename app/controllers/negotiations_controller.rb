@@ -1,4 +1,6 @@
 class NegotiationsController < ApplicationController
+  before_action :authenticate_collaborator!
+
   def index
     @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id)
                                       .where.not(status: :canceled).where.not(status: :sold)

@@ -1,11 +1,23 @@
 <p><%= link_to 'Voltar', product_path(@product) %></p>
 
-<h2>Você quer mesmo iniciar a negociação deste produto?</h2>
+<% if @product.collaborator.domain == current_collaborator.domain %>
 
-<h3><%= @product.name %></h3>
-<h4>Aunciado por <b style='color:green'><%= @product.collaborator.name%></b></h4>
-<% #TODO Foto do produto aqui também! %>
-<p><%= @product.description %></p>
-<%= number_to_currency(@product.sale_price) %><br><br>
+  <% if @product.collaborator.id != current_collaborator.id %>
 
-<%= link_to 'Iniciar Negociação', product_negotiations_path(@product), method: :post %>
+    <h2>Você quer mesmo iniciar a negociação deste produto?</h2>
+
+    <h3><%= @product.name %></h3>
+    <h4>Aunciado por <b style='color:green'><%= @product.collaborator.name%></b></h4>
+    <% #TODO Foto do produto aqui também! %>
+    <p><%= @product.description %></p>
+    <%= number_to_currency(@product.sale_price) %><br><br>
+
+    <%= link_to 'Iniciar Negociação', product_negotiations_path(@product), method: :post %>
+
+  <% else %>
+    Você não pode iniciar uma negociação consigo mesmo!
+  <% end %>
+
+<% else %>
+  Você não pode começar negociações com pessoas que são de outras empresas.
+<% end %>
