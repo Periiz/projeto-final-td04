@@ -36,6 +36,24 @@ feature 'Collaborator sees all of his products' do
     expect(page).to have_link('Anunciar', href: new_product_path)
   end
 
+  scenario "can't see sold products" do
+    user = Collaborator.create(email: 'user@email.com', password: '123456', 
+                               full_name: 'Test User', social_name: 'User',
+                               position: 'A', sector: 'B', birth_date: DateTime.current)
+    product_category = ProductCategory.create(name: 'Livros')
+    product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
+                             description: 'Bom livro', sale_price: 40, collaborator: user)
+    product.sold!
+    product.reload
+
+    login_as(user, scope: :collaborator)
+    visit products_collaborator_path(user)
+
+    expect(page).to have_content('Você ainda não fez nenhum anúncio!')
+    expect(page).to have_link('Anunciar')
+    expect(page).to_not have_content(product.name)
+  end
+
   scenario 'did not fill profile yet' do
     user = Collaborator.create!(email:'user@email.com', password:'123456')
 

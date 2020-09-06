@@ -9,7 +9,7 @@
     <% if @product.avaiable? or @product.invisible? %>
 
       <b>Você é o dono deste produto.</b><br>
-      Neste momento ele encontra-se <b><%= @product.invisible? ? 'invisível' : 'visível' %></b>
+      Neste momento, ele encontra-se <b><span, style='color:red'><%= @product.invisible? ? 'invisível' : 'visível' %></span></b>
       <p>Você pode deixá-lo visível, invisível ou ainda cancelá-lo:</p> |
       <%= link_to 'Invisível', invisible_product_path(@product), method: :post %> |
       <%= link_to 'Visível', avaiable_product_path(@product), method: :post %> | --- |
