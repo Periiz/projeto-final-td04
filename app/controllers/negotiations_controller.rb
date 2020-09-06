@@ -10,6 +10,7 @@ class NegotiationsController < ApplicationController
 
   def show
     @negotiation = Negotiation.find(params[:id])
+    @messages = Message.where(negotiation_id: params[:id])
   end
 
   def new
@@ -41,7 +42,7 @@ class NegotiationsController < ApplicationController
     @negotiation = Negotiation.find(params[:id])
 
     # FIXME A maneira como eu fiz isso certamente ta errada, tem algo
-    # FIXME de errado com esse controller/views/models sei lá
+    # FIXME de errado com esse controller/view/model, sei lá
     if params[:negotiation][:final_price].present?
       @negotiation.final_price = params[:negotiation][:final_price]
       @negotiation.sold!

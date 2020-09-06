@@ -1,0 +1,5 @@
+<%= form_with(model: [@negotiation, @negotiation.messages.build], local: true) do |f| %>
+  <%= f.label :text, 'Escreva algo' %><br>
+  <%= f.text_area :text %><br>
+  <%= f.submit 'Enviar' %>
+<% end %>

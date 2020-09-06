@@ -6,6 +6,7 @@ class Collaborator < ApplicationRecord
 
   has_many :products
   has_many :comments
+  has_many :messages
 
   validates :full_name, :social_name, :position, :sector, presence: true, allow_nil: true
         #Pode ser nulo (logo quando cria) mas não pode ser blank (string vazia).

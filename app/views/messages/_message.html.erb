@@ -1,0 +1,10 @@
+<b>
+  <% if message.collaborator.id == message.negotiation.seller_id %>
+    <span, style ='color:darkgreen'>
+  <% else %>
+    <span, style ='color:darkred'>
+  <% end %>
+  <%= '%-3.10s' % message.collaborator.name.split.first %></span>:
+</b>
+
+<%= message.text %><br>

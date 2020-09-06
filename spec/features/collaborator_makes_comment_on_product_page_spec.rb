@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Collaborator makes comment on product page' do
-  scenario '' do
+  scenario 'successfully' do
     seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                 full_name:'Usuário Vendedor', social_name: 'Seller',
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
@@ -18,7 +18,7 @@ feature 'Collaborator makes comment on product page' do
     fill_in 'Deixe seu comentário', with: 'Um comentário'
     click_on 'Enviar'
 
-    #OPTIMIZE Usar aquele Time Helpers não sei o que pra congelar o tempo
+    #OPTIMIZE Usar aquele Time Helpers não sei o quê pra congelar o tempo
     #OPTIMIZE e não fazer um teste que pode quebrar na virada do dia
     data = DateTime.current
     expect(page).to have_content(commenter.name)

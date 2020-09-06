@@ -44,8 +44,10 @@
       <% comment = Comment.where('product_id = ?', @product.id) %>
       <% if not comment.blank? %>
         <h3>Comentários:</h3>
+        <%#OPTIMIZE Por que esse each em uma linha não funciona?%>
+        <%#= comment.each {|com| render com, locals: {comment: :com}} %>
         <% comment.each do |com| %>
-          <%= render com, locals:{comment: :com} %>
+          <%= render com, locals: {comment: :com} %>
         <% end %>
       <% else %>
         <h5>Ninguém deixou nenhum comentário ainda.</h5>

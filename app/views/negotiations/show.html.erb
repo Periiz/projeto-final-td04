@@ -69,6 +69,21 @@
       <li><%= @negotiation.buyer_email %></li>
     </ul>
 
+    <% if @negotiation.negotiating? %>
+      <p>--------------------------------------------------</p>
+      <h4>Mensagens</h4>
+      <p>--------------------------------------------------</p>
+      <% @messages.each do |message| %>
+        <%= render message, locals: {message: :message} %>
+      <% end %>
+      <%#OPTIMIZE Podia dar um jeito de usar esse each em uma linha, né %>
+      <%#= @messages.each {|message| render message, locals: {message: :message}} %>
+      <p>--------------------------------------------------</p>
+      <%= render 'messages/new_message' %>
+    <% else %>
+      <p>Quando a negociação for aceita, mensagens poderão ser trocadas por aqui.</p>
+    <% end %>
+    
   <% end %>
 
 <% else %> <!-- Você não pode ver porque não está envolvido na negociação -->

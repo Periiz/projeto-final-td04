@@ -1,6 +1,7 @@
 class Negotiation < ApplicationRecord
   belongs_to :product
   belongs_to :collaborator
+  has_many :messages
 
   ############
   ###Collaborator é o COMPRADOR
