@@ -16,23 +16,24 @@
     <h3>Esta negociação foi concluída!</h3>
     <p>Detalhes da negociação:</p>
     <dl>
-      <dt>Comprador:</dt>
+      <dt><b>Produto:</b></dt>
+      <dd><%= @negotiation.product.name %></dd>
+      <%#TODO Foto do produto aqui %>
+      <%= @negotiation.product.description %><br><br>
+
+      <dt><b>Comprador:</b></dt>
       <dd><%= @negotiation.buyer_name %></dd>
       <dd><%= @negotiation.product.collaborator.sector %></dd>
       <dd><%= @negotiation.buyer_email %></dd><br>
 
-      <dt>Vendedor:</dt>
+      <dt><b>Vendedor:</b></dt>
       <dd><%= @negotiation.seller_name %></dd>
       <dd><%= @negotiation.collaborator.sector %></dd>
       <dd><%= @negotiation.seller_email %></dd><br>
 
-      <dt>Preço final e data da venda:</dt>
+      <dt><b>Preço final e data da venda:</b></dt>
       <dd><%= number_to_currency(@negotiation.final_price) %></dd>
       <dd><%= l(@negotiation.date_of_end) %></dd><br>
-
-      <dt>Produto:</dt>
-      <dd><%= @negotiation.product.name %></dd>
-      <%= @negotiation.product.description %><br>
     </dl>
 
   <% else %>
@@ -70,6 +71,6 @@
 
   <% end %>
 
-<% else %>
+<% else %> <!-- Você não pode ver porque não está envolvido na negociação -->
   Somente pessoas envolvidas na negociação podem ver detalhes da mesma.
 <% end %>

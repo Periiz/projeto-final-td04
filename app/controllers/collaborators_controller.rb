@@ -22,6 +22,7 @@ class CollaboratorsController < ApplicationController
   def products
     @collaborator = Collaborator.find(params[:id])
     @products = Product.where('collaborator_id = ?', @collaborator.id)
+                       .where.not(status: :canceled).where.not(status: :sold)
   end
 
   private
