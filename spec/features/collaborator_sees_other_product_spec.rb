@@ -68,4 +68,25 @@ feature "Collaborator sees another person's product" do
     expect(page).to_not have_content('Bom livro')
     expect(page).to_not have_content('R$ 40,00')
   end
+
+  scenario "can't see invisible products" do
+    seller = Collaborator.create(email:'seller@email.com', password:'123456',
+                                 full_name:'Usuário Vendedor', social_name: 'Vendedor',
+                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+    buyer = Collaborator.create(email:'buyer@email.com', password:'098765',
+                                full_name:'Usuário Comprador', social_name: 'Comprador',
+                                position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+
+    product_category = ProductCategory.create(name: 'Livros')
+    product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
+                            description: 'Bom livro', sale_price: 40, collaborator: seller)
+    product.invisible!
+    product.reload
+
+    login_as(buyer, scope: :collaborator)
+    visit product_path(product)
+
+    expect(page).to have_content('Parece que este anúncio já foi tirado do ar! Talvez ele tenha sido cancelado, vendido, ou está invisível.')
+    expect(page).to_not have_content(product.name)
+  end
 end

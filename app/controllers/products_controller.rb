@@ -28,9 +28,9 @@ class ProductsController < ApplicationController
     @products = Product.where('name LIKE ? OR description LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%")
                        .where('seller_domain = ?', current_collaborator.domain)
                        .where(status: :avaiable).where('collaborator_id != ?', current_collaborator.id)
-    if (params.has_key?(:cat))
-      @products = @products.where('product_category_id = ?', params[:cat])
-    end
+
+    @products = @products.where('product_category_id = ?', params[:cat]) if (params.has_key?(:cat))
+
     render search_products_path
   end
 
@@ -51,7 +51,15 @@ class ProductsController < ApplicationController
 
   def canceled
     prod = Product.find(params[:id])
-    prod.canceled!
+    parcial = Negotiation.where('product_id = ?', params[:id])
+
+    if parcial.where(status: :negotiating).blank?
+      prod.canceled!
+      parcial.where(status: :waiting).each {|w| w.canceled!}
+    else
+      flash[:notice] = 'Não é possível cancelar um produto que faz parte de uma negociação em andamento'
+    end
+
     redirect_to prod
   end
 
