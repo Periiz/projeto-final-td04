@@ -9,15 +9,15 @@ feature 'Collaborator searches product' do
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller,
                               seller_domain: seller.domain)
 
-      another_product = Product.create!(name: "How to Read Your Opponent's Cards, Mike Lawrence",
-                                        product_category: product_category, description: 'Muito bom livro',
-                                        sale_price: 50, collaborator: seller, seller_domain: seller.domain)
+      another_product = Product.create(name: "How to Read Your Opponent's Cards, Mike Lawrence",
+                                       product_category: product_category, description: 'Muito bom livro',
+                                       sale_price: 50, collaborator: seller, seller_domain: seller.domain)
 
       login_as(searcher, scope: :collaborator)
       visit root_path
@@ -41,16 +41,16 @@ feature 'Collaborator searches product' do
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'03/10/1995')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller,
                               seller_domain: seller.domain)
 
-      another_product = Product.create!(name: 'Adventures in Card Play, Hugh Kelsey', sale_price: 50,
-                                        description: 'Encante-se com a beleza deste jogo fascinante e suas posições mirabolantes!',
-                                        product_category: product_category, collaborator: seller,
-                                        seller_domain: seller.domain)
+      another_product = Product.create(name: 'Adventures in Card Play, Hugh Kelsey', sale_price: 50,
+                                       description: 'Encante-se com a beleza deste jogo fascinante e suas posições mirabolantes!',
+                                       product_category: product_category, collaborator: seller,
+                                       seller_domain: seller.domain)
 
       login_as(searcher, scope: :collaborator)
       visit root_path
@@ -73,7 +73,7 @@ feature 'Collaborator searches product' do
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller,
@@ -123,13 +123,13 @@ feature 'Collaborator searches product' do
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Descrição diferente', sale_price: 40, collaborator: seller,
                               seller_domain: seller.domain)
 
-      another_product = Product.create!(name: "How to Read Your Opponent's Cards, Mike Lawrence",
+      another_product = Product.create(name: "How to Read Your Opponent's Cards, Mike Lawrence",
                                         product_category: product_category, description: 'Muito bom livro',
                                         sale_price: 50, collaborator: seller, seller_domain: seller.domain)
 
@@ -155,13 +155,13 @@ feature 'Collaborator searches product' do
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'03/10/1995')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Descrição com a palavra jogo', sale_price: 40,
                               collaborator: seller, seller_domain: seller.domain)
 
-      another_product = Product.create!(name: 'Adventures in Card Play, Hugh Kelsey', sale_price: 50,
+      another_product = Product.create(name: 'Adventures in Card Play, Hugh Kelsey', sale_price: 50,
                                         description: 'Encante-se com a beleza deste jogo fascinante e suas posições mirabolantes!',
                                         product_category: product_category, collaborator: seller,
                                         seller_domain: seller.domain)
@@ -187,7 +187,7 @@ feature 'Collaborator searches product' do
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller,
@@ -211,7 +211,7 @@ feature 'Collaborator searches product' do
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller,
@@ -241,15 +241,15 @@ feature 'Collaborator searches product' do
       wrong_seller = Collaborator.create(email:'hiddenseller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor Errado', social_name: 'Errou',
                                   position: 'Cargo', sector: 'Setor', birth_date:'10/01/1997')
-      category_livro = ProductCategory.create!(name: 'Livros')
-      category_roupa = ProductCategory.create!(name: 'Roupas')
+      category_livro = ProductCategory.create(name: 'Livros')
+      category_roupa = ProductCategory.create(name: 'Roupas')
       
       find_this_product = Product.create(name: 'Como costurar camisas que perderam botões',
                               product_category: category_livro, seller_domain: seller.domain,
                               description: 'Guia completo. Nunca mais fique com camisas sem botões!',
                               sale_price: 40, collaborator: seller)
 
-      dont_find_this_product = Product.create!(name: 'Camisa Social Bonita',
+      dont_find_this_product = Product.create(name: 'Camisa Social Bonita',
                                         product_category: category_roupa, sale_price: 50,
                                         description: 'Camisas novas 0 quilômetros, tratar por email',
                                         collaborator: wrong_seller, seller_domain: wrong_seller.domain)
@@ -279,8 +279,8 @@ feature 'Collaborator searches product' do
       wrong_seller = Collaborator.create(email:'hiddenseller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor Errado', social_name: 'Errou',
                                   position: 'Cargo', sector: 'Setor', birth_date:'10/01/1997')
-      category_livro = ProductCategory.create!(name: 'Livros')
-      category_roupa = ProductCategory.create!(name: 'Roupas')
+      category_livro = ProductCategory.create(name: 'Livros')
+      category_roupa = ProductCategory.create(name: 'Roupas')
       
       find_this_product_1 = Product.create(name: 'Como costurar camisas que perderam botões',
                               product_category: category_livro, seller_domain: seller.domain,
@@ -325,8 +325,8 @@ feature 'Collaborator searches product' do
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
                                   position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
 
-      category_livro = ProductCategory.create!(name: 'Livros')
-      category_roupa = ProductCategory.create!(name: 'Roupas')
+      category_livro = ProductCategory.create(name: 'Livros')
+      category_roupa = ProductCategory.create(name: 'Roupas')
       
       product_1 = Product.create(name: 'Como costurar camisas que perderam botões',
                               product_category: category_livro, seller_domain: seller.domain,
@@ -369,7 +369,7 @@ feature 'Collaborator searches product' do
     user = Collaborator.create(email:'seller@email.com', password:'123456',
                                 full_name:'Usuário Vendedor', social_name: 'Seller',
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-    product_category = ProductCategory.create!(name: 'Livros')
+    product_category = ProductCategory.create(name: 'Livros')
     
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                             description: 'Bom livro', sale_price: 40, collaborator: user,

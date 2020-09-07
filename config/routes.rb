@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   resources :negotiations, only: [:index, :show, :edit, :update] do
     resources :messages, only: [:create, :show]
     post 'negotiating', on: :member
-    post 'sold', on: :member
     post 'canceled', on: :member
   end
 end

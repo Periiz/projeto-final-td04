@@ -1,4 +1,4 @@
-<p><%= link_to 'Voltar', negotiations_path %></p>
+<p><%= link_to 'Voltar', negotiations_path %> - <%= link_to 'Página do produto', product_path(@negotiation.product) %></p>
 
 <% if @negotiation.seller_id == current_collaborator.id or @negotiation.buyer_id == current_collaborator.id %>
   <% if @negotiation.canceled? %>
@@ -39,12 +39,8 @@
     <% @messages.each do |message| %>
       <%= render message, locals: {message: :message} %>
     <% end %>
-    <h3>Comentários na página do produto:</h3>
-    <% @negotiation.product.comments.each do |com| %>
-      <%= render com, locals:{comment: :com} %>
-    <% end %>
 
-  <% else %> <!-- Está "negotiating" -->
+  <% else %> <!-- Está "negotiating" ou "waiting" -->
 
     <% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
 
@@ -77,7 +73,7 @@
       <li><%= @negotiation.buyer_email %></li>
     </ul>
 
-    <% if @negotiation.negotiating? %>
+    <% if @negotiation.negotiating? %> <!-- Seção das mensagens -->
       <p>--------------------------------------------------</p>
       <h4>Mensagens</h4>
       <p>--------------------------------------------------</p>
@@ -87,10 +83,10 @@
       <%#OPTIMIZE Podia dar um jeito de usar esse each em uma linha, né %>
       <%#= @messages.each {|message| render message, locals: {message: :message}} %>
       <p>--------------------------------------------------</p>
-      <%= render 'messages/new_message' %>
     <% else %>
       <p>Quando a negociação for aceita, mensagens poderão ser trocadas por aqui.</p>
     <% end %>
+    <%= render 'messages/new_message' if @negotiation.negotiating? %>
     
   <% end %>
 

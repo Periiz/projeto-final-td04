@@ -26,9 +26,12 @@ class CollaboratorsController < ApplicationController
   end
 
   def history
-    coluna = (params[:q] == 'vendidos') ? 'seller_id' : 'collaborator_id'
-    @negotiations = coluna ? Negotiation.where("#{coluna} = ?", params[:id])
-                                        .where(status: :sold) : []
+    if params.has_key?(:q)
+      coluna = (params[:q] == 'vendidos') ? 'seller_id' : 'collaborator_id'
+      @negotiations = Negotiation.where("#{coluna} = ?", params[:id]).sold
+    else
+      @negotiations = []
+    end
   end
 
   private

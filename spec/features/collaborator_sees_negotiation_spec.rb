@@ -3,14 +3,14 @@ require 'rails_helper'
 feature 'Collaborator sees negotiation' do
   context 'as seller' do
     scenario 'with negotiation still waiting' do
-      seller = Collaborator.create!(email:'seller@email.com', password:'123456',
-                                    full_name:'Usuário Vendedor', social_name: 'Seller',
-                                    position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
-      buyer = Collaborator.create!(email:'buyer@email.com', password:'098765',
+      seller = Collaborator.create(email:'seller@email.com', password:'123456',
+                                   full_name:'Usuário Vendedor', social_name: 'Seller',
+                                   position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
+      buyer = Collaborator.create(email:'buyer@email.com', password:'098765',
                                   full_name:'Usuário Comprador', social_name: 'Buyer',
                                   position: 'Cargo', sector: 'Setor', birth_date:Date.parse('10/01/1997'))
 
-      product_category = ProductCategory.create!(name: 'Livros')
+      product_category = ProductCategory.create(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller)
       negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id)
@@ -152,8 +152,7 @@ feature 'Collaborator sees negotiation' do
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                                description: 'Bom livro', sale_price: 40, collaborator: seller)
-      negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id,
-                                       date_of_start: DateTime.current)
+      negotiation = Negotiation.create(collaborator: buyer, seller_id: seller.id, product: product)
 
       login_as(seller, scope: :collaborator)
       visit root_path
@@ -168,7 +167,7 @@ feature 'Collaborator sees negotiation' do
       click_on 'Confirmar'
       negotiation.reload
 
-      expect(negotiation).to be_sold #Whyyyyyy
+      expect(negotiation).to be_sold
       expect(negotiation).to_not be_negotiating
       expect(negotiation).to_not be_canceled
       expect(page).to have_content('Esta negociação foi concluída!')

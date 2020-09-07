@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Collaborator fills profile' do
   scenario 'successfully' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456')
+    user = Collaborator.create(email:'user@email.com', password:'123456')
 
     login_as(user, scope: :collaborator)
     visit root_path
@@ -22,7 +22,7 @@ feature 'Collaborator fills profile' do
   end
 
   scenario 'did not fill' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456')
+    user = Collaborator.create(email:'user@email.com', password:'123456')
 
     login_as(user, scope: :collaborator)
     visit root_path

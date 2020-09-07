@@ -2,10 +2,10 @@ require 'rails_helper'
 
 feature 'Collaborator posts a new product' do
   scenario 'successfully' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
-                                full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:Date.parse('08/08/1994'))
-    product_category = ProductCategory.create!(name: 'Livros')
+    user = Collaborator.create(email:'user@email.com', password:'123456',
+                               full_name:'Usuário Colaborador', social_name: 'User',
+                               position: 'Cargo', sector: 'Setor', birth_date: Date.parse('08/08/1994'))
+    product_category = ProductCategory.create(name: 'Livros')
 
     login_as(user, scope: :collaborator)
     visit root_path
@@ -26,9 +26,9 @@ feature 'Collaborator posts a new product' do
   end
 
   scenario 'must fill all fields' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
-                                full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+    user = Collaborator.create(email:'user@email.com', password:'123456',
+                               full_name:'Usuário Colaborador', social_name: 'User',
+                               position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
 
     login_as(user, scope: :collaborator)
     visit root_path
@@ -44,10 +44,10 @@ feature 'Collaborator posts a new product' do
   end
 
   scenario 'price must be greater than or equal to 0' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
-                                full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
-    product_category = ProductCategory.create!(name: 'Livros')
+    user = Collaborator.create(email:'user@email.com', password:'123456',
+                               full_name:'Usuário Colaborador', social_name: 'User',
+                               position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+    product_category = ProductCategory.create(name: 'Livros')
 
     login_as(user, scope: :collaborator)
     visit root_path
@@ -64,8 +64,8 @@ feature 'Collaborator posts a new product' do
   end
 
   scenario 'must fill in profile' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456')
-    product_category = ProductCategory.create!(name: 'Livros')
+    user = Collaborator.create(email:'user@email.com', password:'123456')
+    product_category = ProductCategory.create(name: 'Livros')
 
     login_as(user, scope: :collaborator)
     visit root_path
@@ -80,10 +80,10 @@ feature 'Collaborator posts a new product' do
   end
 
   scenario 'from profile' do
-    user = Collaborator.create!(email:'user@email.com', birth_date:Date.parse('08/08/1994'),
-                                full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', password:'123456')
-    product_category = ProductCategory.create!(name: 'Livros')
+    user = Collaborator.create(email:'user@email.com', birth_date: Date.parse('08/08/1994'),
+                               full_name:'Usuário Colaborador', social_name: 'User',
+                               position: 'Cargo', sector: 'Setor', password:'123456')
+    product_category = ProductCategory.create(name: 'Livros')
 
     login_as(user, scope: :collaborator)
     visit root_path

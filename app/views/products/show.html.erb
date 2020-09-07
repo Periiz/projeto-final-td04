@@ -17,47 +17,61 @@
       <h3><%= @product.name %></h3>
       <p><%= @product.description %></p>
       <%= number_to_currency(@product.sale_price) %><br>
-      <% comment = Comment.where('product_id = ?', @product.id) %>
-      <% if not comment.blank? %>
-        <h3>Comentários:</h3>
-        <% comment.each do |com| %>
-          <%= render com, locals:{comment: :com} %>
-        <% end %>
-      <% else %>
-        <h5>Ninguém deixou nenhum comentário ainda.</h5>
-      <% end %>
-      <%#TODO Poder responder os comentários %>
 
-    <% else %>
-      Parece que este anúncio já foi tirado do ar!<br>
-      Talvez ele tenha sido cancelado, vendido, ou está invisível.
+    <% elsif @product.sold? %>
+
+      <h3><%= @product.name %></h3>
+      <% #TODO Foto do produto aqui, também. %>
+      <%= @product.description %><br><br>
+      <p><b>Este produto foi vendido!</b></p>
+      <% neg = Negotiation.where(product_id: @product).sold.first %>
+      <dl>
+        <dt>Comprador:</dt>
+        <dd><%= neg.buyer_name %></dd>
+        <dd><%= neg.collaborator.sector %></dd>
+        <dd><%= neg.buyer_email %></dd>
+      </dl>
+      <%= link_to 'Ver negociação', negotiation_path(neg) %>
+
+    <% else %> <!-- Produto cancelado -->
+      Este anúncio foi cancelado.<br>
     <% end %>
 
   <% else %> <!-- Você está vendo o produto de outra pessoa -->
     <% if @product.avaiable? %>
+
       <h3><%= @product.name %><h3>
       <h4>Anunciado por <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator.id) %></h4><br>
       <p><%= @product.description %></p>
       <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product.id), method: :get %><br>
-      <%#TODO Adicionar confimação da compra %>
-      <%#data: {confirm: 'Você quer mesmo comprar este produto?'} Ainda não fiz isso porque não sei fazer o Capybara testar%>
-      <% comment = Comment.where('product_id = ?', @product.id) %>
-      <% if not comment.blank? %>
-        <h3>Comentários:</h3>
-        <%#OPTIMIZE Por que esse each em uma linha não funciona?%>
-        <%#= comment.each {|com| render com, locals: {comment: :com}} %>
-        <% comment.each do |com| %>
-          <%= render com, locals: {comment: :com} %>
-        <% end %>
-      <% else %>
-        <h5>Ninguém deixou nenhum comentário ainda.</h5>
-      <% end %>
-      <%#TODO Poder responder os comentários %>
-      <%= render 'comments/form' %>
-    <% else %>
+
+    <% elsif @product.sold? %>
+
+      <p><b>Este produto foi vendido!</b></p>
+      <h3><%= @product.name %></h3>
+      <%= @product.description %><br><br>
+      <% neg = Negotiation.where(product_id: @product).sold.first %>
+      <%= link_to 'Ver detalhes da negociação', negotiation_path(neg) if current_collaborator.id == neg.collaborator.id %>
+
+    <% else %> <!-- invisível ou cancelado -->
       Parece que este anúncio já foi tirado do ar!<br>
-      Talvez ele tenha sido cancelado, vendido, ou está invisível.
+      Talvez ele tenha sido cancelado ou está invisível.
     <% end %>
   <% end %>
+
+  <!-- Seção de comentários -->
+  <% comment = Comment.where('product_id = ?', @product.id) %>
+  <% if not comment.blank? %>
+    <h3>Comentários:</h3>
+    <%#OPTIMIZE Por que esse each em uma linha não funciona?%>
+    <%#= comment.each {|com| render com, locals: {comment: :com}} %>
+    <% comment.each do |com| %>
+      <%= render com, locals:{comment: :com} %>
+    <% end %>
+  <% else %>
+    <h5>Ninguém deixou nenhum comentário ainda.</h5>
+  <% end %>
+  <%= render 'comments/form' if not (@product.sold? or @product.canceled?) %>
+  <%#TODO Poder responder os comentários %>
 
 <% end %>

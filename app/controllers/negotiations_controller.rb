@@ -41,8 +41,6 @@ class NegotiationsController < ApplicationController
   def update
     @negotiation = Negotiation.find(params[:id])
 
-    # FIXME A maneira como eu fiz isso certamente ta errada, tem algo
-    # FIXME de errado com esse controller/view/model, sei lá
     if params[:negotiation][:final_price].present?
       @negotiation.final_price = params[:negotiation][:final_price]
       @negotiation.sold!
@@ -63,13 +61,6 @@ class NegotiationsController < ApplicationController
   def negotiating
     neg = Negotiation.find(params[:id])
     neg.negotiating!
-    redirect_to neg
-  end
-
-  def sold
-    neg = Negotiation.find(params[:id])
-    neg.sold!
-    neg.update(date_of_end: DateTime.current)
     redirect_to neg
   end
 

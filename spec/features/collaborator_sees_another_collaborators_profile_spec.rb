@@ -2,13 +2,13 @@ require 'rails_helper'
 
 feature "Collaborator sees another collaborator's profile" do
   scenario 'with profile already filled' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
-                                full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+    user = Collaborator.create(email:'user@email.com', password:'123456',
+                               full_name:'Usuário Colaborador', social_name: 'User',
+                               position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
 
-    another_user = Collaborator.create!(email:'another@email.com', password:'098765',
-                                        full_name:'Outra Pessoa', social_name: 'Vendedor Teste',
-                                        position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
+    another_user = Collaborator.create(email:'another@email.com', password:'098765',
+                                       full_name:'Outra Pessoa', social_name: 'Vendedor Teste',
+                                       position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
 
     login_as(user, scope: :collaborator)
     visit collaborator_path(another_user)
@@ -27,11 +27,11 @@ feature "Collaborator sees another collaborator's profile" do
   end
 
   scenario 'with profile not filled' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
-                                full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+    user = Collaborator.create(email:'user@email.com', password:'123456',
+                               full_name:'Usuário Colaborador', social_name: 'User',
+                               position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
 
-    another_user = Collaborator.create!(email:'another@email.com', password:'098765')
+    another_user = Collaborator.create(email:'another@email.com', password:'098765')
 
     login_as(user, scope: :collaborator)
     visit collaborator_path(another_user)
@@ -41,13 +41,13 @@ feature "Collaborator sees another collaborator's profile" do
   end
 
   scenario 'with profile partially filled' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
-                                full_name:'Usuário Colaborador', social_name: 'User',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+    user = Collaborator.create(email:'user@email.com', password:'123456',
+                               full_name:'Usuário Colaborador', social_name: 'User',
+                               position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
 
-    another_user = Collaborator.create!(email:'another@email.com', password:'098765',
-                                        full_name:'Outra Pessoa',
-                                        position: 'Cargo', sector: 'Setor')
+    another_user = Collaborator.create(email:'another@email.com', password:'098765',
+                                       full_name:'Outra Pessoa',
+                                       position: 'Cargo', sector: 'Setor')
 
     login_as(user, scope: :collaborator)
     visit collaborator_path(another_user)
@@ -60,11 +60,11 @@ feature "Collaborator sees another collaborator's profile" do
   end
 
   scenario 'from another company' do
-    user = Collaborator.create!(email:'user@email.com', password:'123456',
+    user = Collaborator.create(email:'user@email.com', password:'123456',
                                 full_name:'Usuário Colaborador', social_name: 'User',
                                 position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
 
-    another_user = Collaborator.create!(email:'another@different-email.com', password:'098765',
+    another_user = Collaborator.create(email:'another@different-email.com', password:'098765',
                                         full_name:'Outra Pessoa', social_name: 'Vendedor Teste',
                                         position: 'Cargo', sector: 'Setor', birth_date:'01/01/1997')
 
