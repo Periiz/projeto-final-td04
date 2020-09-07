@@ -25,6 +25,12 @@ class CollaboratorsController < ApplicationController
                        .where.not(status: :canceled).where.not(status: :sold)
   end
 
+  def history
+    coluna = (params[:q] == 'vendidos') ? 'seller_id' : 'collaborator_id'
+    @negotiations = coluna ? Negotiation.where("#{coluna} = ?", params[:id])
+                                        .where(status: :sold) : []
+  end
+
   private
 
   def collaborator_params

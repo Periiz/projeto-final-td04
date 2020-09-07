@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :collaborators, only: [:show, :edit, :update] do
     get :products, on: :member
+    get :history, on: :member
   end
 
   resources :products, only: [:show, :new, :create] do

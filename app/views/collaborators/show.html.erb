@@ -22,7 +22,8 @@
   <% else %>
     <%= link_to 'Suas negociações', negotiations_path %>
   <% end %>
-  <%= link_to 'Histórico' %>
+
+  <%= link_to 'Histórico', history_collaborator_path(current_collaborator) %>
   <%#TODO Foto de perfil? %>
   <%#TODO Lista de desejos %>
 

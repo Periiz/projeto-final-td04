@@ -4,7 +4,7 @@
   <% else %>
     <span, style ='color:darkred'>
   <% end %>
-  <%= '%-3.10s' % message.collaborator.name.split.first %></span>:
+  <%= message.collaborator.name.split.first[0,10] %></span>:
 </b>
 
 <%= message.text %><br>

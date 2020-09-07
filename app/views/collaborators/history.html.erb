@@ -1,0 +1,26 @@
+<p><%= link_to 'Voltar', collaborator_path(current_collaborator) %></p>
+  <% # %>
+<% if current_collaborator != Collaborator.find(params[:id]) %> <!-- Histórico de outra pessoa -->
+  Você não pode ver o histórico alheio!
+<% else %> <!-- Você está vendo o seu próprio histórico -->
+  <h2>
+    | <%= link_to 'Vendidos', history_collaborator_path(id: params[:id], q: 'vendidos') %> |
+    <%= link_to 'Comprados', history_collaborator_path(id: params[:id], q: 'comprados') %> |
+  </h4>
+
+  <% if @negotiations.blank? and params[:q] %>
+    Você não tem produtos <%= params[:q] %> ainda.
+  <% else %>
+    <% @negotiations.reverse.each do |negotiation| %>
+      <h4><%= negotiation.product.name %></h4>
+      <ul>
+        <li><%= negotiation.buyer_name %></li>
+        <%#TODO Fotos aqui também!%>
+        <li><%= number_to_currency(negotiation.final_price) %></li>
+        <li><%= negotiation.date_of_end.strftime("%d/%m/") + negotiation.date_of_end.year.to_s %></li>
+        <%= link_to 'Ver detalhes', negotiation_path(negotiation) %>
+      </ul>
+    <% end %>
+  <% end %>
+
+<% end %>

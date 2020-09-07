@@ -35,8 +35,16 @@
       <dd><%= number_to_currency(@negotiation.final_price) %></dd>
       <dd><%= l(@negotiation.date_of_end) %></dd><br>
     </dl>
+    <h3>Mensagens trocadas entre colaboradores:</h3>
+    <% @messages.each do |message| %>
+      <%= render message, locals: {message: :message} %>
+    <% end %>
+    <h3>Comentários na página do produto:</h3>
+    <% @negotiation.product.comments.each do |com| %>
+      <%= render com, locals:{comment: :com} %>
+    <% end %>
 
-  <% else %>
+  <% else %> <!-- Está "negotiating" -->
 
     <% if @negotiation.seller_id == current_collaborator.id and @negotiation.waiting? %>
 
