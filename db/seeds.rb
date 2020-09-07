@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+ProductCategory.create(name: 'Outros')
+ProductCategory.create(name: 'Livros')
+ProductCategory.create(name: 'Eletrônicos')
+ProductCategory.create(name: 'Roupas')
+Collaborator.create(email:'seller@email.com', password:'123456', social_name: 'Seller',
+                    full_name:'Usuário Vendedor', position: 'Cargo',
+                    sector: 'Setor', birth_date: Date.parse('08/08/1994'))
