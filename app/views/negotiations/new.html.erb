@@ -1,20 +1,18 @@
-<p><%= link_to 'Voltar', product_path(@product) %></p>
+<p><%= link_to 'Voltar para o produto', product_path(@product) %></p>
 
 <% if @product.collaborator.domain == current_collaborator.domain %>
 
   <% if @product.collaborator.id != current_collaborator.id %>
 
     <h2>Você quer mesmo iniciar a negociação deste produto?</h2>
-
+    <%= link_to 'Iniciar Negociação', product_negotiations_path(@product),
+        {method: :post, style:'font-size:110% ; color:red', class:'css_class'} %>
     <h3><%= @product.name %></h3>
     <h4>Aunciado por <b style='color:green'><%= @product.collaborator.name%></b></h4>
     <%#TODO Talvez aqui também devesse ver todas as fotos, quando tiver mais que uma?%>
-    <%= image_tag @product.photos.empty? ? 'default_product.png' :
-                                            @product.photos.first.variant(resize: '200x400').processed %>
+    <%= image_tag @product.first_photo %>
     <p><%= @product.description %></p>
-    <%= number_to_currency(@product.sale_price) %><br><br>
-
-    <%= link_to 'Iniciar Negociação', product_negotiations_path(@product), method: :post %>
+    <span style="color:green"><%= number_to_currency(@product.sale_price) %></span><br><br>
 
   <% else %>
     Você não pode iniciar uma negociação consigo mesmo!

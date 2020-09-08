@@ -42,18 +42,15 @@ class Collaborator < ApplicationRecord
   private
 
   def add_default_avatar
-    #Eu copiei um código que vi, nunca manipulei arquivos com ruby
-    #então eu meio que não tenho a menor ideia do que isso faz
+    #Eu copiei um código que vi, nunca manipulei arquivos com ruby então 
+    #eu meio que não tenho a menor ideia do que isso faz, mas parece que
+    #eu abri um arquivo passando o caminho relativo usando o
+    #Rails.root + join(...), mas agora eu dei/passei (?) o nome e o tipo...?
+    #https://edgeguides.rubyonrails.org/active_storage_overview.html#attaching-file-io-objects
     if not avatar.attached?
-      avatar.attach(
-        io: File.open(
-          Rails.root.join(
-            "app/assets/images/default_avatar_#{id%4}.png"
-          )
-        ),
-        filename: "default_avatar_#{id%4}.png",
-        content_type: 'image/png'
-      )
+      avatar.attach(io: File.open(Rails.root.join("app/assets/images/default_avatar_#{id%4-1}.png")),
+                    filename: "default_avatar_#{id%4-1}.png",
+                    content_type: 'image/png', identify: false)
     end
   end
 end

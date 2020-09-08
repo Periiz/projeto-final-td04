@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
   belongs_to :product
-  has_one :collaborator
+  belongs_to :collaborator
 
   validates :text, presence: true
 end

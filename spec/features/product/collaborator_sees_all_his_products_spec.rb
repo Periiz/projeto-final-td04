@@ -31,7 +31,7 @@ feature 'Collaborator sees all of his products' do
     click_on 'Perfil'
     click_on 'Seus anúncios'
 
-    expect(page).to have_content('Você ainda não fez nenhum anúncio!')
+    expect(page).to have_content('Você não tem nenhum anúncio no momento.')
     expect(page).to have_content('Para anunciar algum item à venda, clique em Anunciar!')
     expect(page).to have_link('Anunciar', href: new_product_path)
   end
@@ -49,7 +49,7 @@ feature 'Collaborator sees all of his products' do
     login_as(user, scope: :collaborator)
     visit products_collaborator_path(user)
 
-    expect(page).to have_content('Você ainda não fez nenhum anúncio!')
+    expect(page).to have_content('Você não tem nenhum anúncio no momento.')
     expect(page).to have_link('Anunciar')
     expect(page).to_not have_content(product.name)
   end

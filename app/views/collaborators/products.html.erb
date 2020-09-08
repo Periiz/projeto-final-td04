@@ -11,7 +11,7 @@
 
     <% else %>
       <% if @products.empty? %>
-        <p>Você ainda não fez nenhum anúncio!<p>
+        <p>Você não tem nenhum anúncio no momento.<p>
         <p>Para anunciar algum item à venda, clique em <%= link_to 'Anunciar', new_product_path %>!</p>
       <% else %>
         <h2>Seus anúncios:</h2>
@@ -20,9 +20,7 @@
         <% @products.each do |product| %>  
           <p>--------------------------------------------------</p>
           <%= link_to product.name, product_path(product) %><br>
-          <%= link_to(image_tag(product.photos.empty? ? 'default_product.png' :
-                                                    product.photos.first.variant(resize: '100x200').processed),
-                                                    product_path(product)) %><br>
+          <%= link_to(image_tag(product.first_photo), product_path(product)) %><br>
           <span style="color:green"><%= number_to_currency(product.sale_price) %></span>
         <% end %>
 
@@ -40,9 +38,7 @@
         <p>--------------------------------------------------</p>
         <h2><%= "Anúncios de #{@collaborator.name}:" %></h2>
         <%= link_to product.name, product_path(product) %><br>
-        <%= link_to(image_tag(product.photos.empty? ? 'default_product.png' :
-                                                    product.photos.first.variant(resize: '100x200').processed),
-                                                    product_path(product)) %><br>
+        <%= link_to(image_tag(product.first_photo), product_path(product)) %><br>
         <%= number_to_currency(product.sale_price) %><br>
       <% end %>
     <% end %>

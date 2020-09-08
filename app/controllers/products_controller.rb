@@ -32,6 +32,10 @@ class ProductsController < ApplicationController
     @products = @products.where('product_category_id = ?', params[:cat]) if (params.has_key?(:cat))
   end
 
+  def photos
+    @product = Product.find(params[:id])
+  end
+
   ###Métodos para mudar o estado
   ###################
 
@@ -64,6 +68,6 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product)
           .permit(:name,:product_category_id,
-                  :description, :sale_price, photos:[])
+                  :description, :sale_price, photos: [])
   end
 end

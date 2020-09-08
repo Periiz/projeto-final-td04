@@ -17,9 +17,7 @@
       <h4><%= negotiation.product.name %></h4>
       <ul>
         <li><%= negotiation.buyer_name %></li>
-        <%= link_to(image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
-                                                    negotiation.product.photos.first.variant(resize: '100x200').processed),
-                                                    product_path(negotiation.product)) %><br>
+        <%= link_to(image_tag(negotiation.product.first_photo), product_path(negotiation.product)) %><br>
         <li><%= number_to_currency(negotiation.final_price) %></li>
         <li><%= negotiation.date_of_end.strftime("%d/%m/") + negotiation.date_of_end.year.to_s %></li>
         <%= link_to 'Ver detalhes', product_path(negotiation.product) %>

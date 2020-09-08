@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :negotiations, only: [:new, :create]
     resources :comments, only: [:create, :show]
     get 'search', on: :collection
+    get :photos, on: :member
     post 'invisible', on: :member
     post 'avaiable', on: :member
     post 'canceled', on: :member

@@ -46,15 +46,13 @@
     <p><%= neg.blank? ? "Você não tem nenhuma negociação pendente com #{@collaborator.name}." : "Negociações entre você e #{@collaborator.name}:" %></p>
     <% neg.each do |neg| %>
       <%= link_to neg.product.name, negotiations_path(neg) %><br>
-      <%= image_tag neg.product.photos.empty? ? 'default_product.png' :
-                                                neg.product.photos.first.variant(resize: '200x400').processed %><br>
+      <%= image_tag neg.product.first_photo %><br>
     <% end %>
     <p>--------------------------------------------------</p>
     Alguns anúncios de <b><%= "#{@collaborator.name}" %></b>:<br><br>
     <% Product.where(collaborator: @collaborator).avaiable.last(3).each do |product| %>
       <%= link_to product.name[0,50], product_path(product) %><%= '...' if product.name.size > 50 %><br>
-      <%= link_to image_tag product.photos.empty? ? 'default_product.png' :
-                                                    product.photos.first.variant(resize: '200x400').processed %><br>
+      <%= link_to image_tag product.first_photo %><br>
       <%= link_to number_to_currency(product.sale_price), product_path(product) %><br>
       <%= product.description[0,50] %><%= '...' if product.description.size > 50 %>
       <p>--------------------------------------------------</p>

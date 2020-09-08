@@ -1,4 +1,5 @@
-<% collab = Collaborator.find(comment.collaborator_id) %>
+<% collab = comment.collaborator %>
+
 <div style="float: left;">
   <%= image_tag collab.mini_avatar %>
 <div style="float: left">
@@ -10,5 +11,9 @@
     <%= comment.post_date.strftime("%d/%m/") + comment.post_date.year.to_s %>
   </span></b>
 </div>
+
+<% if comment.product.collaborator == collab %>
+  <br><b style="color:red ; font-size: 85%">Dono do produto</b><br>
+<% end %>
 <p><%= comment.text %></p>
 <p>--------------------------------------------------</p>

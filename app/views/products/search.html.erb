@@ -30,9 +30,7 @@
       <dt><%= link_to product.name, product_path(product) %></dt>
       <dd><%= product.seller_name[0,50] %></dd>
       <dd><%= product.collaborator.sector[0,50] %></dd>
-      <%= link_to(image_tag(product.photos.empty? ? 'default_product.png' :
-                                                    product.photos.first.variant(resize: '100x200').processed),
-                                                    product_path(product)) %>
+      <%= link_to(image_tag(product.first_photo), product_path(product)) %>
       <dd style="color:green"><%= number_to_currency(product.sale_price) %></dd>
       <%= product.description[0,50] %><%= "..." if product.description.size > 50 %>
     </dl>

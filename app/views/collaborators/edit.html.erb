@@ -7,10 +7,11 @@
 <% end %>
 
 <b><%= @collaborator.name if @collaborator.name.present? %></b><br>
-<b><%= @collaborator.email %></b>
+<b><%= @collaborator.email %></b><br>
+<%= image_tag @collaborator.avatar %><br>
 <%= form_with model: @collaborator, local: true do |f| %>
    <div>
-    <%= image_tag @collaborator.avatar %><br>
+    <%= f.label :avatar %>
     <%= f.file_field :avatar %><br><br>
   </div>
   <div>

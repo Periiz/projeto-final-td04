@@ -10,6 +10,6 @@ ProductCategory.create(name: 'Outros')
 ProductCategory.create(name: 'Livros')
 ProductCategory.create(name: 'Eletrônicos')
 ProductCategory.create(name: 'Roupas')
-Collaborator.create(email:'seller@email.com', password:'123456', social_name: 'Seller',
-                    full_name:'Usuário Vendedor', position: 'Cargo',
+Collaborator.create(email:'vendedor@email.com', password:'123456', social_name: 'Vendedor Teste',
+                    full_name:'Usuário Vendedor de Teste', position: 'Cargo',
                     sector: 'Setor', birth_date: Date.parse('08/08/1994'))

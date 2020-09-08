@@ -1,0 +1,11 @@
+<p><%= link_to 'Voltar para o produto', product_path(@product) %></p>
+
+  <% if @product.photos.count >= 1 %>
+    Fotos disponíveis para <b><%= @product.name %></b><br>
+
+    <% @product.photos.each do |photo| %>
+      <p><%= image_tag photo %><p>
+    <% end %>
+  <% else %>
+    O vendedor não disponibilizou nenhuma foto para <b><%= @product.name %></b>.<br>
+  <% end %>

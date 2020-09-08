@@ -5,13 +5,13 @@
 
     <h3>Esta negociação foi cancelada :(</h3>
     <p>O produto era:</p>
-    <li><%= @negotiation.product.name %></li>
-    <%= image_tag @negotiation.product.photos.empty? ? 'default_product.png' :
-                                                @negotiation.product.photos.first.variant(resize: '200x400').processed %><br>
+    <b><%= @negotiation.product.name %></b><br>
+    <%= image_tag @negotiation.product.first_photo %><br>
     <p>Do vendedor:</p>
-    <li><%= @negotiation.seller_name %></li>
-    <li><%= @negotiation.seller_email %></li>
     <%= image_tag @negotiation.product.collaborator.mini_avatar %><br>
+    <b><%= @negotiation.seller_name %></b><br>
+    <%= @negotiation.product.collaborator.sector %><br>
+    <%= @negotiation.seller_email %>
     <p>Cancelada em <%= l(@negotiation.date_of_end) %></p>
 
   <% elsif @negotiation.sold? %>
@@ -21,19 +21,18 @@
     <dl>
       <dt><b>Produto:</b></dt>
       <dd><%= @negotiation.product.name %></dd>
-      <%= image_tag @negotiation.product.photos.empty? ? 'default_product.png' :
-                                                @negotiation.product.photos.first.variant(resize: '200x400').processed %><br>
+      <%= image_tag @negotiation.product.first_photo %><br>
       <%= @negotiation.product.description %><br><br>
 
       <dt><b>Comprador:</b></dt>
       <%= image_tag @negotiation.collaborator.mini_avatar %><dd><%= @negotiation.buyer_name %></dd>
-      <dd><%= @negotiation.product.collaborator.sector %></dd>
+      <dd><%= @negotiation.collaborator.sector %></dd>
       <dd><%= @negotiation.buyer_email %></dd><br>
       
 
       <dt><b>Vendedor:</b></dt>
-      <%= image_tag @negotiation.product.collaborator.mini_avatar %><dd><%= @negotiation.seller_name %></dd>
-      <dd><%= @negotiation.collaborator.sector %></dd>
+      <%= image_tag @negotiation.product.collaborator.mini_avatar %><dd><%= @negotiation.seller_name %>
+      <dd><%= @negotiation.product.collaborator.sector %></dd>
       <dd><%= @negotiation.seller_email %></dd><br>
       
 
@@ -68,8 +67,7 @@
     <% end %>
 
     <h2><%= @negotiation.product.name %></h2>
-    <%= image_tag @negotiation.product.photos.empty? ? 'default_product.png' :
-                                                @negotiation.product.photos.first.variant(resize: '200x400').processed %><br>
+    <%= image_tag @negotiation.product.first_photo %><br>
     Vendedor:
     <ul>
       <li><%= @negotiation.seller_name %></li>

@@ -18,8 +18,7 @@
         <li><%= link_to negotiation_path(negotiation) do %>
             <%= negotiation.product.name %><br>
             <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
-            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
-                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+            <%= image_tag(negotiation.product.first_photo) %><br>
         <% end %>
       </ul>
     <% end %>
@@ -32,8 +31,7 @@
         <li><%= link_to negotiation_path(negotiation) do %>
             <%= negotiation.product.name %><br>
             <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
-            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
-                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+            <%= image_tag(negotiation.product.first_photo) %><br>
         <% end %>
       </ul>
     <% end %>
@@ -59,8 +57,7 @@
         <li><%= link_to negotiation_path(negotiation) do %>
             <%= negotiation.product.name %><br>
             <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
-            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
-                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+            <%= image_tag(negotiation.product.first_photo) %><br>
         <% end %>
       </ul>
     <% end %>
@@ -73,8 +70,7 @@
         <li><%= link_to negotiation_path(negotiation) do %>
             <%= negotiation.product.name %><br>
             <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
-            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
-                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+            <%= image_tag(negotiation.product.first_photo) %><br>
         <% end %>
       </ul>
     <% end %>
