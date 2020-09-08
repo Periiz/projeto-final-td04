@@ -3,19 +3,21 @@
 <% if current_collaborator.id == @collaborator.id %>
 <!-- Você está vendo o seu próprio perfil -->
 
-  <% if not current_collaborator.profile_filled? %>
+  <% if not @collaborator.profile_filled? %>
     <p, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
     necessário preencher o seu perfil com as informações faltantes!</p>
-    <h3><%= link_to 'Editar informações •', edit_collaborator_path(current_collaborator),
+    <h3><%= link_to 'Editar informações •', edit_collaborator_path(@collaborator),
                                       class: 'css_class', style: "color:red" %></h3>
   <% else %>
-    <h2><%= current_collaborator.social_name %></h2>
-    <%= current_collaborator.email %><br><br>
-    <%= link_to 'Editar informações', edit_collaborator_path(current_collaborator) %>
-    <%= link_to 'Seus anúncios', products_collaborator_path(current_collaborator) %>
+    <h2><%= @collaborator.social_name %></h2>
+    <%= @collaborator.sector %><br>
+    <%= @collaborator.email %>
+    <p><%= image_tag @collaborator.avatar if @collaborator.avatar.present? %></p>
+    <%= link_to 'Editar informações', edit_collaborator_path(@collaborator) %>
+    <%= link_to 'Seus anúncios', products_collaborator_path(@collaborator) %>
   <% end %>
 
-  <% if current_collaborator.notif_count > 0 %>
+  <% if @collaborator.notif_count > 0 %>
     <div>
       <b, style="color:green">Alguém se interessou por algum produto seu! <%= link_to 'Veja suas negociações!', negotiations_path %></b>
     </div>
@@ -23,7 +25,7 @@
     <%= link_to 'Suas negociações', negotiations_path %>
   <% end %>
 
-  <%= link_to 'Histórico', history_collaborator_path(current_collaborator) %>
+  <%= link_to 'Histórico', history_collaborator_path(@collaborator) %>
   <%#TODO Foto de perfil? %>
   <%#TODO Lista de desejos %>
 

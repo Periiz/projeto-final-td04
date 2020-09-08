@@ -15,7 +15,11 @@
     <%= f.label :social_name %>
     <%= f.text_field :social_name %>
   </div>
-   <div>
+  <div>
+    <%= f.label :avatar %>
+    <%= f.file_field :avatar %>
+  </div>
+  <div>
     <%= f.label :birth_date %>
     <%= f.date_field :birth_date %>
   </div>
@@ -27,6 +31,6 @@
     <%= f.label :sector %>
     <%= f.text_field :sector %>
   </div>
-  <%= f.submit 'Enviar' %>
+  <p><%= f.submit 'Enviar' %></p>
   <%#TODO Possibilidade: se deixar social_name em branco preenche com o full_name e vice versa? %>
 <% end %>

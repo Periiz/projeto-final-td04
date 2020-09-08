@@ -4,6 +4,8 @@ class Collaborator < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one_attached :avatar
+
   has_many :products
   has_many :comments
   has_many :messages
@@ -29,6 +31,6 @@ class Collaborator < ApplicationRecord
   end
 
   def notif_count
-    Negotiation.where('seller_id = ?', self.id).where(status: :waiting).count
+    Negotiation.where('seller_id = ?', self.id).waiting.count
   end
 end

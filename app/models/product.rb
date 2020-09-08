@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   has_many :negotiations
   has_many :comments
 
+  has_many_attached :photos
+
   validates :name, :description, :sale_price, :product_category, presence: true
   validates :sale_price, numericality: { greater_than_or_equal_to: 0 }
 

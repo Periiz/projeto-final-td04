@@ -1,17 +1,16 @@
 class CollaboratorsController < ApplicationController
   before_action :authenticate_collaborator!
+  before_action :set_collaborator, only: [:show, :edit, :update, :products]
 
   def show
-    @collaborator = Collaborator.find(params[:id])
   end
 
   def edit
-    @collaborator = current_collaborator
   end
 
   def update
-    @collaborator = current_collaborator
     if @collaborator.update(collaborator_params)
+      #@collaborator.avatar.attach(FOTO PADRÃO) if params[:avatar].blank?
       flash[:notice] = 'Perfil preenchido com sucesso!' if @collaborator.profile_filled?
       redirect_to @collaborator
     else
@@ -20,9 +19,8 @@ class CollaboratorsController < ApplicationController
   end
 
   def products
-    @collaborator = Collaborator.find(params[:id])
     @products = Product.where('collaborator_id = ?', @collaborator.id)
-                       .where.not(status: :canceled).where.not(status: :sold)
+                       .not_canceled.not_sold
   end
 
   def history
@@ -38,7 +36,11 @@ class CollaboratorsController < ApplicationController
 
   def collaborator_params
     params.require(:collaborator)
-          .permit(:full_name, :social_name,
+          .permit(:full_name, :social_name, :avatar,
                   :birth_date, :position, :sector)
+  end
+
+  def set_collaborator
+    @collaborator = Collaborator.find(params[:id])
   end
 end
