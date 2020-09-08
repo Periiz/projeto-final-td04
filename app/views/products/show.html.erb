@@ -5,7 +5,7 @@
   Somente anúncios feitos por pessoas da mesma empresa que você são visíveis.<br>
 <% else %>
 
-  <% if @product.collaborator == current_collaborator %> <!--Você está vendo o seu produto -->
+  <% if @product.collaborator == current_collaborator %> <!--Você está vendo o seu próprio produto -->
     <% if @product.avaiable? or @product.invisible? %>
 
       <b>Você é o dono deste produto.</b><br>
@@ -41,9 +41,17 @@
     <% if @product.avaiable? %>
 
       <h3><%= @product.name %><h3>
-      <h4>Anunciado por <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator.id) %></h4><br>
+      <h4>Anunciado por <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator) %></h4><br>
       <p><%= @product.description %></p>
-      <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product.id), method: :get %><br>
+      <% ja_tem = Negotiation.where(product: @product, collaborator: current_collaborator)
+                             .not_sold.not_canceled.first %>
+      <% if ja_tem.present? %>
+        <%= number_to_currency(@product.sale_price) %>
+        <p><%= 'Você já tem uma negociação deste produto.' if (ja_tem.waiting? or ja_tem.negotiating?) %><br>
+        <%= link_to 'Ver negociação', negotiation_path(ja_tem) if (ja_tem.waiting? or ja_tem.negotiating?) %></p>
+      <% else %>
+        <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product), method: :get %><br>
+      <% end %>
 
     <% elsif @product.sold? %>
 
@@ -69,7 +77,7 @@
       <%= render com, locals:{comment: :com} %>
     <% end %>
   <% else %>
-    <h5>Ninguém deixou nenhum comentário ainda.</h5>
+    <h5>Ainda não há comentários.</h5>
   <% end %>
   <%= render 'comments/form' if not (@product.sold? or @product.canceled?) %>
   <%#TODO Poder responder os comentários %>

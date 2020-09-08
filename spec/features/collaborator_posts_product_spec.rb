@@ -22,7 +22,7 @@ feature 'Collaborator posts a new product' do
     expect(page).to have_content('Killing Defense')
     expect(page).to have_content('Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!')
     expect(page).to have_content('R$ 40,00')
-    expect(page).to have_content('Ninguém deixou nenhum comentário ainda.')
+    expect(page).to have_content('Ainda não há comentários.')
   end
 
   scenario 'must fill all fields' do
@@ -101,6 +101,6 @@ feature 'Collaborator posts a new product' do
     expect(page).to have_content('Killing Defense')
     expect(page).to have_content('Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!')
     expect(page).to have_content('R$ 40,00')
-    expect(page).to have_content('Ninguém deixou nenhum comentário ainda.')
+    expect(page).to have_content('Ainda não há comentários.')
   end
 end

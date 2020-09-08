@@ -18,10 +18,6 @@ class NegotiationsController < ApplicationController
     @negotiation = Negotiation.new
   end
 
-  def edit
-    @negotiation = Negotiation.find(params[:id])
-  end
-
   def create
     @product = Product.find(params[:product_id])
     @negotiation = Negotiation.new(negotiation_params)
@@ -38,38 +34,14 @@ class NegotiationsController < ApplicationController
     end
   end
 
-  def update
-    @negotiation = Negotiation.find(params[:id])
-
-    if params[:negotiation][:final_price].present?
-      @negotiation.final_price = params[:negotiation][:final_price]
-      @negotiation.sold!
-      @negotiation.product.sold!
-      @negotiation.date_of_end = DateTime.current
-    end
-
-    if @negotiation.update(negotiation_params)
-      redirect_to @negotiation
-    else
-      redirect_to root_path, notice: 'Algo deu errado! :('
-    end
-  end
-
   ###Métodos para mudar o estado
   ###################
 
   def confirm
-    #vai fazer as funções do "edit" de agora
     @negotiation = Negotiation.find(params[:id])
   end
 
   def sold
-    #vai fazer as funções do "update" de agora
-    #tem que mudar o status da negotiation pra sold
-    #tem que mudar o status do produto pra sold
-    #tem que colocar o final_price
-    #tem que colocar o date_of_end
-    #e finalmente atualizar o negotiation
     @negotiation = Negotiation.find(params[:id])
     @negotiation.final_price = params[:negotiation][:final_price]
     @negotiation.date_of_end = DateTime.current
