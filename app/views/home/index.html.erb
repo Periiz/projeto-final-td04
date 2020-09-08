@@ -9,6 +9,8 @@
   </div>
 <% end %>
 
+<p><%= image_tag current_collaborator.avatar %></p>
+
 <% if current_collaborator.profile_filled? %>
   <h4><%= current_collaborator.name %> - <%= current_collaborator.email %></h4>
   <%= link_to 'Perfil', collaborator_path(current_collaborator) %>

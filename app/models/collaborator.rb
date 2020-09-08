@@ -3,6 +3,7 @@ class Collaborator < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  after_commit :add_default_avatar, on: [:create]
 
   has_one_attached :avatar
 
@@ -32,5 +33,27 @@ class Collaborator < ApplicationRecord
 
   def notif_count
     Negotiation.where('seller_id = ?', self.id).waiting.count
+  end
+
+  def mini_avatar
+    avatar.variant(resize: '40x40!').processed if avatar.attached?
+  end
+
+  private
+
+  def add_default_avatar
+    #Eu copiei um código que vi, nunca manipulei arquivos com ruby
+    #então eu meio que não tenho a menor ideia do que isso faz
+    if not avatar.attached?
+      avatar.attach(
+        io: File.open(
+          Rails.root.join(
+            "app/assets/images/default_avatar_#{id%4}.png"
+          )
+        ),
+        filename: "default_avatar_#{id%4}.png",
+        content_type: 'image/png'
+      )
+    end
   end
 end

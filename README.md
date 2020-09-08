@@ -24,11 +24,14 @@ https://guides.rubyonrails.org/getting_started.html<br>
 ### Gems adicionais
 
 Para os testes temos as gems:
--rspec-rails
--capybara
+- rspec-rails
+- capybara
 
 Para autenticação, temos:
--devise
+- devise
+
+Para processar imagens (avatares e fotos dos produtos)
+- image_processing
 
 ## Testes
 

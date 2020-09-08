@@ -1,4 +1,4 @@
-<%= link_to 'Voltar', collaborator_path(current_collaborator) %>
+<p><%= link_to 'Voltar', collaborator_path(current_collaborator) %></p>
 
 <% @collaborator.errors.full_messages.each do |message| %>
   <ul>
@@ -6,7 +6,13 @@
   </ul>
 <% end %>
 
+<b><%= @collaborator.name if @collaborator.name.present? %></b><br>
+<b><%= @collaborator.email %></b>
 <%= form_with model: @collaborator, local: true do |f| %>
+   <div>
+    <%= image_tag @collaborator.avatar %><br>
+    <%= f.file_field :avatar %><br><br>
+  </div>
   <div>
     <%= f.label :full_name %>
     <%= f.text_field :full_name %>
@@ -14,10 +20,6 @@
   <div>
     <%= f.label :social_name %>
     <%= f.text_field :social_name %>
-  </div>
-  <div>
-    <%= f.label :avatar %>
-    <%= f.file_field :avatar %>
   </div>
   <div>
     <%= f.label :birth_date %>
