@@ -6,9 +6,12 @@
     <h3>Esta negociação foi cancelada :(</h3>
     <p>O produto era:</p>
     <li><%= @negotiation.product.name %></li>
+    <%= image_tag @negotiation.product.photos.empty? ? 'default_product.png' :
+                                                @negotiation.product.photos.first.variant(resize: '200x400').processed %><br>
     <p>Do vendedor:</p>
     <li><%= @negotiation.seller_name %></li>
     <li><%= @negotiation.seller_email %></li>
+    <%= image_tag @negotiation.product.collaborator.mini_avatar %><br>
     <p>Cancelada em <%= l(@negotiation.date_of_end) %></p>
 
   <% elsif @negotiation.sold? %>
@@ -18,18 +21,21 @@
     <dl>
       <dt><b>Produto:</b></dt>
       <dd><%= @negotiation.product.name %></dd>
-      <%#TODO Foto do produto aqui %>
+      <%= image_tag @negotiation.product.photos.empty? ? 'default_product.png' :
+                                                @negotiation.product.photos.first.variant(resize: '200x400').processed %><br>
       <%= @negotiation.product.description %><br><br>
 
       <dt><b>Comprador:</b></dt>
-      <dd><%= @negotiation.buyer_name %></dd>
+      <%= image_tag @negotiation.collaborator.mini_avatar %><dd><%= @negotiation.buyer_name %></dd>
       <dd><%= @negotiation.product.collaborator.sector %></dd>
       <dd><%= @negotiation.buyer_email %></dd><br>
+      
 
       <dt><b>Vendedor:</b></dt>
-      <dd><%= @negotiation.seller_name %></dd>
+      <%= image_tag @negotiation.product.collaborator.mini_avatar %><dd><%= @negotiation.seller_name %></dd>
       <dd><%= @negotiation.collaborator.sector %></dd>
       <dd><%= @negotiation.seller_email %></dd><br>
+      
 
       <dt><b>Preço final e data da venda:</b></dt>
       <dd><%= number_to_currency(@negotiation.final_price) %></dd>
@@ -62,6 +68,8 @@
     <% end %>
 
     <h2><%= @negotiation.product.name %></h2>
+    <%= image_tag @negotiation.product.photos.empty? ? 'default_product.png' :
+                                                @negotiation.product.photos.first.variant(resize: '200x400').processed %><br>
     Vendedor:
     <ul>
       <li><%= @negotiation.seller_name %></li>

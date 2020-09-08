@@ -13,9 +13,11 @@ Para fazer um anúncio, você deve primeiro <%= link_to 'completar o seu perfil'
     <% end %>
   </ul>
 
-  <% #TODO Adicionar fotos %>
-
   <%= form_with model: @product, local: true do |f| %>
+    <div>
+      <%= f.label :photos %>
+      <%= f.file_field :photos, multiple: true %>
+    </div>
     <div>
       <%= f.label :name, 'Nome do Produto' %>
       <%= f.text_field :name %>

@@ -8,7 +8,9 @@
 
     <h3><%= @product.name %></h3>
     <h4>Aunciado por <b style='color:green'><%= @product.collaborator.name%></b></h4>
-    <% #TODO Foto do produto aqui também! %>
+    <%#TODO Talvez aqui também devesse ver todas as fotos, quando tiver mais que uma?%>
+    <%= image_tag @product.photos.empty? ? 'default_product.png' :
+                                            @product.photos.first.variant(resize: '200x400').processed %>
     <p><%= @product.description %></p>
     <%= number_to_currency(@product.sale_price) %><br><br>
 

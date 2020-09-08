@@ -9,19 +9,24 @@
     <% if @product.avaiable? or @product.invisible? %>
 
       <b>Você é o dono deste produto.</b><br>
-      Neste momento, ele encontra-se <b><span, style='color:red'><%= @product.invisible? ? 'invisível' : 'visível' %></span></b>
+      Neste momento, ele encontra-se <b style='color:red'><%= @product.invisible? ? 'invisível' : 'visível' %></b>
       <p>Você pode deixá-lo visível, invisível ou ainda cancelá-lo:</p> |
       <%= link_to 'Invisível', invisible_product_path(@product), method: :post %> |
       <%= link_to 'Visível', avaiable_product_path(@product), method: :post %> | --- |
       <%= link_to 'Cancelar', canceled_product_path(@product), method: :post %> |
       <h3><%= @product.name %></h3>
+      <%#Poder acessar todas as fotos quando o produto tiver mais do que uma%>
+      <%= image_tag @product.photos.empty? ? 'default_product.png' :
+                                             @product.photos.first.variant(resize: '200x400').processed %>
       <p><%= @product.description %></p>
       <%= number_to_currency(@product.sale_price) %><br>
 
     <% elsif @product.sold? %>
 
       <h3><%= @product.name %></h3>
-      <% #TODO Foto do produto aqui, também. %>
+      <% #TODO Poder ver todas as fotos quando tiver mais do que uma %>
+      <%= image_tag @product.photos.empty? ? 'default_product.png' :
+                                             @product.photos.first.variant(resize: '200x400').processed %>
       <%= @product.description %><br><br>
       <p><b>Este produto foi vendido!</b></p>
       <% neg = Negotiation.where(product_id: @product).sold.first %>
@@ -41,12 +46,15 @@
     <% if @product.avaiable? %>
 
       <h3><%= @product.name %><h3>
+      <%#TODO Poder ver todas as fotos quando tiver várias%>
       <h4>Anunciado por <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator) %></h4><br>
+      <%= image_tag @product.photos.empty? ? 'default_product.png' :
+                                             @product.photos.first.variant(resize: '200x400').processed %>
       <p><%= @product.description %></p>
       <% ja_tem = Negotiation.where(product: @product, collaborator: current_collaborator)
                              .not_sold.not_canceled.first %>
       <% if ja_tem.present? %>
-        <%= number_to_currency(@product.sale_price) %>
+        <span style="color:green"><%= number_to_currency(@product.sale_price) %></span>
         <p><%= 'Você já tem uma negociação deste produto.' if (ja_tem.waiting? or ja_tem.negotiating?) %><br>
         <%= link_to 'Ver negociação', negotiation_path(ja_tem) if (ja_tem.waiting? or ja_tem.negotiating?) %></p>
       <% else %>
@@ -57,6 +65,9 @@
 
       <p><b>Este produto foi vendido!</b></p>
       <h3><%= @product.name %></h3>
+      <%#TODO Poder ver todas as fotos do produto quando tiver várias%>
+      <%= image_tag @product.photos.empty? ? 'default_product.png' :
+                                             @product.photos.first.variant(resize: '200x400').processed %>
       <%= @product.description %><br><br>
       <% neg = Negotiation.where(product_id: @product).sold.first %>
       <%= link_to 'Ver detalhes da negociação', negotiation_path(neg) if current_collaborator.id == neg.collaborator.id %>

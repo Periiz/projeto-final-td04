@@ -2,13 +2,13 @@
 
 <% if current_collaborator.id == @collaborator.id %>
 <!-- Você está vendo o seu próprio perfil -->
-  <h2><%= @collaborator.social_name %></h2>
   <p><%= image_tag @collaborator.avatar if @collaborator.avatar.present? %></p>
+  <h2><%= @collaborator.social_name %></h2>
   <%= "#{@collaborator.sector} - " if @collaborator.sector.present? %>
   <%= @collaborator.email %>
   <% if not @collaborator.profile_filled? %>
-    <p><span, style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
-    necessário preencher o seu perfil com as informações faltantes!</span></p>
+    <p style="color:red">&#8226Para que você possa anunciar produtos e efetivar a compra de produtos, é
+    necessário preencher o seu perfil com as informações faltantes!</p>
     <h3><%= link_to 'Editar informações •', edit_collaborator_path(@collaborator),
                                       class: 'css_class', style: "color:red" %></h3>
   <% else %>
@@ -25,7 +25,6 @@
   <% end %>
 
   <%= link_to 'Histórico', history_collaborator_path(@collaborator) %>
-  <%#TODO Foto de perfil? %>
   <%#TODO Lista de desejos %>
 
 <% else %>
@@ -33,24 +32,29 @@
   <% if @collaborator.domain != current_collaborator.domain %>
     Só é possível ver o perfil de colaboradores que são da mesma empresa que você...
   <% else %>
-    Você está visitando o perfil de<br>
-    <h2><b, style="color:green"><%= @collaborator.name %></b></h2>
+    <p>Você está visitando o perfil de</p>
+    <%= image_tag @collaborator.avatar %>
+    <h2 style="color:green"><%= @collaborator.name %></h2>
     <p>Vocês são da mesma empresa! Vocês podem fazer negociações entre si!<p>
     <!-- Aqui, se o nome não está completo, a mensagem vai ficar estranha, mesmo... :( -->
     <%= 'Este perfil ainda não está completamente preenchido...' if not @collaborator.profile_filled? %>
     <%= " - #{@collaborator.full_name}" %><br>
     <%= " - #{@collaborator.email}" %><br>
     <%= "#{@collaborator.sector} - #{@collaborator.position}" %><br>
-    <p><%= link_to 'Todos os anúncios', products_collaborator_path(@collaborator.id) %></p>
-    <% neg = Negotiation.where('seller_id = ? AND collaborator_id = ?', @collaborator.id, current_collaborator.id).where.not(status: :sold).where.not(status: :canceled) %>
+    <p><%= link_to 'Todos os anúncios', products_collaborator_path(@collaborator) %></p>
+    <% neg = Negotiation.where('seller_id = ? AND collaborator_id = ?', @collaborator, current_collaborator).not_sold.not_canceled %>
     <p><%= neg.blank? ? "Você não tem nenhuma negociação pendente com #{@collaborator.name}." : "Negociações entre você e #{@collaborator.name}:" %></p>
     <% neg.each do |neg| %>
       <%= link_to neg.product.name, negotiations_path(neg) %><br>
+      <%= image_tag neg.product.photos.empty? ? 'default_product.png' :
+                                                neg.product.photos.first.variant(resize: '200x400').processed %><br>
     <% end %>
     <p>--------------------------------------------------</p>
-    Alguns anúncios de <%= "#{@collaborator.name}" %><br>
-    <% Product.where('collaborator_id = ?', @collaborator.id).last(3).each do |product| %>
+    Alguns anúncios de <b><%= "#{@collaborator.name}" %></b>:<br><br>
+    <% Product.where(collaborator: @collaborator).avaiable.last(3).each do |product| %>
       <%= link_to product.name[0,50], product_path(product) %><%= '...' if product.name.size > 50 %><br>
+      <%= link_to image_tag product.photos.empty? ? 'default_product.png' :
+                                                    product.photos.first.variant(resize: '200x400').processed %><br>
       <%= link_to number_to_currency(product.sale_price), product_path(product) %><br>
       <%= product.description[0,50] %><%= '...' if product.description.size > 50 %>
       <p>--------------------------------------------------</p>

@@ -15,12 +15,15 @@
         <p>Para anunciar algum item à venda, clique em <%= link_to 'Anunciar', new_product_path %>!</p>
       <% else %>
         <h2>Seus anúncios:</h2>
-        <%= link_to 'Fazer um novo anúncio', new_product_path %><br><br><br>
+        <%= link_to 'Fazer um novo anúncio', new_product_path %>
     
-        <% @products.each do |product| %>
+        <% @products.each do |product| %>  
+          <p>--------------------------------------------------</p>
           <%= link_to product.name, product_path(product) %><br>
-          <% #TODO Foto aqui também! %>
-          <%= number_to_currency(product.sale_price) %><br>
+          <%= link_to(image_tag(product.photos.empty? ? 'default_product.png' :
+                                                    product.photos.first.variant(resize: '100x200').processed),
+                                                    product_path(product)) %><br>
+          <span style="color:green"><%= number_to_currency(product.sale_price) %></span>
         <% end %>
 
       <% end %>
@@ -34,9 +37,12 @@
       <h2><%= "#{@collaborator.name} ainda não fez nenhum anúncio." %></h2>
     <% else %>
       <% @products.each do |product| %>
+        <p>--------------------------------------------------</p>
         <h2><%= "Anúncios de #{@collaborator.name}:" %></h2>
         <%= link_to product.name, product_path(product) %><br>
-        <% #TODO Foto aqui também! %>
+        <%= link_to(image_tag(product.photos.empty? ? 'default_product.png' :
+                                                    product.photos.first.variant(resize: '100x200').processed),
+                                                    product_path(product)) %><br>
         <%= number_to_currency(product.sale_price) %><br>
       <% end %>
     <% end %>

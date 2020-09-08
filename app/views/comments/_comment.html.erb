@@ -1,10 +1,14 @@
 <% collab = Collaborator.find(comment.collaborator_id) %>
-<%#TODO Foto de perfil antes do nome da pessoa! %>
-<b><%= link_to collab.name, collaborator_path(collab) %></b><br>
-<b><span, style="color:#C3670C"><%= collab.sector%></span></b>
-<b><span, style="color:#6B6B6B;font-size:80%">
-  <%= comment.post_date.strftime("%d/%m/") + comment.post_date.year.to_s %>
-</span></b>
-
+<div style="float: left;">
+  <%= image_tag collab.mini_avatar %>
+<div style="float: left">
+  <b><%= link_to collab.name, collaborator_path(collab) %><br>
+  <span style="color:#C3670C">
+    <%= collab.sector%>
+  </span>
+  <span style="color:#6B6B6B;font-size:80%">
+    <%= comment.post_date.strftime("%d/%m/") + comment.post_date.year.to_s %>
+  </span></b>
+</div>
 <p><%= comment.text %></p>
 <p>--------------------------------------------------</p>

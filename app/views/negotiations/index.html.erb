@@ -15,8 +15,12 @@
     <h3>Em espera:</h3>
     <% waiting_list.reverse.each do |negotiation| %>
       <ul>
-        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-        <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
+        <li><%= link_to negotiation_path(negotiation) do %>
+            <%= negotiation.product.name %><br>
+            <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
+            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
+                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+        <% end %>
       </ul>
     <% end %>
   <% end %>
@@ -25,8 +29,12 @@
     <h3>Em andamento:</h3>
     <% negot_list.reverse.each do |negotiation| %>
       <ul>
-        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-        <%= link_to "#{negotiation.buyer_name} - #{negotiation.buyer_email}", negotiation_path(negotiation) %></li>
+        <li><%= link_to negotiation_path(negotiation) do %>
+            <%= negotiation.product.name %><br>
+            <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
+            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
+                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+        <% end %>
       </ul>
     <% end %>
   <% end %>
@@ -47,12 +55,14 @@
   <% if not waiting_list.blank? %>
     <h3>Em espera:</h3>
     <% waiting_list.reverse.each do |negotiation| %>
-      <% if negotiation.waiting? %>
-        <ul>
-          <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-          <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
-        </ul>
-      <% end %>
+      <ul>
+        <li><%= link_to negotiation_path(negotiation) do %>
+            <%= negotiation.product.name %><br>
+            <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
+            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
+                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+        <% end %>
+      </ul>
     <% end %>
   <% end %>
 
@@ -60,8 +70,12 @@
     <h3>Em andamento:</h3>
     <% negot_list.reverse.each do |negotiation| %>
       <ul>
-        <li><%= link_to "#{negotiation.product.name}", negotiation_path(negotiation) %><br>
-        <%= link_to "#{negotiation.seller_name} - #{negotiation.seller_email}", negotiation_path(negotiation) %></li>
+        <li><%= link_to negotiation_path(negotiation) do %>
+            <%= negotiation.product.name %><br>
+            <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %></li>
+            <%= image_tag(negotiation.product.photos.empty? ? 'default_product.png' :
+                                            negotiation.product.photos.first.variant(resize: '200x400').processed) %><br>
+        <% end %>
       </ul>
     <% end %>
   <% end %>
