@@ -16,9 +16,11 @@ Rails.application.routes.draw do
     post 'canceled', on: :member
   end
 
-  resources :negotiations, only: [:index, :show, :edit, :update] do
+  resources :negotiations, only: [:index, :show] do
     resources :messages, only: [:create, :show]
     post 'negotiating', on: :member
     post 'canceled', on: :member
+    get 'confirm', on: :member
+    patch 'sold', on: :member
   end
 end

@@ -11,11 +11,11 @@
 
   <dt>Comprador:</dt>
   <dd><%= @negotiation.buyer_name %></dd>
-  <dd><%= @negotiation.buyer_email %></dd>
   <dd><%= @negotiation.product.collaborator.sector %></dd>
+  <dd><%= @negotiation.buyer_email %></dd>
 </dl>
 
-<%= form_with model: @negotiation, local: true do |f| %>
+<%= form_with model: @negotiation, url: {negotiations: @negotiation, action: :sold} do |f| %>
   <%= f.label :final_price %>
   <%= f.number_field :final_price, step: :any, min: 0 %><br>
   <%= f.submit 'Confirmar' %><br>

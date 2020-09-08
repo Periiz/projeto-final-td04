@@ -51,7 +51,7 @@
     <% elsif @negotiation.seller_id == current_collaborator.id and @negotiation.negotiating? %>
 
       <p>Você pode CONFIRMAR ou CANCELAR esta negociação.</p>
-      <%= button_to 'Confirmar', edit_negotiation_path(@negotiation), method: :get %><br>
+      <%= button_to 'Confirmar', confirm_negotiation_path(@negotiation), method: :get %><br>
       <%= button_to 'Cancelar', canceled_negotiation_path(@negotiation) %>
 
     <% elsif @negotiation.buyer_id == current_collaborator.id %>

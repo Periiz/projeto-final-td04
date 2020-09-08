@@ -160,8 +160,6 @@ feature 'Collaborator sees negotiation' do
       click_on 'negociações'
       click_on product.name
       click_on 'Sim'
-      negotiation.reload
-      visit negotiation_path(negotiation)
       click_on 'Confirmar'
       fill_in 'Preço Final', with: 50
       click_on 'Confirmar'
