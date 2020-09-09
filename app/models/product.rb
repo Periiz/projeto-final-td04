@@ -4,9 +4,11 @@ class Product < ApplicationRecord
   has_many :negotiations
   has_many :comments
   has_many_attached :photos
-  #after_commit :add_seller_domain, on: [:create]
+
+  before_create :add_seller_domain
 
   validates :name, :description, :sale_price, :product_category, presence: true
+  validates :collaborator, presence: true
   validates :sale_price, numericality: { greater_than_or_equal_to: 0 }
 
   enum status: {avaiable: 0, invisible: 10, sold: 20, canceled: 30}
@@ -23,9 +25,9 @@ class Product < ApplicationRecord
     photos.empty? ? 'default_product.png' : photos.first.variant(resize: '200x400').processed
   end
 
-#  private
-#
-#  def add_seller_domain
-#    seller_domain = collaborator.domain
-#  end
+  private
+
+  def add_seller_domain
+    self.seller_domain = collaborator.domain
+  end
 end

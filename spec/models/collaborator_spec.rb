@@ -16,4 +16,10 @@ RSpec.describe Collaborator, type: :model do
     expect(user.errors[:sector]).to include('não pode ficar em branco')
     expect(user.errors.count).to eq 3
   end
+
+  it 'Has avatar on creation' do
+    user = Collaborator.create(email: 'user@email.com', password: '123456')
+
+    expect(user.avatar).to be_present
+  end
 end

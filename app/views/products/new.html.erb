@@ -26,7 +26,6 @@ Para fazer um anúncio, você deve primeiro <%= link_to 'completar o seu perfil'
       <%= f.label :product_category_id %>
       <%= f.collection_select(:product_category_id, @product_categories, :id, :name, prompt: 'Escolha uma categoria') %>
     </div>
-  <!-- Fotos aqui, não sei bem como fazer ainda -->
     <div>
       <%= f.label :description %>
       <%= f.text_field :description %>

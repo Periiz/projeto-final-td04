@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.collaborator = current_collaborator
-    @product.seller_domain = current_collaborator.domain
 
     if @product.valid?
       @product.save

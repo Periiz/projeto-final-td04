@@ -5,11 +5,10 @@ class Collaborator < ApplicationRecord
          :recoverable, :rememberable, :validatable
   after_commit :add_default_avatar, on: [:create]
 
-  has_one_attached :avatar
-
   has_many :products
   has_many :comments
   has_many :messages
+  has_one_attached :avatar
 
   validates :full_name, :social_name, :position, :sector, presence: true, allow_nil: true
         #Pode ser nulo (logo quando cria) mas não pode ser blank (string vazia).
