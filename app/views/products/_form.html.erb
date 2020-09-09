@@ -1,0 +1,29 @@
+<ul>
+  <% product.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+
+<%= form_with model: product, local: true do |f| %>
+  <div>
+      <%= f.label :photos %>
+      <%= f.file_field :photos, multiple: true %>
+  </div>
+  <div>
+      <%= f.label :name, 'Nome do Produto' %>
+      <%= f.text_field :name %>
+  </div>
+  <div>
+      <%= f.label :product_category_id %>
+      <%= f.collection_select(:product_category_id, product_categories, :id, :name, prompt: 'Escolha uma categoria') %>
+  </div>
+  <div>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+  </div>
+  <div>
+      <%= f.label :sale_price %>
+      <%= f.number_field :sale_price, step: :any, min: 0 %>
+  </div>
+  <%= f.submit 'Anunciar'%>
+<% end %>

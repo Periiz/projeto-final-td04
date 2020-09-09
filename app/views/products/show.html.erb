@@ -14,7 +14,8 @@
       <%= link_to 'Invisível', invisible_product_path(@product), method: :post %> |
       <%= link_to 'Visível', avaiable_product_path(@product), method: :post %> | --- |
       <%= link_to 'Cancelar', canceled_product_path(@product), method: :post %> |
-      <h3><%= @product.name %></h3>
+      <br><br><span style="font-size:1.17em ; font-weight:bolder"><%= @product.name %></span><br>
+      <%= link_to 'Editar', edit_product_path(@product), class: 'css_class', style: "font-size:90%" %><br><br>
       <%= image_tag @product.first_photo %>
       <%= link_to 'Mais fotos', photos_product_path(@product),
           {style:'font-size:85%', class: 'css_class'} if @product.photos.count > 1 %>

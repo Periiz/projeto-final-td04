@@ -1,0 +1,5 @@
+<p><%= link_to 'Voltar', collaborator_path(current_collaborator) %></p>
+
+<h2>Editando seu anúncio</h2>
+
+<%= render partial: 'form', locals: {product: @product, product_categories: @product_categories} %>

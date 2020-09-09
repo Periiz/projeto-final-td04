@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get :history, on: :member
   end
 
-  resources :products, only: [:show, :new, :create] do
+  resources :products, only: [:show, :new, :create, :edit, :update] do
     resources :negotiations, only: [:new, :create]
     resources :comments, only: [:create, :show]
     get 'search', on: :collection

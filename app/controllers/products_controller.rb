@@ -1,12 +1,18 @@
 class ProductsController < ApplicationController
   before_action :authenticate_collaborator!
+  before_action :set_product, only: [:show, :edit, :update, 
+                                     :photos, :invisible,
+                                     :avaiable, :canceled]
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def new
     @product = Product.new
+    @product_categories = ProductCategory.all
+  end
+
+  def edit
     @product_categories = ProductCategory.all
   end
 
@@ -23,6 +29,15 @@ class ProductsController < ApplicationController
     end
   end
 
+  def update
+    if @product.update(product_params)
+      redirect_to @product, notice: 'Produto editado com sucesso!'
+    else
+      @product_categories = ProductCategory.all
+      render :edit
+    end
+  end
+
   def search
     @products = Product.where('name LIKE ? OR description LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%")
                        .where('seller_domain = ?', current_collaborator.domain)
@@ -32,34 +47,33 @@ class ProductsController < ApplicationController
   end
 
   def photos
-    @product = Product.find(params[:id])
   end
 
   ###Métodos para mudar o estado
   ###################
 
   def invisible
-    prod = Product.find(params[:id])
-    prod.invisible!
-    redirect_to prod
+    @product.invisible!
+    redirect_to @product
   end
 
   def avaiable
-    prod = Product.find(params[:id])
-    prod.avaiable!
-    redirect_to prod
+    @product.avaiable!
+    redirect_to @product
   end
 
   def canceled
-    prod = Product.find(params[:id])
+    #Parcial é uma busca parcial por todas as negociações que
+    #envolvem o produto
     parcial = Negotiation.where('product_id = ?', params[:id])
-    if parcial.where(status: :negotiating).blank?
-      prod.canceled!
-      parcial.where(status: :waiting).each {|w| w.canceled!}
+    if parcial.negotiating.blank?
+      #Se parcial.negotiating estiver vazio, é porque este produto não está em negociação
+      @product.canceled!
+      parcial.waiting.each {|w| w.canceled!} #Cancela as que estavam em espera
     else
       flash[:notice] = 'Não é possível cancelar um produto que faz parte de uma negociação em andamento'
     end
-    redirect_to prod
+    redirect_to @product
   end
 
   private
@@ -68,5 +82,9 @@ class ProductsController < ApplicationController
     params.require(:product)
           .permit(:name,:product_category_id,
                   :description, :sale_price, photos: [])
+  end
+
+  def set_product
+    @product = Product.find(params[:id])
   end
 end
