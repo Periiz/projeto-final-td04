@@ -1,16 +1,13 @@
 <% collab = comment.collaborator %>
 
-<div style="float: left;">
-  <%= image_tag collab.mini_avatar %>
-<div style="float: left">
-  <b><%= link_to collab.name, collaborator_path(collab) %><br>
-  <span style="color:#C3670C">
-    <%= collab.sector%>
-  </span>
-  <span style="color:#6B6B6B;font-size:80%">
-    <%= comment.post_date.strftime("%d/%m/") + comment.post_date.year.to_s %>
-  </span></b>
-</div>
+<span style="float: left;"><%= image_tag collab.mini_avatar %></span>
+<b><%= link_to collab.name, collaborator_path(collab) %><br>
+<span style="color:#C3670C">
+  <%= collab.sector %>
+</span>
+<span style="color:#6B6B6B;font-size:80%">
+  <%= comment.post_date.strftime("%d/%m/") + comment.post_date.year.to_s %>
+</span></b>
 
 <% if comment.product.collaborator == collab %>
   <br><b style="color:red ; font-size: 85%">Dono do produto</b><br>

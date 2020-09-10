@@ -20,3 +20,8 @@
   <%= f.number_field :final_price, step: :any, min: 0 %><br>
   <%= f.submit 'Confirmar' %><br>
 <% end %>
+
+<h4>Mensagens</h4>
+<% @messages.each do |message| %>
+  <%= render message, locals: {message: :message} %>
+<% end %>

@@ -38,6 +38,7 @@ class NegotiationsController < ApplicationController
   ###################
 
   def confirm
+    @messages = Message.where(negotiation_id: params[:id])
   end
 
   def sold

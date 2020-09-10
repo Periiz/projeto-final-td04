@@ -1,0 +1,10 @@
+<% list.each do |negotiation| %>
+  <ul>
+    <li><%= link_to negotiation_path(negotiation) do %>
+          <%= negotiation.product.name %><br>
+          <%= "#{negotiation.seller_name} - #{negotiation.seller_email}" %><br>
+          <%= "#{negotiation.buyer_name} - #{negotiation.buyer_email}" %></li>
+          <%= image_tag(negotiation.product.first_photo) %><br>
+        <% end %>
+  </ul>
+<% end %>
