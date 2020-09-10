@@ -4,7 +4,7 @@ feature 'Collaborator searches product' do
   context 'by name' do
     scenario 'and finds one' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -36,7 +36,7 @@ feature 'Collaborator searches product' do
 
     scenario 'and finds many' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -68,7 +68,7 @@ feature 'Collaborator searches product' do
 
     scenario 'and did not find any (name problem)' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -92,7 +92,7 @@ feature 'Collaborator searches product' do
 
     scenario 'and did not find any (domain problem)' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Searcher',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -118,7 +118,7 @@ feature 'Collaborator searches product' do
   context 'by description' do
     scenario 'and finds one' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -150,7 +150,7 @@ feature 'Collaborator searches product' do
 
     scenario 'and finds many' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -182,7 +182,7 @@ feature 'Collaborator searches product' do
 
     scenario 'and did not find any (description problem)' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -206,7 +206,7 @@ feature 'Collaborator searches product' do
 
     scenario 'and did not find any (domain problem)' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@different-email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -232,7 +232,7 @@ feature 'Collaborator searches product' do
   context 'filtering category' do
     scenario 'finds one with that category filter' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -270,7 +270,7 @@ feature 'Collaborator searches product' do
 
     scenario 'finds many with that category filter' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -319,7 +319,7 @@ feature 'Collaborator searches product' do
 
     scenario "doesn't find any with that filter" do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',
@@ -357,7 +357,7 @@ feature 'Collaborator searches product' do
 
     scenario 'uses all categories option' do
       searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                  full_name:'Usuário Vendedor', social_name: 'Seller',
+                                  full_name:'Usuário Buscador', social_name: 'Searcher',
                                   position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
       seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                   full_name:'Usuário Vendedor', social_name: 'Seller',

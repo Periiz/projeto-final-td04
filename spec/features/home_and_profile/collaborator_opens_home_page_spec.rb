@@ -105,4 +105,28 @@ feature 'Opening homepage' do
     expect(page).to have_content(product_1.name)
     expect(page).to_not have_content(product_2.name)
   end
+
+  scenario 'filters products at homepage' do
+    searcher = Collaborator.create(email:'user@email.com', password:'123456',
+                                full_name:'Usuário Buscador', social_name: 'Searcher',
+                                position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
+    seller = Collaborator.create(email:'seller@email.com', password:'123456',
+                                full_name:'Usuário Vendedor', social_name: 'Seller',
+                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+    books = ProductCategory.create(name: 'Livros')
+    clothes = ProductCategory.create(name: 'Roupas')
+    find_this_product = Product.create(name: 'Como costurar camisas que perderam botões',
+                            product_category: books, sale_price: 40, collaborator: seller,
+                            description: 'Guia completo. Nunca mais fique com camisas sem botões!')
+    dont_find_this_product = Product.create(name: 'Camisa Social Bonita', collaborator: seller,
+                                      product_category: clothes, sale_price: 50,
+                                      description: 'Camisas novas 0 quilômetros, tratar por email')
+
+    login_as(searcher, scope: :collaborator)
+    visit root_path
+    click_on 'Livros'
+
+    expect(page).to have_content(find_this_product.name)
+    expect(page).to_not have_content(dont_find_this_product.name)
+  end
 end

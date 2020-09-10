@@ -28,8 +28,14 @@
   <%= f.submit 'Buscar' %>
 <% end %>
 
-<%#TODO Filtro de busca (categorias) na homepage também?%>
+<br>Categorias: 
+<% ProductCategory.all.each do |categoria| %>
+  <%= link_to categoria.name,
+      root_path(q: categoria) %> |
+<% end %>
+<%= link_to 'Todas', root_path %> |
 
+<!-- Seleção de produtos -->
 <% if not @product_selection.blank? %>
   <h3>Alguns produtos anunciados:</h3>
   <% @product_selection.reverse.each do |product| %>
