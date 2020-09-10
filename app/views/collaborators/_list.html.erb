@@ -1,0 +1,6 @@
+<% products.reverse.each do |product| %>
+  <b style="font-size:110%"><%= link_to product.name, product_path(product) %></b><br>
+  <%= link_to(image_tag(product.first_photo), product_path(product)) %><br>
+  <span style="color:green"><%= number_to_currency(product.sale_price) %></span><br>
+  <p>--------------------------------------------------</p>
+<% end %>

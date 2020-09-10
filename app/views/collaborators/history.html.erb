@@ -1,5 +1,5 @@
 <p><%= link_to 'Voltar', collaborator_path(current_collaborator) %></p>
-  <% # %>
+
 <% if current_collaborator != Collaborator.find(params[:id]) %> <!-- Histórico de outra pessoa -->
   Você não pode ver o histórico alheio!
 <% else %> <!-- Você está vendo o seu próprio histórico -->
