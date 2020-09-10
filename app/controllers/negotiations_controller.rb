@@ -2,12 +2,13 @@ class NegotiationsController < ApplicationController
   before_action :authenticate_collaborator!
   before_action :set_negotiation, only: [:show, :confirm, :sold,
                                          :negotiating, :canceled]
+  before_action :set_product, only: [:new, :create]
 
   def index
-    @seller_negotiations = Negotiation.where('seller_id = ?', current_collaborator.id)
-                                      .where.not(status: :canceled).where.not(status: :sold)
-    @buyer_negotiations = Negotiation.where('collaborator_id = ?', current_collaborator.id)
-                                     .where.not(status: :canceled).where.not(status: :sold)
+    @seller_negotiations = Negotiation.where(seller_id: current_collaborator.id)
+                                      .not_canceled.not_sold
+    @buyer_negotiations = Negotiation.where(collaborator: current_collaborator)
+                                     .not_canceled.not_sold
   end
 
   def show
@@ -15,12 +16,10 @@ class NegotiationsController < ApplicationController
   end
 
   def new
-    @product = Product.find(params[:product_id])
     @negotiation = Negotiation.new
   end
 
   def create
-    @product = Product.find(params[:product_id])
     @negotiation = Negotiation.new(negotiation_params)
 
     @negotiation.collaborator = current_collaborator
@@ -43,7 +42,7 @@ class NegotiationsController < ApplicationController
 
   def sold
     @negotiation.final_price = params[:negotiation][:final_price]
-    @negotiation.date_of_end = DateTime.current
+    @negotiation.update(date_of_end: DateTime.current)
     @negotiation.sold!
     @negotiation.product.sold!
 
@@ -74,5 +73,9 @@ class NegotiationsController < ApplicationController
 
   def set_negotiation
     @negotiation = Negotiation.find(params[:id])
+  end
+
+  def set_product
+    @product = Product.find(params[:product_id])
   end
 end

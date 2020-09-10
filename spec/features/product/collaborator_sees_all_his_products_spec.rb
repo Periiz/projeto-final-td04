@@ -16,7 +16,6 @@ feature 'Collaborator sees all of his products' do
 
     expect(page).to have_content('Seus anúncios')
     expect(page).to have_content('Killing Defense')
-    #Foto seria legal, hein
     expect(page).to have_content('R$ 40,00')
     expect(page).to_not have_content('Bom livro')
   end

@@ -10,7 +10,6 @@ class CollaboratorsController < ApplicationController
 
   def update
     if @collaborator.update(collaborator_params)
-      #@collaborator.avatar.attach(FOTO PADRÃO) if params[:avatar].blank?
       flash[:notice] = 'Perfil preenchido com sucesso!' if @collaborator.profile_filled?
       redirect_to @collaborator
     else
@@ -19,7 +18,7 @@ class CollaboratorsController < ApplicationController
   end
 
   def products
-    @products = Product.where('collaborator_id = ?', @collaborator.id)
+    @products = Product.where(collaborator: @collaborator)
                        .not_canceled.not_sold
   end
 
