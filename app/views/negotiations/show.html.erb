@@ -14,8 +14,8 @@
     <dl>
       <%= render partial: 'details', locals: {negotiation: @negotiation} %>
       <dt><b>Preço final e data da venda:</b></dt>
-      <dd><%= number_to_currency(negotiation.final_price) %></dd>
-      <dd><%= l(negotiation.date_of_end) %></dd><br>
+      <dd><%= number_to_currency(@negotiation.final_price) %></dd>
+      <dd><%= l(@negotiation.date_of_end) %></dd><br>
     </dl>
     <h3>Mensagens trocadas entre colaboradores:</h3>
     <% @messages.each do |message| %>
