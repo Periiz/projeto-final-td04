@@ -57,7 +57,6 @@ class NegotiationsController < ApplicationController
   def negotiating
     @negotiation.negotiating!
     @negotiation.product.negotiating!
-    @negotiation.product.update(buyer_id: current_collaborator.id)
     redirect_to @negotiation
   end
 

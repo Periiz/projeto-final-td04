@@ -1,8 +1,10 @@
-<dt><b><%= negotiation.product.name %></b></dt>
-<%= image_tag negotiation.product.first_photo %>
-<%= link_to 'Mais fotos', photos_product_path(negotiation.product),
-    {style:'font-size:85%', class: 'css_class'} if negotiation.product.photos.count > 1 %>
-<br><%= negotiation.product.description %><br><br>
+<div style="float:left">
+  <dt><b><%= negotiation.product.name %>.-.-.-.-.-.-.</b></dt>
+  <%= image_tag negotiation.product.first_photo %>
+  <%= link_to 'Mais fotos', photos_product_path(negotiation.product),
+      {style:'font-size:85%', class: 'css_class'} if negotiation.product.photos.count > 1 %>
+  <br>
+</div>
 
 <dt><b>Comprador:</b></dt>
 <span style='float:left'><%= image_tag negotiation.collaborator.mini_avatar %></span>
@@ -15,3 +17,6 @@
 <dd><%= negotiation.seller_name %>
 <dd><%= negotiation.product.collaborator.sector %></dd>
 <dd><%= negotiation.seller_email %></dd><br>
+
+<b>Descrição:</b><br>
+<%= negotiation.product.description %><br><br>

@@ -17,8 +17,8 @@ marina = Collaborator.create(email: 'marina@email.com', password: '123456', soci
                     sector: 'Adm', birth_date: Date.parse('03/10/1973'))
 
 kd = Product.create(name: 'Killing Defence at Bridge', product_category: livros,
-               description: 'Do Hugh Kelsey, um excelente livro para quem quer melhorar o seu ataque! :D',
-               sale_price: 75, collaborator: marina)
+                    description: 'Do Hugh Kelsey, um excelente livro para quem quer melhorar o seu ataque! :D',
+                    sale_price: 75, collaborator: marina)
 kd.photos.attach(io: File.open(Rails.root.join('spec/support/capa-killing-defense.jpeg')),
                  filename: 'capa-killing-defense.jpeg', content_type:'image/jpeg')
 kd.photos.attach(io: File.open(Rails.root.join('spec/support/costas-killing-defense.jpeg')),
@@ -26,7 +26,7 @@ kd.photos.attach(io: File.open(Rails.root.join('spec/support/costas-killing-defe
 Comment.create(text: 'Este livro é usado? Você tem também o More Killing Defence? õ.ô',
                product: kd, post_date: DateTime.current-1, collaborator: lucas)
 Comment.create(text: 'Sim, é um pouco usado, principalmente nas pontas dá pra ver o desgaste, mas está em ótimo estado. Não tenho o More Killing Defence :(',
-                product: kd, post_date: DateTime.current, collaborator: marina)
+               product: kd, post_date: DateTime.current, collaborator: marina)
 
 jbl = Product.create(name: 'Caixa de som JBL', product_category: eletro,
                     description: 'Caxinha quase nova, estou vendendo :)',
@@ -39,4 +39,4 @@ jbl.photos.attach(io: File.open(Rails.root.join('spec/support/jbl-pe.png')),
 rb = Product.create(name: 'A Revolução dos Bichos', product_category: livros,
                     description: 'Um clássico!', sale_price: 50, collaborator: lucas)
 rb.photos.attach(io: File.open(Rails.root.join('spec/support/a-revolucao-dos-bichos.jpg')),
-                  filename: 'a-revolucao-dos-bichos', content_type:'image/jpg')
+                 filename: 'a-revolucao-dos-bichos', content_type:'image/jpg')

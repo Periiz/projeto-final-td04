@@ -3,23 +3,27 @@
 <% if current_collaborator != Collaborator.find(params[:id]) %> <!-- Histórico de outra pessoa -->
   Você não pode ver o histórico alheio!
 <% else %> <!-- Você está vendo o seu próprio histórico -->
-  <h3>Você está vendo o seu histórico de negociações.</h3>
+  <h3>Você pode ver o seu histórico de negociações.</h3>
   <h2>| 
     <%= link_to 'Vendas', history_collaborator_path(id: params[:id], q: 'vendidos') %> |
     <%= link_to 'Compras', history_collaborator_path(id: params[:id], q: 'comprados') %> |
+    <%= link_to 'Cancelados', history_collaborator_path(id: params[:id], r: 'cancelados') %> |
   </h2>
 
-  <% if @negotiations.blank? and params[:q] %>
-    Você não tem produtos <%= params[:q] %> ainda.
-  <% else %>
+  <% if params[:r] %>
+    <%= "Você ainda não tem produtos #{params[:r]}." if @products.blank? %>
+    <%= render partial: 'list', locals: {products: @products, stat: {'canceled' => 'cancelado'}} %>
+
+  <% elsif params[:q] %>
+    <%= "Você ainda não tem produtos #{params[:q]}." if @negotiations.blank? %>
     <%= "Seus produtos #{params[:q]}:" if params.has_key?(:q) %>
     <% @negotiations.reverse.each do |negotiation| %>
       <h4><%= negotiation.product.name %></h4>
       <ul>
-        <li><%= negotiation.buyer_name %></li>
         <%= link_to(image_tag(negotiation.product.first_photo), product_path(negotiation.product)) %><br>
-        <li><%= number_to_currency(negotiation.final_price) %></li>
+        <li><span style="color:green"><%= number_to_currency(negotiation.final_price) %></span></li>
         <li><%= negotiation.date_of_end.strftime("%d/%m/") + negotiation.date_of_end.year.to_s %></li>
+        <li>Comprador:<br><%= negotiation.buyer_name %></li>
         <%= link_to 'Ver detalhes', product_path(negotiation.product) %>
       </ul>
     <% end %>

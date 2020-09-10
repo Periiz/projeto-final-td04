@@ -4,6 +4,7 @@ class Negotiation < ApplicationRecord
   has_many :messages
 
   before_validation :add_date_of_start, :add_seller_id, on: :create
+  after_update :check_product_status
 
   ############
   ###Collaborator é o COMPRADOR
@@ -42,5 +43,16 @@ class Negotiation < ApplicationRecord
 
   def add_seller_id
     self.seller_id = product.collaborator.id if seller_id.nil?
+  end
+
+  def check_product_status
+    if self.canceled?
+      product.avaiable!
+      product.update(buyer_id: -1)
+    elsif self.sold?
+      product.sold!
+    elsif self.negotiating?
+      product.negotiating!
+    end
   end
 end

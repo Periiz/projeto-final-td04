@@ -35,6 +35,7 @@
       <% neg = Negotiation.where(product: @product).sold.first %>
       <dl>
         <dt>Comprador:</dt>
+        <span style='float:left'><%= image_tag Collaborator.find(@product.buyer_id).mini_avatar %></span>
         <dd><%= neg.buyer_name %></dd>
         <dd><%= neg.collaborator.sector %></dd>
         <dd><%= neg.buyer_email %></dd>
@@ -43,7 +44,7 @@
 
     <% elsif @product.negotiating? %>
       Você está negociando este produto com <%= link_to Collaborator.find(@product.buyer_id).name, collaborator_path(@product.buyer_id) %><br>
-      <p><%= link_to 'Ir para a negociação', negotiation_path(Negotiation.where(product: @product).first) %></p>
+      <p><%= link_to 'Ir para a negociação', negotiation_path(Negotiation.where(product: @product).last) %></p>
       <b><%= @product.name %></b><br>
       <%= image_tag @product.first_photo %>
 
@@ -91,20 +92,18 @@
   <% end %>
 
 <!-- Seção de comentários -->
-  <% if @product.avaiable? %>
-    <% comment = Comment.where(product: @product) %>
-    <% if not comment.blank? %>
-      <h3>Comentários:</h3>
-      <%#OPTIMIZE Por que esse each em uma linha não funciona?%>
-      <%#= comment.each {|com| render com, locals: {comment: :com}} %>
-      <% comment.each do |com| %>
-        <%= render com, locals:{comment: :com} %>
-      <% end %>
-    <% else %>
-      <h5>Ainda não há comentários.</h5>
+  <% comment = Comment.where(product: @product) %>
+  <% if not comment.blank? %>
+    <h3>Comentários:</h3>
+    <%#OPTIMIZE Por que esse each em uma linha não funciona?%>
+    <%#= comment.each {|com| render com, locals: {comment: :com}} %>
+    <% comment.each do |com| %>
+      <%= render com, locals:{comment: :com} %>
     <% end %>
-    <%= render 'comments/form' if not (@product.sold? or @product.canceled?) %>
-    <%#TODO Poder responder os comentários %>
+  <% else %>
+    <h5>Ainda não há comentários.</h5>
   <% end %>
+  <%= render 'comments/form' if @product.avaiable? %>
+  <%#TODO Poder responder os comentários %>
 
 <% end %>

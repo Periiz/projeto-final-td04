@@ -35,11 +35,10 @@
   <% @product_selection.reverse.each do |product| %>
     <dl style="float:left">
       <dt><%= link_to product.name, product_path(product) %></dt>
-      <dd><%= product.seller_name[0,50] %></dd>
-      <dd><%= product.collaborator.sector[0,50] %></dd>
+      <dd><%= product.seller_name[0,35] %><%= "..." if product.seller_name.size > 35 %></dd>
+      <dd><%= product.collaborator.sector[0,35] %><%= "..." if product.collaborator.sector.size > 35 %></dd>
       <%= link_to(image_tag(product.first_photo), product_path(product)) %>
       <dd><span style="color:green"><%= number_to_currency(product.sale_price) %></span></dd>
-      <%= product.description[0,50] %><%= "..." if product.description.size > 50 %>
       <p>. . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
     </dl>
   <% end %>

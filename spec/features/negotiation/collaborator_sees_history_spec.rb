@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Collaborator sees his history' do
-  scenario 'sold itens/negotiations' do
+  scenario 'sold negotiations' do
     seller = Collaborator.create(email:'seller@email.com', password:'123456',
                                  full_name:'Usuário Vendedor', social_name: 'Seller',
                                  position: 'Cargo', sector: 'Setor', birth_date: Date.parse('08/08/1994'))
@@ -69,10 +69,10 @@ feature 'Collaborator sees his history' do
     agora = DateTime.current
     end_date_formatted = agora.strftime("%d/%m/") + agora.year.to_s
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
-                             description: 'Bom livro', sale_price: 40, collaborator: seller, status: :sold)
-    negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     status: :sold, date_of_start: agora-1,
-                                     date_of_end: agora, final_price: 50)
+                             description: 'Bom livro', sale_price: 40, collaborator: seller,
+                             status: :sold, buyer_id: buyer.id)
+    negotiation = Negotiation.create(product: product, collaborator: buyer, status: :sold,
+                                     date_of_start: agora-1, date_of_end: agora, final_price: 50)
 
     login_as(seller, scope: :collaborator)
     visit collaborator_path(seller)
@@ -100,7 +100,7 @@ feature 'Collaborator sees his history' do
     click_on 'Histórico'
     click_on 'Vendas'
 
-    expect(page).to have_content('Você não tem produtos vendidos ainda.')
+    expect(page).to have_content('Você ainda não tem produtos vendidos.')
   end
 
   scenario 'nothing bought' do
@@ -113,6 +113,36 @@ feature 'Collaborator sees his history' do
     click_on 'Histórico'
     click_on 'Compras'
 
-    expect(page).to have_content('Você não tem produtos comprados ainda.')
+    expect(page).to have_content('Você ainda não tem produtos comprados.')
+  end
+
+  scenario 'doest not have canceled products' do
+    seller = Collaborator.create(email:'seller@email.com', password:'123456',
+                                 full_name:'Usuário Vendedor', social_name: 'Seller',
+                                 position: 'Cargo', sector: 'Setor', birth_date: Date.parse('08/08/1994'))
+
+    login_as(seller, scope: :collaborator)
+    visit history_collaborator_path(seller)
+    click_on 'Cancelados'
+
+    expect(page).to have_content('Você ainda não tem produtos cancelados.')
+  end
+
+  scenario 'has canceled products' do
+    seller = Collaborator.create(email:'seller@email.com', password:'123456',
+                                 full_name:'Usuário Vendedor', social_name: 'Seller',
+                                 position: 'Cargo', sector: 'Setor', birth_date: Date.parse('08/08/1994'))
+    category = ProductCategory.create(name: 'Livros')
+    product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: category,
+                             sale_price: 40, description: 'Bom livro', collaborator: seller)
+
+    login_as(seller, scope: :collaborator)
+    visit product_path(product)
+    click_on 'Cancelar'
+    visit history_collaborator_path(seller)
+    click_on 'Cancelados'
+
+    expect(page).to have_content(product.name)
+    expect(page).to have_content('R$ 40,00')
   end
 end

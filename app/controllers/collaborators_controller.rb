@@ -23,6 +23,7 @@ class CollaboratorsController < ApplicationController
   end
 
   def history
+    @products = Product.where(collaborator: current_collaborator).canceled if params[:r]
     if params.has_key?(:q)
       coluna = (params[:q] == 'vendidos') ? 'seller_id' : 'collaborator_id'
       @negotiations = Negotiation.where("#{coluna} = ?", params[:id]).sold

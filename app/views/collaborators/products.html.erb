@@ -15,7 +15,9 @@
     <% else %>
       <p><%= link_to 'Fazer um novo anúncio', new_product_path %></p>
       <h3>Seus anúncios:</h3>
-      <%= render partial: 'list', locals: {products: @products} %>
+      <% stat = {'avaiable'=> 'visível', 'invisible'=> 'invisível', 'negotiating'=> 'negociando',
+                'sold'=> 'vendido', 'canceled'=> 'cancelado'} %>
+      <%= render partial: 'list', locals: {products: @products, stat: stat} %>
     <% end %>
   <% end %>
 
@@ -25,7 +27,9 @@
     <h2><%= "#{@collaborator.name} ainda não fez nenhum anúncio." %></h2>
   <% else %>
     <h3><%= "Anúncios de #{@collaborator.name}:" %></h3>
-    <%= render partial: 'list', locals: {products: @products} %>
+    <% stat = {'avaiable'=> 'visível', 'invisible'=> 'invisível', 'negotiating'=> 'negociando',
+               'sold'=> 'vendido', 'canceled'=> 'cancelado'} %>
+    <%= render partial: 'list', locals: {products: @products, stat: stat} %>
   <% end %>
 
 <% end %>

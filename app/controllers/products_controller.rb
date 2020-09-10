@@ -63,9 +63,9 @@ class ProductsController < ApplicationController
   end
 
   def canceled
-    if @product.seller_id < 0 #Se for -1 é porque está avaiable, do contrário, tem o ID de quem está querendo comprar
+    if @product.buyer_id < 0 #Se for -1 é porque está avaiable, do contrário, tem o ID de quem está querendo comprar
       @product.canceled!
-      parcial.waiting.each {|w| w.canceled!} #Cancela as que estavam em espera
+      Negotiation.where(product_id: params[:id]).waiting.each {|w| w.canceled!} #Cancela as que estavam em espera
     else
       flash[:notice] = 'Não é possível cancelar um produto que faz parte de uma negociação em andamento'
     end
