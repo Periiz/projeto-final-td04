@@ -11,7 +11,7 @@ class Product < ApplicationRecord
             :collaborator, presence: true
   validates :sale_price, numericality: { greater_than_or_equal_to: 0 }
 
-  enum status: {avaiable: 0, invisible: 10, sold: 20, canceled: 30}
+  enum status: {avaiable: 0, invisible: 5, negotiating: 10, sold: 20, canceled: 30}
 
   def seller_name
     collaborator.name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_071508) do
+ActiveRecord::Schema.define(version: 2020_09_10_172315) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_071508) do
     t.integer "collaborator_id", null: false
     t.integer "status", default: 0
     t.string "seller_domain"
+    t.integer "buyer_id", default: -1
     t.index ["collaborator_id"], name: "index_products_on_collaborator_id"
     t.index ["product_category_id"], name: "index_products_on_product_category_id"
   end

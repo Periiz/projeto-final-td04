@@ -62,7 +62,7 @@ feature "Collaborator sees another person's product" do
 
     expect(page).to have_content('Você não tem permissão para ver este anúncio!')
     expect(page).to have_content('Somente anúncios feitos por pessoas da mesma empresa que você são visíveis.')
-    expect(page).to have_link('Voltar', href: root_path)
+    expect(page).to have_link('Home Page', href: root_path)
     expect(page).to_not have_content(another_user.name)
     expect(page).to_not have_content('Killing Defense, Hugh Kelsey')
     expect(page).to_not have_content('Bom livro')
@@ -86,7 +86,7 @@ feature "Collaborator sees another person's product" do
     login_as(buyer, scope: :collaborator)
     visit product_path(product)
 
-    expect(page).to have_content('Parece que este anúncio já foi tirado do ar! Talvez ele tenha sido cancelado ou está invisível.')
+    expect(page).to have_content('este anúncio não está disponível no momento')
     expect(page).to_not have_content(product.name)
   end
 

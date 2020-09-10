@@ -20,8 +20,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.collaborator = current_collaborator
 
-    if @product.valid?
-      @product.save
+    if @product.save
       redirect_to @product, notice: 'Produto anunciado com sucesso!'
     else
       @product_categories = ProductCategory.all
@@ -59,15 +58,12 @@ class ProductsController < ApplicationController
 
   def avaiable
     @product.avaiable!
+    @product.update(buyer_id: -1)
     redirect_to @product
   end
 
   def canceled
-    #Parcial é uma busca parcial por todas as negociações que
-    #envolvem o produto
-    parcial = Negotiation.where(product_id: params[:id])
-    if parcial.negotiating.blank?
-      #Se parcial.negotiating estiver vazio, é porque este produto não está em negociação
+    if @product.seller_id < 0 #Se for -1 é porque está avaiable, do contrário, tem o ID de quem está querendo comprar
       @product.canceled!
       parcial.waiting.each {|w| w.canceled!} #Cancela as que estavam em espera
     else
@@ -80,8 +76,8 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product)
-          .permit(:name,:product_category_id,
-                  :description, :sale_price, photos: [])
+          .permit(:name, :description, :sale_price,
+                  :product_category_id, photos: [])
   end
 
   def set_product

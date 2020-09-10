@@ -1,4 +1,5 @@
-<p><%= link_to 'Voltar à Home Page', root_path %></p>
+<p><%= link_to 'Voltar', products_collaborator_path(current_collaborator) %> - 
+<%= link_to 'Home Page', root_path %></p>
 
 <% if current_collaborator.domain != @product.collaborator.domain %> <!--Erro das empresas diferentes -->
   Você não tem permissão para ver este anúncio!<br>
@@ -31,7 +32,7 @@
 
       <%= @product.description %><br><br>
       <p><b>Este produto foi vendido!</b></p>
-      <% neg = Negotiation.where(product_id: @product).sold.first %>
+      <% neg = Negotiation.where(product: @product).sold.first %>
       <dl>
         <dt>Comprador:</dt>
         <dd><%= neg.buyer_name %></dd>
@@ -39,6 +40,12 @@
         <dd><%= neg.buyer_email %></dd>
       </dl>
       <%= link_to 'Ver negociação', negotiation_path(neg) %>
+
+    <% elsif @product.negotiating? %>
+      Você está negociando este produto com <%= link_to Collaborator.find(@product.buyer_id).name, collaborator_path(@product.buyer_id) %><br>
+      <p><%= link_to 'Ir para a negociação', negotiation_path(Negotiation.where(product: @product).first) %></p>
+      <b><%= @product.name %></b><br>
+      <%= image_tag @product.first_photo %>
 
     <% else %> <!-- Produto cancelado -->
       Este anúncio foi cancelado.<br>
@@ -53,12 +60,12 @@
       <%= link_to 'Mais fotos', photos_product_path(@product),
           {style:'font-size:85%', class: 'css_class'} if @product.photos.count > 1 %>
       <p><%= @product.description %></p>
-      <% ja_tem = Negotiation.where(product: @product, collaborator: current_collaborator)
+      <% ja_tem_negot = Negotiation.where(product: @product, collaborator: current_collaborator)
                              .not_sold.not_canceled.first %>
-      <% if ja_tem.present? %>
+      <% if @product.buyer_id > 0 %>
         <span style="color:green"><%= number_to_currency(@product.sale_price) %></span>
-        <p><span style="font-size:130%;color:red"><%= 'Você já tem uma negociação deste produto.' if (ja_tem.waiting? or ja_tem.negotiating?) %></span><br>
-        <%= link_to 'Ver negociação', negotiation_path(ja_tem) if (ja_tem.waiting? or ja_tem.negotiating?) %></p>
+        <p><span style="font-size:130%;color:red"><%= 'Você já tem uma negociação deste produto.' if (ja_tem_negot.waiting? or ja_tem_negot.negotiating?) %></span><br>
+        <%= link_to 'Ver negociação', negotiation_path(ja_tem_negot) if (ja_tem_negot.waiting? or ja_tem_negot.negotiating?) %></p>
       <% else %>
         <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product), method: :get %><br>
       <% end %>
@@ -74,25 +81,30 @@
       <% neg = Negotiation.where(product_id: @product).sold.first %>
       <%= link_to 'Ver detalhes da negociação', negotiation_path(neg) if current_collaborator == neg.collaborator %>
 
-    <% else %> <!-- invisível ou cancelado -->
-      Parece que este anúncio já foi tirado do ar!<br>
-      Talvez ele tenha sido cancelado ou está invisível.
+    <% elsif @product.buyer_id == current_collaborator.id and @product.negotiating? %>
+      Você está negociando este produto com <%= link_to @product.collaborator.name, collaborator_path(@product.collaborator) %><br>
+      <p><%= link_to 'Ir para a negociação', negotiation_path(Negotiation.where(product: @product).first) %></p>
+    <% else %> <!-- invisível, negociando ou cancelado -->
+      Parece que este anúncio não está disponível no momento.<br>
+      Talvez ele esteja em negociação, tenha sido cancelado ou está invisível.
     <% end %>
   <% end %>
 
 <!-- Seção de comentários -->
-  <% comment = Comment.where(product: @product) %>
-  <% if not comment.blank? %>
-    <h3>Comentários:</h3>
-    <%#OPTIMIZE Por que esse each em uma linha não funciona?%>
-    <%#= comment.each {|com| render com, locals: {comment: :com}} %>
-    <% comment.each do |com| %>
-      <%= render com, locals:{comment: :com} %>
+  <% if @product.avaiable? %>
+    <% comment = Comment.where(product: @product) %>
+    <% if not comment.blank? %>
+      <h3>Comentários:</h3>
+      <%#OPTIMIZE Por que esse each em uma linha não funciona?%>
+      <%#= comment.each {|com| render com, locals: {comment: :com}} %>
+      <% comment.each do |com| %>
+        <%= render com, locals:{comment: :com} %>
+      <% end %>
+    <% else %>
+      <h5>Ainda não há comentários.</h5>
     <% end %>
-  <% else %>
-    <h5>Ainda não há comentários.</h5>
+    <%= render 'comments/form' if not (@product.sold? or @product.canceled?) %>
+    <%#TODO Poder responder os comentários %>
   <% end %>
-  <%= render 'comments/form' if not (@product.sold? or @product.canceled?) %>
-  <%#TODO Poder responder os comentários %>
 
 <% end %>

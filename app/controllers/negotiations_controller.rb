@@ -24,6 +24,8 @@ class NegotiationsController < ApplicationController
 
     @negotiation.collaborator = current_collaborator
     @negotiation.product = @product
+    @product.update(buyer_id: current_collaborator.id)
+    @product.negotiating!
 
     if @negotiation.save
       redirect_to @negotiation, notice: 'Negociação iniciada'
@@ -53,12 +55,16 @@ class NegotiationsController < ApplicationController
 
   def negotiating
     @negotiation.negotiating!
+    @negotiation.product.negotiating!
+    @negotiation.product.update(buyer_id: current_collaborator.id)
     redirect_to @negotiation
   end
 
   def canceled
     @negotiation.canceled!
     @negotiation.update(date_of_end: DateTime.current)
+    @negotiation.product.avaiable!
+    @negotiation.product.update(buyer_id: -1)
     redirect_to @negotiation
   end
 
