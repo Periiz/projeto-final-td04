@@ -9,7 +9,7 @@ feature 'Product photos' do
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
     product.photos.attach(io: File.open(Rails.root.join('spec/support/capa-killing-defense.jpeg')),
-                          filename: 'capa-killing-defense.jpeg', content_type:'image/png', identify: false)
+                          filename: 'capa-killing-defense.jpeg', content_type:'image/jpeg', identify: false)
 
     login_as(seller, scope: :collaborator)
     visit product_path(product)
@@ -78,10 +78,10 @@ feature 'Product photos' do
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
 
     product.photos.attach(io: File.open(Rails.root.join('spec/support/capa-killing-defense.jpeg')),
-                          filename: 'capa-killing-defense.jpeg', content_type:'image/png', identify: false)
+                          filename: 'capa-killing-defense.jpeg', content_type:'image/jpeg', identify: false)
 
     product.photos.attach(io: File.open(Rails.root.join('spec/support/costas-killing-defense.jpeg')),
-                          filename: 'costas-killing-defense.jpeg', content_type:'image/png', identify: false)
+                          filename: 'costas-killing-defense.jpeg', content_type:'image/jpeg', identify: false)
 
     login_as(seller, scope: :collaborator)
     visit product_path(product)

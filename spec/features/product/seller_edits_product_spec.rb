@@ -59,7 +59,7 @@ feature 'Seller edits product' do
     product = Product.create(name: 'Nome', product_category: category,
                             description: 'Descriçao', sale_price: 10, collaborator: user)
     product.photos.attach(io: File.open(Rails.root.join('spec/support/costas-killing-defense.jpeg')),
-                          filename: 'costas-killing-defense.jpeg', content_type:'image/png', identify: false)
+                          filename: 'costas-killing-defense.jpeg', content_type:'image/jpeg', identify: false)
 
     login_as(user)
     visit product_path(product)
