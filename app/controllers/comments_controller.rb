@@ -4,9 +4,8 @@ class CommentsController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
     @comment = @product.comments.new
-    @comment.update(collaborator_id: current_collaborator.id)
+    @comment.update(collaborator: current_collaborator)
     @comment.update(comment_params)
-    @comment.update(post_date: DateTime.current)
     redirect_to product_path(@product)
   end
 

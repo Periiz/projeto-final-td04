@@ -12,8 +12,7 @@ feature 'Buyer and seller send private messages on negotiation screen' do
     product_category = ProductCategory.create!(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
-    negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     seller_id: seller.id, status: 'negotiating')
+    negotiation = Negotiation.create(product: product, collaborator: buyer, status: :negotiating)
 
     login_as(seller, scope: :collaborator)
     visit negotiation_path(negotiation)
@@ -40,8 +39,7 @@ feature 'Buyer and seller send private messages on negotiation screen' do
     product_category = ProductCategory.create!(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
-    negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     seller_id: seller.id, status: 'negotiating')
+    negotiation = Negotiation.create(product: product, collaborator: buyer, status: :negotiating)
 
     login_as(seller, scope: :collaborator)
     visit negotiation_path(negotiation)

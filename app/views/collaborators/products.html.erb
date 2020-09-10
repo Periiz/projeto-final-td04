@@ -1,6 +1,6 @@
 <p><%= link_to 'Voltar', collaborator_path(current_collaborator) %></p>
 
-<% if current_collaborator.id == @collaborator.id %>
+<% if current_collaborator == @collaborator %>
 <!-- Você está vendo o seu próprio perfil -->
 
     <% if not current_collaborator.profile_filled? %>

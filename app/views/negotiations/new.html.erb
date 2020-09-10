@@ -2,7 +2,7 @@
 
 <% if @product.collaborator.domain == current_collaborator.domain %>
 
-  <% if @product.collaborator.id != current_collaborator.id %>
+  <% if @product.collaborator != current_collaborator %>
 
     <h2>Você quer mesmo iniciar a negociação deste produto?</h2>
     <%= link_to 'Iniciar Negociação', product_negotiations_path(@product),

@@ -88,8 +88,7 @@ feature 'Seller changes product state' do
     product_category = ProductCategory.create(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                             description: 'Bom livro', sale_price: 40, collaborator: seller)
-    negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     seller_id: seller.id, status: :negotiating)
+    negotiation = Negotiation.create(product: product, collaborator: buyer, status: :negotiating)
 
     login_as(seller, scope: :collaborator)
     visit product_path(product)

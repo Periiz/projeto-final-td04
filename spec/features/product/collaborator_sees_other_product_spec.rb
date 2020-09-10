@@ -101,8 +101,7 @@ feature "Collaborator sees another person's product" do
     product_category = ProductCategory.create(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                             description: 'Bom livro', sale_price: 40, collaborator: seller, status: :sold)
-    negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     seller_id: seller.id, status: :sold)
+    negotiation = Negotiation.create(product: product, collaborator: buyer, status: :sold)
 
     login_as(buyer, scope: :collaborator)
     visit product_path(product)

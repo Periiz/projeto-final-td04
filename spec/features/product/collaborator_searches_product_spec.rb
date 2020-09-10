@@ -372,12 +372,12 @@ feature 'Collaborator searches product' do
     product_category = ProductCategory.create(name: 'Livros')
     
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
-                            description: 'Bom livro', sale_price: 40, collaborator: user,
-                            seller_domain: user.domain)
+                            description: 'Bom livro', sale_price: 40, collaborator: user)
 
     login_as(user, scope: :collaborator)
     visit root_path
-    fill_in 'Busca de produtos', with: product.name
+    fill_in 'Busca de produtos', with: 'Killing'
+    click_on 'Buscar'
 
     expect(page).to_not have_content(product.name)
     expect(page).to_not have_content(product.description[0,50])

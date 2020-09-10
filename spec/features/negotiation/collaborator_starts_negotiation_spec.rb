@@ -14,7 +14,7 @@ feature 'Collaborator starts negotiation' do
                             description: 'Bom livro', sale_price: 40, collaborator: seller)
 
     login_as(buyer, scope: :collaborator)
-    visit product_path(product.id)
+    visit product_path(product)
     click_on "R$ 40,00"
     click_on 'Iniciar Negociação'
 

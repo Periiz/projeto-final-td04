@@ -40,10 +40,10 @@ class ProductsController < ApplicationController
 
   def search
     @products = Product.where('name LIKE ? OR description LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%")
-                       .where('seller_domain = ?', current_collaborator.domain)
-                       .where(status: :avaiable).where('collaborator_id != ?', current_collaborator.id)
+                       .where(seller_domain: current_collaborator.domain)
+                       .avaiable.where.not(collaborator: current_collaborator)
 
-    @products = @products.where('product_category_id = ?', params[:cat]) if (params.has_key?(:cat))
+    @products = @products.where(product_category_id: params[:cat]) if (params.has_key?(:cat))
   end
 
   def photos
@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
   def canceled
     #Parcial é uma busca parcial por todas as negociações que
     #envolvem o produto
-    parcial = Negotiation.where('product_id = ?', params[:id])
+    parcial = Negotiation.where(product_id: params[:id])
     if parcial.negotiating.blank?
       #Se parcial.negotiating estiver vazio, é porque este produto não está em negociação
       @product.canceled!

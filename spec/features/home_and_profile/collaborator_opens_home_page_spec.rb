@@ -83,4 +83,26 @@ feature 'Opening homepage' do
     expect(page).to_not have_content(product_2.name)
     expect(page).to_not have_content(product_1.name)
   end
+  
+  scenario 'does not find own product at homepage' do
+    seller = Collaborator.create(email:'seller@email.com', password:'123456',
+                                 full_name:'Usuário Vendedor', social_name: 'Seller',
+                                 position: 'Cargo', sector: 'Setor', birth_date: '08/08/1994')
+    buyer = Collaborator.create(email:'buyer@email.com', password:'098765',
+                                full_name:'Usuário Comprador', social_name: 'Buyer',
+                                position: 'Cargo', sector: 'Setor', birth_date: '01/01/1997')
+    product_category = ProductCategory.create(name: 'Livros')
+    product_1 = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
+                               description: 'Bom livro', sale_price: 80, collaborator: seller)
+    product_2 = Product.create(name: 'Um curso de cálculo 1, H.L. Guidorizzi', product_category: product_category,
+                               description: 'Um clássico, porém claramente pior que o Spivak', sale_price: 90,
+                               collaborator: buyer)
+
+    login_as(buyer, scope: :collaborator)
+    visit root_path
+
+    expect(page).to have_content('Alguns produtos anunciados')
+    expect(page).to have_content(product_1.name)
+    expect(page).to_not have_content(product_2.name)
+  end
 end

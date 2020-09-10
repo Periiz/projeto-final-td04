@@ -3,10 +3,14 @@ class Negotiation < ApplicationRecord
   belongs_to :collaborator
   has_many :messages
 
+  before_validation :add_date_of_start, :add_seller_id, on: :create
+
   ############
   ###Collaborator é o COMPRADOR
   ###Se eu quiser saber o vendedor, tenho que acessar o PRODUTO antes
   ############
+
+  validates :product_id, :collaborator_id, :date_of_start, :seller_id, presence: true
 
   enum status: {waiting: 0, negotiating: 10, sold: 20, canceled: 30}
 
@@ -28,5 +32,15 @@ class Negotiation < ApplicationRecord
 
   def buyer_id
     collaborator.id
+  end
+
+  private
+
+  def add_date_of_start
+    self.date_of_start = DateTime.current if date_of_start.nil?
+  end
+
+  def add_seller_id
+    self.seller_id = product.collaborator.id if seller_id.nil?
   end
 end

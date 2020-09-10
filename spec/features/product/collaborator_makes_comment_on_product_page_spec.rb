@@ -14,7 +14,7 @@ feature 'Collaborator makes comment on product page' do
                             description: 'Bom livro', sale_price: 40, collaborator: seller)
 
     login_as(commenter, scope: :collaborator)
-    visit product_path(product.id)
+    visit product_path(product)
     fill_in 'Deixe seu comentário', with: 'Um comentário'
     click_on 'Enviar'
 
@@ -38,8 +38,7 @@ feature 'Collaborator makes comment on product page' do
     product_category = ProductCategory.create(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                             description: 'Bom livro', sale_price: 40, collaborator: seller, status: :sold)
-    negotiation = Negotiation.create(product: product, collaborator: commenter,
-                                     seller_id: seller.id, status: :sold)
+    negotiation = Negotiation.create(product: product, collaborator: commenter, status: :sold)
 
     login_as(commenter)
     visit product_path(product)

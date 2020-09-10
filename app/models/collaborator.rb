@@ -3,16 +3,18 @@ class Collaborator < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  after_commit :add_default_avatar, on: [:create]
+
+  after_create :add_default_avatar
 
   has_many :products
   has_many :comments
   has_many :messages
   has_one_attached :avatar
 
-  validates :full_name, :social_name, :position, :sector, presence: true, allow_nil: true
+  validates :full_name, :social_name, :position, :sector,
+            :birth_date, presence: true, allow_nil: true
         #Pode ser nulo (logo quando cria) mas não pode ser blank (string vazia).
-        #Ou seja, na hora de editar não pode mais deixar em branco. Espero
+        #Ou seja, na hora de editar não pode mais deixar em branco.
 
   def profile_filled?
     if full_name.present? and social_name.present? and
@@ -31,7 +33,7 @@ class Collaborator < ApplicationRecord
   end
 
   def notif_count
-    Negotiation.where('seller_id = ?', self.id).waiting.count
+    Negotiation.where(seller_id: self.id).waiting.count
   end
 
   def mini_avatar

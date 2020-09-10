@@ -32,7 +32,7 @@
 
 <% if not @product_selection.blank? %>
   <h3>Alguns produtos anunciados:</h3>
-  <% @product_selection.each do |product| %>
+  <% @product_selection.reverse.each do |product| %>
     <dl>
       <dt><%= link_to product.name, product_path(product) %></dt>
       <dd><%= product.seller_name[0,50] %></dd>

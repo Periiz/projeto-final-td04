@@ -14,7 +14,7 @@ feature 'Collaborator sees his history' do
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
     negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     seller_id: seller.id, status: :sold, date_of_start: agora-1,
+                                     status: :sold, date_of_start: agora-1,
                                      date_of_end: agora, final_price: 50)
 
     login_as(seller, scope: :collaborator)
@@ -42,7 +42,7 @@ feature 'Collaborator sees his history' do
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
     negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     seller_id: seller.id, status: :sold, date_of_start: agora-1,
+                                     status: :sold, date_of_start: agora-1,
                                      date_of_end: agora, final_price: 50)
 
     login_as(buyer, scope: :collaborator)
@@ -71,7 +71,7 @@ feature 'Collaborator sees his history' do
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller, status: :sold)
     negotiation = Negotiation.create(product: product, collaborator: buyer,
-                                     seller_id: seller.id, status: :sold, date_of_start: agora-1,
+                                     status: :sold, date_of_start: agora-1,
                                      date_of_end: agora, final_price: 50)
 
     login_as(seller, scope: :collaborator)

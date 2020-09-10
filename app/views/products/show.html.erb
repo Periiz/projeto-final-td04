@@ -72,7 +72,7 @@
           {style:'font-size:85%', class: 'css_class'} if @product.photos.count > 1 %><br>
       <%= @product.description %><br><br>
       <% neg = Negotiation.where(product_id: @product).sold.first %>
-      <%= link_to 'Ver detalhes da negociação', negotiation_path(neg) if current_collaborator.id == neg.collaborator.id %>
+      <%= link_to 'Ver detalhes da negociação', negotiation_path(neg) if current_collaborator == neg.collaborator %>
 
     <% else %> <!-- invisível ou cancelado -->
       Parece que este anúncio já foi tirado do ar!<br>
@@ -81,7 +81,7 @@
   <% end %>
 
 <!-- Seção de comentários -->
-  <% comment = Comment.where('product_id = ?', @product.id) %>
+  <% comment = Comment.where(product: @product) %>
   <% if not comment.blank? %>
     <h3>Comentários:</h3>
     <%#OPTIMIZE Por que esse each em uma linha não funciona?%>

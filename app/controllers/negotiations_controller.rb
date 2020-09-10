@@ -23,9 +23,7 @@ class NegotiationsController < ApplicationController
     @negotiation = Negotiation.new(negotiation_params)
 
     @negotiation.collaborator = current_collaborator
-    @negotiation.date_of_start = DateTime.current
     @negotiation.product = @product
-    @negotiation.seller_id = @negotiation.product.collaborator.id
 
     if @negotiation.save
       redirect_to @negotiation, notice: 'Negociação iniciada'

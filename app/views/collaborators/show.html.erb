@@ -1,6 +1,6 @@
 <p><%= link_to 'Home Page', root_path %></p>
 
-<% if current_collaborator.id == @collaborator.id %>
+<% if current_collaborator == @collaborator %>
 <!-- Você está vendo o seu próprio perfil -->
   <p><%= image_tag @collaborator.avatar if @collaborator.avatar.present? %></p>
   <h2><%= @collaborator.social_name %></h2>

@@ -12,8 +12,7 @@ feature 'Seller sees notification' do
     product_category = ProductCategory.create(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
-    negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id,
-                                     date_of_start: DateTime.current, status: :waiting)
+    negotiation = Negotiation.create(product: product, collaborator: buyer)
 
     login_as(seller, scope: :collaborator)
     visit root_path
@@ -34,8 +33,7 @@ feature 'Seller sees notification' do
     product_category = ProductCategory.create(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: seller)
-    negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id,
-                                     date_of_start: DateTime.current, status: :waiting)
+    negotiation = Negotiation.create(product: product, collaborator: buyer)
 
     login_as(seller, scope: :collaborator)
     visit root_path

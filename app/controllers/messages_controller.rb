@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   def create
     @negotiation = Negotiation.find(params[:negotiation_id])
     @message = @negotiation.messages.new
-    @message.update(collaborator_id: current_collaborator.id)
+    @message.update(collaborator: current_collaborator)
     @message.update(message_params)
     redirect_to negotiation_path(@negotiation)
   end

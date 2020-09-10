@@ -13,7 +13,7 @@ feature 'Collaborator sees negotiation' do
       product_category = ProductCategory.create(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                               description: 'Bom livro', sale_price: 40, collaborator: seller)
-      negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id)
+      negotiation = Negotiation.create(product: product, collaborator: buyer)
 
       login_as(seller, scope: :collaborator)
       visit root_path
@@ -38,8 +38,7 @@ feature 'Collaborator sees negotiation' do
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                                description: 'Bom livro', sale_price: 40, collaborator: seller)
-      negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id,
-                                       status: 'negotiating')
+      negotiation = Negotiation.create(product: product, collaborator: buyer, status: :negotiating)
 
       login_as(seller, scope: :collaborator)
       visit root_path
@@ -64,7 +63,7 @@ feature 'Collaborator sees negotiation' do
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                                description: 'Bom livro', sale_price: 40, collaborator: seller)
-      negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id)
+      negotiation = Negotiation.create(product: product, collaborator: buyer)
 
       login_as(seller, scope: :collaborator)
       visit root_path
@@ -90,7 +89,7 @@ feature 'Collaborator sees negotiation' do
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                                description: 'Bom livro', sale_price: 40, collaborator: seller)
-      negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id)
+      negotiation = Negotiation.create(product: product, collaborator: buyer)
 
       login_as(seller, scope: :collaborator)
       visit root_path
@@ -120,7 +119,7 @@ feature 'Collaborator sees negotiation' do
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                                description: 'Bom livro', sale_price: 40, collaborator: seller)
-      negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id)
+      negotiation = Negotiation.create(product: product, collaborator: buyer)
 
       login_as(seller, scope: :collaborator)
       visit root_path
@@ -152,7 +151,7 @@ feature 'Collaborator sees negotiation' do
       product_category = ProductCategory.create!(name: 'Livros')
       product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                                description: 'Bom livro', sale_price: 40, collaborator: seller)
-      negotiation = Negotiation.create(collaborator: buyer, seller_id: seller.id, product: product)
+      negotiation = Negotiation.create(product: product, collaborator: buyer)
 
       login_as(seller, scope: :collaborator)
       visit root_path
@@ -189,7 +188,7 @@ feature 'Collaborator sees negotiation' do
     product_category = ProductCategory.create!(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                             description: 'Bom livro', sale_price: 40, collaborator: seller)
-    negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id)
+    negotiation = Negotiation.create(product: product, collaborator: buyer)
 
     login_as(buyer, scope: :collaborator)
     visit root_path
@@ -228,7 +227,7 @@ feature 'Collaborator sees negotiation' do
     product_category = ProductCategory.create!(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                             description: 'Bom livro', sale_price: 40, collaborator: seller)
-    negotiation = Negotiation.create(product: product, collaborator: buyer, seller_id: seller.id)
+    negotiation = Negotiation.create(product: product, collaborator: buyer)
 
     login_as(peeker, scope: :collaborator)
     visit negotiation_path(negotiation)

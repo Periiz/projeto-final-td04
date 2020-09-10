@@ -9,7 +9,7 @@
 <br>Filtrar por categoria:<br>
 |<% ProductCategory.all.each do |categoria| %>
   <%= link_to categoria.name,
-      search_products_path(q: params[:q], cat: categoria.id) %> |
+      search_products_path(q: params[:q], cat: categoria) %> |
 <% end %>
   <%= link_to 'Todas', search_products_path(q: params[:q]) %> |
 
