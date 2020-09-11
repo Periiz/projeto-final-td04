@@ -46,8 +46,8 @@ class Collaborator < ApplicationRecord
     #Rails.root + join(...), mas agora eu dei/passei (?) o nome e o tipo...?
     #https://edgeguides.rubyonrails.org/active_storage_overview.html#attaching-file-io-objects
     if not avatar.attached?
-      avatar.attach(io: File.open(Rails.root.join("app/assets/images/default_avatar_#{id%4-1}.png")),
-                    filename: "default_avatar_#{id%4-1}.png",
+      avatar.attach(io: File.open(Rails.root.join("app/assets/images/default_avatar_#{(id-1)%4}.png")),
+                    filename: "default_avatar_#{(id-1)%4}.png",
                     content_type: 'image/png', identify: false)
     end
   end
