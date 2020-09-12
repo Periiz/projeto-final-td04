@@ -1,51 +1,5 @@
 <p><%= link_to 'Sair', destroy_collaborator_session_path, method: :delete %></p>
 
-<h1>Market Place</h1>
-<h3>Bem vindo ao Market Place, seu site corporativo de compras e vendas</h3>
+<% s = current_collaborator.admin ? 'admin_' : '' %>
 
-<% if current_collaborator.notif_count > 0 %>
-  <div>
-    <b, style="color:green">Alguém se interessou por algum produto seu! <%= link_to 'Veja suas negociações!', negotiations_path %></b>
-  </div>
-<% end %>
-
-<p><%= image_tag current_collaborator.avatar %></p>
-
-<% if current_collaborator.profile_filled? %>
-  <h4><%= current_collaborator.name %> - <%= current_collaborator.email %></h4>
-  <%= link_to 'Perfil', collaborator_path(current_collaborator) %>
-<% else %>
-  <h4><%= current_collaborator.email %></h4>
-  Para anunciar produtos e finalizar compras, é necessário completar as informações no seu perfil<br>
-  <%= link_to 'Perfil!', collaborator_path(current_collaborator),
-                        class: 'css_class', style: 'color:red' %>
-<% end %>
-<%= link_to 'Anuncie aqui', new_product_path %>
-
-<%= form_with url: search_products_path, method: :get, local: true do |f| %>
-  <%= f.label :q, 'Busca de produtos' %>
-  <%= f.text_field :q %>
-  <%= f.submit 'Buscar' %>
-<% end %>
-
-<br>Categorias: 
-<% ProductCategory.all.each do |categoria| %>
-  <%= link_to categoria.name,
-      root_path(q: categoria) %> |
-<% end %>
-<%= link_to 'Todas', root_path %> |
-
-<!-- Seleção de produtos -->
-<% if not @product_selection.blank? %>
-  <h3>Alguns produtos anunciados:</h3>
-  <% @product_selection.reverse.each do |product| %>
-    <dl style="float:left">
-      <dt><%= link_to product.name, product_path(product) %></dt>
-      <dd><%= product.seller_name[0,35] %><%= "..." if product.seller_name.size > 35 %></dd>
-      <dd><%= product.collaborator.sector[0,35] %><%= "..." if product.collaborator.sector.size > 35 %></dd>
-      <%= link_to(image_tag(product.first_photo), product_path(product)) %>
-      <dd><span style="color:green"><%= number_to_currency(product.sale_price) %></span></dd>
-      <p>. . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
-    </dl>
-  <% end %>
-<% end %>
+<%= render partial: s + 'index', locals: {product_selection: @product_selection} %>

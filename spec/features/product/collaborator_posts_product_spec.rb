@@ -12,7 +12,6 @@ feature 'Collaborator posts a new product' do
     click_on 'Anuncie aqui'
     fill_in 'Nome do Produto', with: 'Killing Defense at Bridge'
     select 'Livros', from: 'Categoria'
-    #TODO Fotos?
     fill_in 'Descrição', with: 'Livro em bom estado, Killing Defense at Bridge do Hugh Kelsey, leitura obrigatória para qualquer jogador querendo melhorar seu nível!'
     fill_in 'Preço de Venda', with: '40'
     click_on 'Anunciar'

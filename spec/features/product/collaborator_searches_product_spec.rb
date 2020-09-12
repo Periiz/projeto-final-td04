@@ -29,7 +29,6 @@ feature 'Collaborator searches product' do
       expect(page).to have_content(product.name)
       expect(page).to have_content('R$ 40,00')
       expect(page).to have_content(product.seller_name, count: 1) #Apenas uma vez! Não é pra achar o outro produto!
-      #TODO Foto do produto!!!
       expect(page).to_not have_content(another_product.name)
       expect(page).to_not have_content('R$ 50,00')
     end
