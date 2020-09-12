@@ -65,8 +65,8 @@ feature 'Product photos' do
     expect(Product.first.photos.length).to eq 0
     expect(page).to_not have_css('img[src*="capa-killing-defense.jpeg"]')
     expect(page).to_not have_css('img[src*="costas-killing-defense.jpeg"]')
-    #TODO Por que esse teste não funciona?
-    #expect(page).to have_css('img[src*="default_product.png"]')
+    #"/assets/default_product-4b25213d89d7ea1ee16fbe8bafba969a80d306171c917a1430e5cd974f4df1a0.png"
+    expect(page).to have_css('img[src*="default_product"]')
   end
 
   scenario 'has many v2' do

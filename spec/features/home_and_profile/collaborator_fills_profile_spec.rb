@@ -31,7 +31,7 @@ feature 'Collaborator fills profile' do
     #expect(page).to_not have_css('style=color:red')
   end
 
-  scenario 'did not fill all the profile fields correctly' do
+  scenario 'did not fill all the fields' do
     user = Collaborator.create(email:'user@email.com', password:'123456')
 
     login_as(user, scope: :collaborator)
