@@ -38,7 +38,7 @@ feature 'Collaborator sees all of his products' do
   scenario "can't see sold products" do
     user = Collaborator.create(email: 'user@email.com', password: '123456', 
                                full_name: 'Test User', social_name: 'User',
-                               position: 'A', sector: 'B', birth_date: DateTime.current)
+                               position: 'A', sector: 'B', birth_date: Date.parse('19/09/1995'))
     product_category = ProductCategory.create(name: 'Livros')
     product = Product.create(name: 'Killing Defense, Hugh Kelsey', product_category: product_category,
                              description: 'Bom livro', sale_price: 40, collaborator: user)

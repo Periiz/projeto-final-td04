@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 feature 'Collaborator sees his history' do
   scenario 'sold negotiations' do

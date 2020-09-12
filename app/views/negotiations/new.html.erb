@@ -9,7 +9,6 @@
         {method: :post, style:'font-size:110% ; color:red', class:'css_class'} %>
     <h3><%= @product.name %></h3>
     <h4>Aunciado por <b style='color:green'><%= @product.collaborator.name%></b></h4>
-    <%#TODO Talvez aqui também devesse ver todas as fotos, quando tiver mais que uma?%>
     <%= image_tag @product.first_photo %>
     <p><%= @product.description %></p>
     <span style="color:green"><%= number_to_currency(@product.sale_price) %></span><br><br>

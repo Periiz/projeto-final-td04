@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 feature 'Collaborator makes comment on product page' do
   scenario 'successfully' do
@@ -16,14 +17,13 @@ feature 'Collaborator makes comment on product page' do
     login_as(commenter, scope: :collaborator)
     visit product_path(product)
     fill_in 'Deixe seu comentário', with: 'Um comentário'
-    click_on 'Enviar'
+    travel_to Time.zone.local(2020, 01, 02, 12, 00, 00) do
+      click_on 'Enviar'
+    end
 
-    #OPTIMIZE Usar aquele Time Helpers não sei o quê pra congelar o tempo
-    #OPTIMIZE e não fazer um teste que pode quebrar na virada do dia
-    data = DateTime.current
     expect(page).to have_content(commenter.name)
     expect(page).to have_content(commenter.sector)
-    expect(page).to have_content(data.strftime("%d/%m/") + data.year.to_s)
+    expect(page).to have_content('02/01/2020')
     expect(page).to have_content('Um comentário')
   end
 
