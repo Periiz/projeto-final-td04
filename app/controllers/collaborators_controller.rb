@@ -1,5 +1,6 @@
 class CollaboratorsController < ApplicationController
   before_action :set_collaborator, only: [:show, :edit, :update, :products]
+  before_action :verify_yourself, only: [:edit, :update]
 
   def show
   end
@@ -9,8 +10,7 @@ class CollaboratorsController < ApplicationController
 
   def update
     if @collaborator.update(collaborator_params)
-      flash[:notice] = 'Perfil preenchido com sucesso!' if @collaborator.profile_filled?
-      redirect_to @collaborator
+      redirect_to @collaborator, notice: 'Perfil preenchido com sucesso!' if @collaborator.profile_filled?
     else
       render :edit
     end
@@ -41,5 +41,13 @@ class CollaboratorsController < ApplicationController
 
   def set_collaborator
     @collaborator = Collaborator.find(params[:id])
+  end
+
+  def verify_yourself
+    #OPTMIZE Eu tinha escrito simplesmente params[:id] == current_collaborator.id,
+    #OPTMIZE mas por algum motivo que eu não consigo entender, não ta funcionando! D:
+    if not params[:id].to_i == current_collaborator.id
+      redirect_to root_path, notice: 'Você não tem permissão pra isso'
+    end
   end
 end

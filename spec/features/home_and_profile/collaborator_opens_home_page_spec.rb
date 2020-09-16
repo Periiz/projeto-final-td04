@@ -107,12 +107,12 @@ feature 'Opening homepage' do
   end
 
   scenario 'filters products at homepage' do
-    searcher = Collaborator.create(email:'user@email.com', password:'123456',
-                                full_name:'Usuário Buscador', social_name: 'Searcher',
-                                position: 'Cargo', sector: 'Setor', birth_date:'19/09/1995')
-    seller = Collaborator.create(email:'seller@email.com', password:'123456',
+    searcher = Collaborator.create(email: 'user@email.com', password: '123456',
+                                full_name: 'Usuário Buscador', social_name: 'Searcher',
+                                position: 'Cargo', sector: 'Setor', birth_date: '19/09/1995')
+    seller = Collaborator.create(email:' seller@email.com', password: '123456',
                                 full_name:'Usuário Vendedor', social_name: 'Seller',
-                                position: 'Cargo', sector: 'Setor', birth_date:'08/08/1994')
+                                position: 'Cargo', sector: 'Setor', birth_date: '08/08/1994')
     books = ProductCategory.create(name: 'Livros')
     clothes = ProductCategory.create(name: 'Roupas')
     find_this_product = Product.create(name: 'Como costurar camisas que perderam botões',
