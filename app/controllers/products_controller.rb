@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_collaborator!
   before_action :set_product, only: [:show, :edit, :update, 
                                      :photos, :invisible,
                                      :avaiable, :canceled]

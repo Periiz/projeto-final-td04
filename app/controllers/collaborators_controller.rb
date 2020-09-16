@@ -1,5 +1,4 @@
 class CollaboratorsController < ApplicationController
-  before_action :authenticate_collaborator!
   before_action :set_collaborator, only: [:show, :edit, :update, :products]
 
   def show

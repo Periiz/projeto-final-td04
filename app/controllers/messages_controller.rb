@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-  before_action :authenticate_collaborator!
 
   def create
     @negotiation = Negotiation.find(params[:negotiation_id])

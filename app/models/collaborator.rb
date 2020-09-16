@@ -17,8 +17,11 @@ class Collaborator < ApplicationRecord
         #Ou seja, na hora de editar não pode mais deixar em branco.
 
   def profile_filled?
-    (full_name.present? and social_name.present? and birth_date.present? and
-    position.present? and sector.present?) ? true : false
+    full_name.present? and
+    social_name.present? and
+    birth_date.present? and
+    position.present? and
+    sector.present?
   end
 
   def domain

@@ -1,5 +1,4 @@
 class NegotiationsController < ApplicationController
-  before_action :authenticate_collaborator!
   before_action :set_negotiation, only: [:show, :confirm, :sold,
                                          :negotiating, :canceled]
   before_action :set_product, only: [:new, :create]
