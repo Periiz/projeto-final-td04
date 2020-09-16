@@ -12,7 +12,7 @@ possam anunciar, comprar e vender produtos entre si.
 
 ## Instalação
 
-Foi usado o Rails 6.0.3.2 e o ruby 2.5.1, que podem ser
+Foi usado o Rails 6.0.3.2 e o ruby 2.6.5, que podem ser
 instalados de diversas formas.<br>
 
 Para ruby:<br>
