@@ -1,5 +1,5 @@
 <p><%= link_to 'Sair', destroy_collaborator_session_path, method: :delete %></p>
 
-<% s = current_collaborator.admin ? 'admin_' : '' %>
+<% s = current_collaborator.admin ? 'admin_' : 'regular_' %>
 
 <%= render partial: s + 'index', locals: {product_selection: @product_selection} %>
