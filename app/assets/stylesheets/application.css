@@ -24,6 +24,15 @@
   float: left;
 }
 
+.prod-card:hover {
+  background-color: ivory;
+  border: solid 3px purple;
+}
+
+.prod-card:active {
+  background-color: grey;
+}
+
 .prod-name {
   font-weight: bold;
   display: center;
