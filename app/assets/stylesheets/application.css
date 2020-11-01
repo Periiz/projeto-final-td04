@@ -18,14 +18,15 @@
   width: 240px;
   display: flex;
   flex-direction: column;
+  padding: 2px;
   border: solid 1px violet;
   border-radius: 10px;
-  padding: 3px;
   float: left;
+  margin-right: 5px;
 }
 
 .prod-card:hover {
-  background-color: ivory;
+  padding: 0px;
   border: solid 3px purple;
 }
 
@@ -51,15 +52,19 @@
 }
 
 .price-tag {
-  padding: 1px;
   border: solid 2px green;
   background-color: limegreen;
-  border-radius: 15%;
+  border-radius: 5px;
   text-decoration: none;
+}
+
+.price-tag:hover, .price-tag:active {
+  background-color: green;
 }
 
 .mini-desc {
   font-size: 90%;
   font-weight: normal;
   color: black;
+  text-decoration: none;
 }

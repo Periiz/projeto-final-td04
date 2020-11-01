@@ -68,7 +68,7 @@
         <p><span style="font-size:130%;color:red"><%= 'Você já tem uma negociação deste produto.' if (ja_tem_negot.waiting? or ja_tem_negot.negotiating?) %></span><br>
         <%= link_to 'Ver negociação', negotiation_path(ja_tem_negot) if (ja_tem_negot.waiting? or ja_tem_negot.negotiating?) %></p>
       <% else %>
-        <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product), method: :get %><br>
+        <%= button_to number_to_currency(@product.sale_price), new_product_negotiation_path(@product), method: :get, class: 'price-tag' %><br>
       <% end %>
 
     <% elsif @product.sold? %>
