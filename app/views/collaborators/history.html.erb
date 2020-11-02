@@ -16,7 +16,7 @@
 
   <% elsif params[:q] %>
     <%= "Você ainda não tem produtos #{params[:q]}." if @negotiations.blank? %>
-    <%= "Seus produtos #{params[:q]}:" if params.has_key?(:q) %>
+    <%= "Seus produtos #{params[:q]}:" if !@negotiations.blank? %>
     <% @negotiations.reverse.each do |negotiation| %>
       <h4><%= negotiation.product.name %></h4>
       <ul>

@@ -34,7 +34,7 @@
   background-color: grey;
 }
 
-.prod-name {
+.prod-card h1 {
   font-weight: bold;
   display: center;
   height: 100%;
@@ -46,14 +46,16 @@
   color: black;
 }
 
-.seller {
+.prod-card dd {
   font-size: 90%;
   color: darkred;
 }
 
 .price-tag {
-  border: solid 2px green;
+  align-self: center;
+  width: fit-content;
   background-color: limegreen;
+  border: solid 2px green;
   border-radius: 5px;
   text-decoration: none;
 }
