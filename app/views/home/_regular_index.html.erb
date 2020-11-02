@@ -37,14 +37,12 @@
 <% if not product_selection.blank? %>
   <h3>Alguns produtos anunciados:</h3>
   <% product_selection.reverse.each do |product| %>
-    <a href=<%= product_path(product)%>>
-      <dl class='prod-card'>
-        <h1><%= product.name %></h1>
-        <dd><%= product.seller_name[0,35] %><%= "..." if product.seller_name.size > 35 %></dd>
-        <dd class='seller'><%= product.collaborator.sector[0,35] %><%= "..." if product.collaborator.sector.size > 35 %></dd>
-        <%= image_tag(product.first_photo) %>
-        <span class="price-tag"><%= number_to_currency(product.sale_price) %></span>
-      </dl>
+    <a class='prod-card' href=<%= product_path(product)%>>
+      <h1><%= product.name %></h1>
+      <span class='seller'><%= product.seller_name[0,35] %><%= "..." if product.seller_name.size > 35 %></span>
+      <span class='seller'><%= product.collaborator.sector[0,35] %><%= "..." if product.collaborator.sector.size > 35 %></span>
+      <%= image_tag(product.first_photo) %>
+      <span class="price-tag"><%= number_to_currency(product.sale_price) %></span>
     </a>
   <% end %>
 <% end %>

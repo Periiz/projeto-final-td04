@@ -26,6 +26,7 @@
     <% elsif @product.sold? %>
 
       <h3><%= @product.name %></h3>
+      <p class='seller'><%= @product.seller_name %></p>
       <%= image_tag @product.first_photo %>
       <%= link_to 'Mais fotos', photos_product_path(@product),
           {style:'font-size:85%', class: 'css_class'} if @product.photos.count > 1 %><br>
@@ -75,6 +76,7 @@
 
       <p><b>Este produto foi vendido!</b></p>
       <h3><%= @product.name %></h3>
+      <p class='seller'><%= @product.seller_name %></p>
       <%= image_tag @product.first_photo %>
       <%= link_to 'Mais fotos', photos_product_path(@product),
           {style:'font-size:85%', class: 'css_class'} if @product.photos.count > 1 %><br>

@@ -15,6 +15,7 @@
  */
 
 .prod-card {
+  align-items: center;
   width: 240px;
   display: flex;
   flex-direction: column;
@@ -35,20 +36,18 @@
 }
 
 .prod-card h1 {
-  font-weight: bold;
-  display: center;
-  height: 100%;
-  width: 100%;
-
-  text-decoration: none;
   text-align: center;
   font-size: 110%;
+  font-weight: bold;
+  display: center;
+  text-decoration: none;
   color: black;
 }
 
-.prod-card dd {
+.seller {
   font-size: 90%;
   color: darkred;
+  text-decoration: none;
 }
 
 .price-tag {

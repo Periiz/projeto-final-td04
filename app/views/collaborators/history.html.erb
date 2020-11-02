@@ -12,21 +12,12 @@
 
   <% if params[:r] %>
     <%= "Você ainda não tem produtos #{params[:r]}." if @products.blank? %>
-    <%= render partial: 'list', locals: {products: @products, stat: {'canceled' => 'cancelado'}} %>
+    <%= render partial: 'canceled', locals: {products: @products, stat: {'canceled' => 'cancelado'}} %>
 
   <% elsif params[:q] %>
     <%= "Você ainda não tem produtos #{params[:q]}." if @negotiations.blank? %>
-    <%= "Seus produtos #{params[:q]}:" if !@negotiations.blank? %>
-    <% @negotiations.reverse.each do |negotiation| %>
-      <h4><%= negotiation.product.name %></h4>
-      <ul>
-        <%= link_to(image_tag(negotiation.product.first_photo), product_path(negotiation.product)) %><br>
-        <li><span style="color:green"><%= number_to_currency(negotiation.final_price) %></span></li>
-        <li><%= negotiation.date_of_end.strftime("%d/%m/") + negotiation.date_of_end.year.to_s %></li>
-        <li>Comprador:<br><%= negotiation.buyer_name %></li>
-        <%= link_to 'Ver detalhes', product_path(negotiation.product) %>
-      </ul>
-    <% end %>
+    <p><%= "Seus produtos #{params[:q]}:" if !@negotiations.blank? %></p>
+    <%= render partial: 'negotiated', locals: {negotiations: @negotiations} %>
   <% end %>
 
 <% end %>

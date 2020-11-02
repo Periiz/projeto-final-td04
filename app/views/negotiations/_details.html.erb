@@ -1,5 +1,4 @@
 <div style="float:left">
-  <dt><b><%= negotiation.product.name %>.-.-.-.-.-.-.</b></dt>
   <%= image_tag negotiation.product.first_photo %>
   <%= link_to 'Mais fotos', photos_product_path(negotiation.product),
       {style:'font-size:85%', class: 'css_class'} if negotiation.product.photos.count > 1 %>

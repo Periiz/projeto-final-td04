@@ -1,0 +1,10 @@
+<% @negotiations.reverse.each do |negotiation| %>
+  <a class='prod-card' href=<%= product_path(negotiation.product)%>>
+    <h1><%= negotiation.product.name %></h1>
+    <%= image_tag(negotiation.product.first_photo) %><br>
+    <span style="color:green"><%= number_to_currency(negotiation.final_price) %></span>
+    <span class='seller'><%= negotiation.date_of_end.strftime("%d/%m/") + negotiation.date_of_end.year.to_s %></span><br>
+    Comprador:<br><b class='seller' style='margin-left: 10px;'><%= negotiation.buyer_name %></b><br>
+    Vendedor:<br><b class='seller' style='margin-left: 10px;'><%= negotiation.seller_name %></b><br>
+  </a>
+<% end %>
